@@ -12,11 +12,6 @@ import org.junit.Test;
 
 public class IntBoardTests {
 	private IntBoard board;
-
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
 	
 	@Before
     public void beforeAll() {
@@ -107,8 +102,61 @@ public class IntBoardTests {
 			}
 			
 			@Test
-			public void testTarget(){
-				
+			public void testTarget00Roll3(){
+				BoardCell cell = board.getCell(0, 0);
+				board.calcTargets(cell, 3);
+				Set targets = board.getTargets();
+				assertEquals(6, targets.size());
+				assertTrue(targets.contains(board.getCell(3, 0)));
+				assertTrue(targets.contains(board.getCell(2, 1)));
+				assertTrue(targets.contains(board.getCell(0, 1)));
+				assertTrue(targets.contains(board.getCell(1, 2)));
+				assertTrue(targets.contains(board.getCell(0, 3)));
+				assertTrue(targets.contains(board.getCell(1, 0)));
+			}
+			
+			@Test
+			public void testTarget00Roll4() {
+				BoardCell cell = board.getCell(0, 0);
+				board.calcTargets(cell, 4);
+				Set targets = board.getTargets();
+				assertEquals(6, targets.size());
+				assertTrue(targets.contains(board.getCell(2, 0)));
+				assertTrue(targets.contains(board.getCell(1, 1)));
+				assertTrue(targets.contains(board.getCell(0, 2)));
+				assertTrue(targets.contains(board.getCell(2, 2)));
+				assertTrue(targets.contains(board.getCell(1, 3)));
+				assertTrue(targets.contains(board.getCell(3, 1)));
+			}
+			
+			@Test
+			public void testTarget22Roll2() {
+				BoardCell cell = board.getCell(2, 2);
+				board.calcTargets(cell, 2);
+				Set targets = board.getTargets();
+				assertEquals(6, targets.size());
+				assertTrue(targets.contains(board.getCell(2, 0)));
+				assertTrue(targets.contains(board.getCell(1, 1)));
+				assertTrue(targets.contains(board.getCell(3, 1)));
+				assertTrue(targets.contains(board.getCell(0, 2)));
+				assertTrue(targets.contains(board.getCell(1, 3)));
+				assertTrue(targets.contains(board.getCell(3, 3)));
+			}
+			
+			@Test
+			public void testTarget22Roll5() {
+				BoardCell cell = board.getCell(2, 2);
+				board.calcTargets(cell, 5);
+				Set targets = board.getTargets();
+				assertEquals(8, targets.size());
+				assertTrue(targets.contains(board.getCell(1, 0)));
+				assertTrue(targets.contains(board.getCell(3, 0)));
+				assertTrue(targets.contains(board.getCell(0, 1)));
+				assertTrue(targets.contains(board.getCell(2, 1)));
+				assertTrue(targets.contains(board.getCell(1, 2)));
+				assertTrue(targets.contains(board.getCell(3, 2)));
+				assertTrue(targets.contains(board.getCell(0, 3)));
+				assertTrue(targets.contains(board.getCell(2, 3)));
 			}
 
 

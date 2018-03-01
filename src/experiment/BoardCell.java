@@ -4,6 +4,12 @@ public class BoardCell {
 	private int row;
 	private int col;
 	
+	public BoardCell() {
+		super();
+		row = 0;
+		col = 0;
+	}
+	
 	public BoardCell(int row, int col) {
 		super();
 		this.row = row;
