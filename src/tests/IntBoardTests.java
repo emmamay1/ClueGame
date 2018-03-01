@@ -101,6 +101,9 @@ public class IntBoardTests {
 				assertEquals(4, testList.size());
 			}
 			
+			/**
+			 * tests all targets for (0,0) with roll 3
+			 */
 			@Test
 			public void testTarget00Roll3(){
 				BoardCell cell = board.getCell(0, 0);
@@ -115,6 +118,9 @@ public class IntBoardTests {
 				assertTrue(targets.contains(board.getCell(1, 0)));
 			}
 			
+			/**
+			 * tests all targets for (0,0) with roll 4
+			 */
 			@Test
 			public void testTarget00Roll4() {
 				BoardCell cell = board.getCell(0, 0);
@@ -129,6 +135,9 @@ public class IntBoardTests {
 				assertTrue(targets.contains(board.getCell(3, 1)));
 			}
 			
+			/**
+			 * tests all targets for (2,2) with roll 2
+			 */
 			@Test
 			public void testTarget22Roll2() {
 				BoardCell cell = board.getCell(2, 2);
@@ -143,6 +152,9 @@ public class IntBoardTests {
 				assertTrue(targets.contains(board.getCell(3, 3)));
 			}
 			
+			/**
+			 * tests all targets for (2,2) with roll 5
+			 */
 			@Test
 			public void testTarget22Roll5() {
 				BoardCell cell = board.getCell(2, 2);

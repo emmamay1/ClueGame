@@ -20,7 +20,14 @@ public class IntBoard {
 		initializeGrid();
 		calcAdjacencies();
 	}
-
+	
+	public IntBoard(Map<BoardCell, Set<BoardCell>> adjMtx) {
+		this.adjMtx = adjMtx;
+	}
+	
+	/**
+	 * Creates the board cells for each position and initializes the row and col
+	 */
 	public void initializeGrid() {
 		grid = new BoardCell[4][4];
 		for (int i = 0; i < 4; i++) {
@@ -30,10 +37,7 @@ public class IntBoard {
 			}
 		}
 	}
-	
-	public IntBoard(Map<BoardCell, Set<BoardCell>> adjMtx) {
-		this.adjMtx = adjMtx;
-	}
+
 	
 	/**
 	 * Calculates the adjacency list
@@ -80,10 +84,16 @@ public class IntBoard {
 	 * @param pathLength
 	 */
 	public void calcTargets(BoardCell startCell, int pathLength){
+		visited.clear();
 		visited.add(startCell);
 		findAllTargets(startCell, pathLength);
 	}
 	
+	/**
+	 * recursive function to find all targets for a given cell
+	 * @param startCell
+	 * @param pathLength
+	 */
 	public void findAllTargets(BoardCell startCell, int pathLength) {
 		for (BoardCell adjCell: adjMtx.get(startCell)) {
 			if (!visited.contains(adjCell)) {
@@ -111,7 +121,7 @@ public class IntBoard {
 	 * 
 	 * @param i
 	 * @param j
-	 * @return
+	 * @return grid at i j
 	 */
 	public BoardCell getCell(int i, int j) {
 		return grid[i][j];
