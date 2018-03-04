@@ -1,0 +1,17 @@
+The Darwin room has 2 doors, one that opens up, one that opens down. 
+
+The Linux room also has 2 doors, both open to the right. 
+
+The Windows room has 7 doors, all opening up.
+
+The Mac room has 2 doors, one opening to the right, one to the left. 
+
+The NetBSD room has one room opening up.
+
+The QNX room has 2 doors, one opening down, one to the right.
+
+The FreeBsd room has one door opening to the left.
+
+The Solaris room has one door opening up.
+
+The OpenBSD room has 2 doors, both opening up. 

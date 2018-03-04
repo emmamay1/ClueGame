@@ -1,0 +1,41 @@
+commit b0de2c6c405f8de4e9a4a25ff88a480870098dac
+Author: Emma May <emmamay@mines.edu>
+Date:   Thu Mar 1 12:21:21 2018 -0700
+
+    Working tests for targets and adjacencies. Added comments
+
+commit 7ae214a105626443f91787fd8fd5a7c24ac78817
+Author: Emma May <emmamay@mines.edu>
+Date:   Thu Mar 1 12:12:00 2018 -0700
+
+    Working tests pass all JUnit tess for test targets and and calc adjacencies
+
+commit c29a76ee9d4aa3ebdc1773ca2e5e4e9da99c29bf
+Author: Emma May <emmamay@mines.edu>
+Date:   Tue Feb 27 12:15:33 2018 -0700
+
+    Set up classes and began test design
+
+commit 82b2cf201173ee0fc0ad5a10fe68a8a8ec99e529
+Author: Dakota Showman <dshowman@mines.edu>
+Date:   Tue Feb 27 11:46:53 2018 -0700
+
+    added file structure for packages and classes
+
+commit 43b0043b876d40189aa15e4dbde2f248ab58e668
+Author: Emma May <emmamay@mines.edu>
+Date:   Tue Feb 27 11:40:55 2018 -0700
+
+    Initial Commit
+
+commit 9ad37944aee4a48df99897341aca778cecfde042
+Author: Emma May <emmamay@mines.edu>
+Date:   Tue Feb 27 11:40:16 2018 -0700
+
+    Initial Commit
+
+commit 68d28154435c3cdbaf83f2f5aebaec61fadb0217
+Author: Emma <35788319+emmamay1@users.noreply.github.com>
+Date:   Tue Feb 27 11:33:19 2018 -0700
+
+    Initial commit
