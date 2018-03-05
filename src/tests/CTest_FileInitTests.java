@@ -31,7 +31,7 @@ public class CTest_FileInitTests {
 	private static Board board;
 	
 	@BeforeClass
-	public static void setUp() throws FileNotFoundException, BadConfigFormatException {
+	public static void setUp() throws FileNotFoundException {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files

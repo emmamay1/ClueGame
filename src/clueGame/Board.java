@@ -37,9 +37,15 @@ public class Board {
 	 * @throws FileNotFoundException 
 	 * @throws BadConfigFormatException 
 	 */
-	public void initialize() throws FileNotFoundException, BadConfigFormatException {
-		loadRoomConfig();
-		loadBoardConfig();
+	public void initialize() {
+		try {
+			loadRoomConfig();
+			loadBoardConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException f){
+			f.printStackTrace();
+		}
 		calcAdjacencies();
 		visited = new HashSet<BoardCell>();
 
