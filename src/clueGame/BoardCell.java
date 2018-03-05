@@ -5,6 +5,9 @@ public class BoardCell {
 	private int col;
 	private char initial;
 	private DoorDirection direction;
+	private Boolean isWalkway = false;
+	private Boolean isRoom = false;
+	private Boolean isDoorway = false;
 	
 	
 	public BoardCell() {
@@ -20,6 +23,20 @@ public class BoardCell {
 		this.initial = initial;
 	}
 	
+	
+	
+	public void setIsWalkway(Boolean isWalkway) {
+		this.isWalkway = isWalkway;
+	}
+
+	public void setIsRoom(Boolean isRoom) {
+		this.isRoom = isRoom;
+	}
+
+	public void setIsDoorway(Boolean isDoorway) {
+		this.isDoorway = isDoorway;
+	}
+
 	public char getInitial() {
 		return initial;
 	}
@@ -49,16 +66,16 @@ public class BoardCell {
 		return direction;
 	}
 	
+	public void setDirection(DoorDirection direction) {
+		this.direction = direction;
+	}
+
 	/**
 	 * checks if current cell is a walkway
 	 * @return true if it is a walkway, false otherwise
 	 */
 	public boolean isWalkway(){
-		return false;
-		/*if(initial == 'W'){
-			return true;
-		}
-		return false;*/
+		return isWalkway;
 	}
 	
 	/**
@@ -66,7 +83,7 @@ public class BoardCell {
 	 * @return true if it is a room, false otherwise
 	 */
 	public boolean isRoom(){
-		return false;
+		return isRoom;
 	}
 	
 	/**
@@ -74,7 +91,7 @@ public class BoardCell {
 	 * @return true if it is a doorway, false otherwise
 	 */
 	public boolean isDoorway(){
-		return false;
+		return isDoorway;
 	}
 	
 

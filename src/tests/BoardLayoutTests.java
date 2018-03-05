@@ -2,12 +2,14 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.DoorDirection;
@@ -25,11 +27,11 @@ public class BoardLayoutTests {
 	private static Board board;
 	
 	@BeforeClass
-	public static void setUp() {
+	public static void setUp() throws FileNotFoundException, BadConfigFormatException {
 		// Board is singleton, get the only instance
 		board = board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("CTest_ClueLayout.csv", "CTest_ClueLegend.txt");		
+		board.setConfigFiles("ClueBoardLayout.csv", "Rooms.txt");		
 		// Initialize will load BOTH config files 
 		board.initialize();
 	}

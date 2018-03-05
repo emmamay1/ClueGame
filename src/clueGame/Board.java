@@ -1,8 +1,11 @@
 package clueGame;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 public class Board {
@@ -13,6 +16,7 @@ public class Board {
 	private BoardCell[][] board;
 	private Map<Character, String> legend;
 	private Map<BoardCell, Set<BoardCell>> adjMatrix;
+	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
 	private String boardConfigFile;
 	private String roomConfigFile;
@@ -30,40 +34,171 @@ public class Board {
 
 	/**
 	 * Calls all the functions to set all the instance variables
+	 * @throws FileNotFoundException 
+	 * @throws BadConfigFormatException 
 	 */
-	public void initialize() {
+	public void initialize() throws FileNotFoundException, BadConfigFormatException {
+		loadRoomConfig();
+		loadBoardConfig();
+		calcAdjacencies();
+		visited = new HashSet<BoardCell>();
 
 	}
 
 	/**
 	 * Reads the legend file
+	 * @throws FileNotFoundException 
+	 * @throws BadConfigFormatException 
 	 */
-	public void loadRoomConfig() {
-
+	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
+		legend = new HashMap<Character, String>();		
+		FileReader reader = new FileReader(roomConfigFile);
+		Scanner in = new Scanner(reader);
+		while (in.hasNext()) {
+			String temp = in.nextLine();
+			Character tempchar = temp.charAt(0);
+			String value = temp.substring(3, temp.indexOf(',', 3));
+			String type = temp.substring(temp.indexOf(',', 3) + 1);
+			if (!(type.equalsIgnoreCase("Card")) || (type.equalsIgnoreCase("Other"))) {
+				throw new BadConfigFormatException("Bad legend typing");
+			}
+			legend.put(tempchar, value);
+		}
 	}
 
-		
+
 	/**
 	 * reads the excel file with our board
+	 * @throws FileNotFoundException 
 	 */
-	public void loadBoardConfig() {
-
+	public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException {
+		board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
+		FileReader reader = new FileReader(boardConfigFile);
+		Scanner in = new Scanner(reader);
+		int row = 0;
+		int previousColNum = 0;
+		while (in.hasNext()) {
+			String tempLine = in.nextLine();
+			String[] tempLineArr = tempLine.split(","); //Creates array of strings, breaking each string at a ','
+			int col = 0;
+			for (String s: tempLineArr) {
+				if (!legend.containsKey(s.charAt(0))) {
+					throw new BadConfigFormatException("Room intial not in legend.");
+				}
+				BoardCell tempBoardCell = new BoardCell();
+				tempBoardCell.setInitial(s.charAt(0));
+				tempBoardCell.setCol(col);
+				tempBoardCell.setRow(row);
+				
+				if(s.length() == 2){
+					switch(s.charAt(1)){
+					case 'U': 
+						tempBoardCell.setDirection(DoorDirection.UP);
+						tempBoardCell.setIsDoorway(true);
+						break;
+					case 'D': 
+						tempBoardCell.setDirection(DoorDirection.DOWN);
+						tempBoardCell.setIsDoorway(true);
+						break;
+					case 'L': 
+						tempBoardCell.setDirection(DoorDirection.LEFT);
+						tempBoardCell.setIsDoorway(true);
+						break;
+					case 'R': 
+						tempBoardCell.setDirection(DoorDirection.RIGHT);
+						tempBoardCell.setIsDoorway(true);
+						break;
+					case 'N':
+						tempBoardCell.setDirection(DoorDirection.NONE);
+						tempBoardCell.setIsRoom(true);
+						break;
+					}
+				}
+				else {
+					if (s.charAt(0) == 'W') {
+						tempBoardCell.setIsWalkway(true);
+					}
+					else if(s.charAt(0) != 'X'){
+						tempBoardCell.setIsRoom(true);
+					}
+				}
+				board[row][col] = tempBoardCell;
+				col++;
+				numColumns = col;
+			}
+			if (row == 0) {
+				previousColNum = numColumns;
+			}
+			else {
+				if (previousColNum != numColumns) {
+					throw new BadConfigFormatException("Bad number of columns.");
+				}
+			}
+			row++;
+			numRows = row;
+		}
+		
+		
 	}
 
 	/**
 	 * calculates adjacencies of each walkway
 	 */
 	public void calcAdjacencies() {
-
+		adjMatrix = new HashMap<BoardCell, Set<BoardCell>>();
+		for (int row = 0; row < numRows - 1; row++) {
+			for (int col = 0; col < numColumns - 1; col++) {
+				BoardCell c = board[row][col];
+				if (c.isWalkway()) {
+					Set<BoardCell> temp = new HashSet<BoardCell>();
+					
+					if ((row - 1) >= 0 && board[row-1][col].isWalkway()) {
+						temp.add(board[row-1][col]);
+					}
+					if ((row + 1) <= MAX_BOARD_SIZE && board[row+1][col].isWalkway()) {
+						temp.add(board[row+1][col]);
+					}
+					if ((col - 1) >= 0 &&  board[row][col-1].isWalkway()) {
+						temp.add(board[row][col - 1]);
+					}
+					if ((col + 1) <= MAX_BOARD_SIZE &&  board[row][col+1].isWalkway()) {
+						temp.add(board[row][col + 1]);
+					}
+					adjMatrix.put(c, temp);
+				}
+			}
+		}
 	}
 
 	/**
-	 * Figures out the targets for a given cell
+	 * Driver for findAllTargets, which will find all targets for given cell
 	 * @param cell starting cell
 	 * @param pathLength number of steps to take
 	 */
 	public void calcTargets(BoardCell cell, int pathLength) {
+		visited.clear();
+		visited.add(cell);
+		findAllTargets(cell, pathLength);
+	}
 
+	/**
+	 * Recursive function that will 
+	 * @param startCell
+	 * @param pathLength
+	 */
+	public void findAllTargets(BoardCell startCell, int pathLength) {
+		for (BoardCell adjCell: adjMatrix.get(startCell)) {
+			if (!visited.contains(adjCell)) {
+				visited.add(adjCell);
+				if (pathLength == 1) {
+					targets.add(adjCell);
+				}
+				else {
+					findAllTargets(adjCell, pathLength - 1);
+				}
+				visited.remove(adjCell);
+			}
+		}
 	}
 	
 	/*
@@ -88,7 +223,8 @@ public class Board {
 		return board[i][j];
 	}
 	public void setConfigFiles(String boardLayout, String legend) {
-		
+		boardConfigFile = boardLayout;
+		roomConfigFile = legend;
 	}
 
 }
