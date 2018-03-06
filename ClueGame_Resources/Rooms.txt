@@ -1,0 +1,11 @@
+D, Darwin, Card
+M, Mac, Card
+B, FreeBSD, Card
+L, Linux, Card
+I, Windows, Card
+N, NetBSD, Card
+O, OpenBSD, Card
+Q, QNX, Card
+S, Solaris, Card
+X, Closet, Other
+W, Walkway, Other

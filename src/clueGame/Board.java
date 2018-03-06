@@ -1,3 +1,9 @@
+/**
+ * Board class stores every board cell in an array and allows for the functionality of the game board
+ * 
+ * @author Dakota Showman
+ * @author Emma may
+ */
 package clueGame;
 
 import java.io.FileNotFoundException;

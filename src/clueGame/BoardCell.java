@@ -1,3 +1,9 @@
+/**
+ * BoardCell stores data for one cell of the board, like its position, initial, and the type of board cell it is
+ * 
+ * @author Dakota Showman
+ * @author Emma may
+ */
 package clueGame;
 
 public class BoardCell {
