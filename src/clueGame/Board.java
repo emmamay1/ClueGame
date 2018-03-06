@@ -192,6 +192,10 @@ public class Board {
 		visited.add(cell);
 		findAllTargets(cell, pathLength);
 	}
+	
+	public void calcTargets(int i, int j, int pathLength) {
+		calcTargets(board[i][j], pathLength);
+	}
 
 	/**
 	 * Recursive function that will 
@@ -237,6 +241,9 @@ public class Board {
 	public void setConfigFiles(String boardLayout, String legend) {
 		boardConfigFile = boardLayout;
 		roomConfigFile = legend;
+	}
+	public Set<BoardCell> getAdjList(int i, int j) {
+		return adjMatrix.get(board[i][j]);
 	}
 
 }
