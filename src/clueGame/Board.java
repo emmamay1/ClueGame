@@ -54,6 +54,7 @@ public class Board {
 		}
 		calcAdjacencies();
 		visited = new HashSet<BoardCell>();
+		targets = new HashSet<BoardCell>();
 
 	}
 
@@ -70,8 +71,8 @@ public class Board {
 			String temp = in.nextLine();
 			Character tempchar = temp.charAt(0);
 			String value = temp.substring(3, temp.indexOf(',', 3));
-			String type = temp.substring(temp.indexOf(',', 3) + 1);
-			if (!(type.equalsIgnoreCase("Card")) || (type.equalsIgnoreCase("Other"))) {
+			String type = temp.substring(temp.indexOf(',', 3) + 2);
+			if (!((type.equalsIgnoreCase("Card")) || (type.equalsIgnoreCase("Other")))) {
 				throw new BadConfigFormatException("Bad legend typing");
 			}
 			legend.put(tempchar, value);
@@ -158,24 +159,46 @@ public class Board {
 	 */
 	public void calcAdjacencies() {
 		adjMatrix = new HashMap<BoardCell, Set<BoardCell>>();
-		for (int row = 0; row < numRows - 1; row++) {
-			for (int col = 0; col < numColumns - 1; col++) {
+		for (int row = 0; row <= numRows - 1; row++) {
+			for (int col = 0; col <= numColumns - 1; col++) {
 				BoardCell c = board[row][col];
+				Set<BoardCell> temp = new HashSet<BoardCell>();
 				if (c.isWalkway()) {
-					Set<BoardCell> temp = new HashSet<BoardCell>();
 					
-					if ((row - 1) >= 0 && board[row-1][col].isWalkway()) {
+					if ((row - 1) >= 0 && (board[row-1][col].isWalkway() || 
+							((board[row-1][col].isDoorway()) && (board[row-1][col].getDoorDirection() == DoorDirection.DOWN)))) {
 						temp.add(board[row-1][col]);
 					}
-					if ((row + 1) <= MAX_BOARD_SIZE && board[row+1][col].isWalkway()) {
+					if ((row + 1) < numRows && (board[row+1][col].isWalkway() || 
+							((board[row+1][col].isDoorway()) && (board[row+1][col].getDoorDirection() == DoorDirection.UP)))) {
 						temp.add(board[row+1][col]);
 					}
-					if ((col - 1) >= 0 &&  board[row][col-1].isWalkway()) {
+					if ((col - 1) >= 0 && (board[row][col-1].isWalkway() || 
+							((board[row][col-1].isDoorway()) && (board[row][col-1].getDoorDirection() == DoorDirection.RIGHT)))) {
 						temp.add(board[row][col - 1]);
 					}
-					if ((col + 1) <= MAX_BOARD_SIZE &&  board[row][col+1].isWalkway()) {
+					if ((col + 1) < numColumns && (board[row][col+1].isWalkway() || 
+							((board[row][col+1].isDoorway()) && (board[row][col+1].getDoorDirection() == DoorDirection.LEFT)))) {
 						temp.add(board[row][col + 1]);
 					}
+					adjMatrix.put(c, temp);
+				}
+				else if (c.isDoorway()) {
+					if (c.getDoorDirection() == DoorDirection.UP) {
+						temp.add(board[row-1][col]);
+					}
+					if (c.getDoorDirection() == DoorDirection.DOWN) {
+						temp.add(board[row+1][col]);
+					}
+					if (c.getDoorDirection() == DoorDirection.LEFT) {
+						temp.add(board[row][col - 1]);
+					}
+					if (c.getDoorDirection() == DoorDirection.RIGHT) {
+						temp.add(board[row][col + 1]);
+					}
+					adjMatrix.put(c, temp);
+				}
+				else {
 					adjMatrix.put(c, temp);
 				}
 			}
@@ -189,6 +212,7 @@ public class Board {
 	 */
 	public void calcTargets(BoardCell cell, int pathLength) {
 		visited.clear();
+		targets.clear();
 		visited.add(cell);
 		findAllTargets(cell, pathLength);
 	}
@@ -206,7 +230,7 @@ public class Board {
 		for (BoardCell adjCell: adjMatrix.get(startCell)) {
 			if (!visited.contains(adjCell)) {
 				visited.add(adjCell);
-				if (pathLength == 1) {
+				if (pathLength == 1 || adjCell.isDoorway()) {
 					targets.add(adjCell);
 				}
 				else {
