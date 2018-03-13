@@ -1,5 +1,5 @@
 /**
- * Tests for our board
+ *Tests for our board
  * 
  * @author Dakota Showman
  * @author Emma may
