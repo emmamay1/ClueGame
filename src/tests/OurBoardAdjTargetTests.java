@@ -20,7 +20,7 @@ public class OurBoardAdjTargetTests {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("CTest_ClueLayout.csv", "CTest_ClueLegend.txt");		
+		board.setConfigFiles("ClueBoardLayout.csv", "Rooms.txt");		
 		// Initialize will load BOTH config files 
 		board.initialize();
 	}
@@ -215,16 +215,16 @@ public class OurBoardAdjTargetTests {
 		assertTrue(targets.contains(board.getCellAt(26, 21)));
 		assertTrue(targets.contains(board.getCellAt(26, 17)));
 		assertTrue(targets.contains(board.getCellAt(26, 23)));
+		assertTrue(targets.contains(board.getCellAt(27, 16)));
 		assertTrue(targets.contains(board.getCellAt(27, 22)));
 		assertTrue(targets.contains(board.getCellAt(27, 18)));
 		assertTrue(targets.contains(board.getCellAt(28, 19)));
 		assertTrue(targets.contains(board.getCellAt(28, 21)));
-		assertTrue(targets.contains(board.getCellAt(27, 16)));
+		assertTrue(targets.contains(board.getCellAt(28, 17)));
 		assertTrue(targets.contains(board.getCellAt(29, 22)));
 		assertTrue(targets.contains(board.getCellAt(29, 20)));
 		assertTrue(targets.contains(board.getCellAt(29, 18)));
-		assertTrue(targets.contains(board.getCellAt(28, 17)));
-		assertTrue(targets.contains(board.getCellAt(19, 14)));
+		assertTrue(targets.contains(board.getCellAt(25, 20)));
 		
 	}	
 	
