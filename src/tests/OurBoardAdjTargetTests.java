@@ -251,7 +251,7 @@ public class OurBoardAdjTargetTests {
 		board.calcTargets(23, 26, 5);
 		Set<BoardCell> targets= board.getTargets();
 		//make sure it has the right number of targets
-		assertEquals(13, targets.size());
+		assertEquals(14, targets.size());
 		//test door into room 4 away
 		assertTrue(targets.contains(board.getCellAt(27, 26)));
 		//test door into room 5 away
