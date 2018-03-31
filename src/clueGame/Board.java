@@ -222,7 +222,7 @@ public class Board {
 	}
 
 	/**
-	 * Recursive function that will 
+	 * Recursive function that will find all the targets for a given cell
 	 * @param startCell
 	 * @param pathLength
 	 */

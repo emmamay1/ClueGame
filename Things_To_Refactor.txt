@@ -1,0 +1,16 @@
+Board:
+	Think about where we want HashSet initialization. Right now some are in certain functions and some are in initialize, which seems weird. Initialize everything right away, and clear if necessary
+	Lines 71-78: add comments comparing string formatting to what our functions are doing
+	Line 69/90: add surpress warning (if nothing else to do)
+	Line 167/186: add comment explaining how logic works and what it is doing
+	Rename all cols to columns (in board and boardcell)
+	Line 220: rename i and j to row and column
+
+BoardCell:
+	Line 33: add comment to explain set
+	Add enum type for boardcell, remove awkward booleans for walkway etc.
+
+BadConfigFormatException: 
+	line 15: refactor String s to String errorMessage
+
+Tests:
