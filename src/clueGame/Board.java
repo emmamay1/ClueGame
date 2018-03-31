@@ -183,7 +183,7 @@ public class Board {
 					}
 					adjMatrix.put(c, temp);
 				}
-				else if (c.isDoorway()) {
+				else if (c.isDoorway()) { //put into a switch statement
 					if (c.getDoorDirection() == DoorDirection.UP) {
 						temp.add(board[row-1][col]);
 					}

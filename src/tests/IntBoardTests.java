@@ -1,3 +1,8 @@
+/**
+ * @author Emma May
+ * @author Dakota Showman
+ */
+
 package tests;
 import experiment.BoardCell;
 import experiment.IntBoard;

@@ -1,3 +1,8 @@
+/**
+ * @author Emma May
+ * @author Dakota Showman
+ */
+
 package tests;
 
 import static org.junit.Assert.*;
