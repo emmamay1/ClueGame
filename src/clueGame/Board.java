@@ -68,13 +68,13 @@ public class Board {
 		Scanner in = new Scanner(reader);
 		while (in.hasNext()) {
 			String temp = in.nextLine();
-			Character tempchar = temp.charAt(0);
-			String value = temp.substring(3, temp.indexOf(',', 3));
-			String type = temp.substring(temp.indexOf(',', 3) + 2);
+			Character tempchar = temp.charAt(0); //Gets char for room initial
+			String value = temp.substring(3, temp.indexOf(',', 3)); //Gets string for room name
+			String type = temp.substring(temp.indexOf(',', 3) + 2); //Gets room type (card or other)
 			if (!((type.equalsIgnoreCase("Card")) || (type.equalsIgnoreCase("Other")))) {
 				throw new BadConfigFormatException("Bad legend typing");
 			}
-			legend.put(tempchar, value);
+			legend.put(tempchar, value); //Maps the room name to the room initial
 		}
 	}
 
@@ -148,9 +148,7 @@ public class Board {
 			}
 			row++;
 			numRows = row;
-		}
-		
-		
+		}	
 	}
 
 	/**
