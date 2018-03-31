@@ -216,8 +216,8 @@ public class Board {
 		findAllTargets(cell, pathLength);
 	}
 	
-	public void calcTargets(int i, int j, int pathLength) {
-		calcTargets(board[i][j], pathLength);
+	public void calcTargets(int row, int column, int pathLength) {
+		calcTargets(board[row][column], pathLength);
 	}
 
 	/**
@@ -258,15 +258,15 @@ public class Board {
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
-	public BoardCell getCellAt(int i, int j) {
-		return board[i][j];
+	public BoardCell getCellAt(int row, int column) {
+		return board[row][column];
 	}
 	public void setConfigFiles(String boardLayout, String legend) {
 		boardConfigFile = boardLayout;
 		roomConfigFile = legend;
 	}
-	public Set<BoardCell> getAdjList(int i, int j) {
-		return adjMatrix.get(board[i][j]);
+	public Set<BoardCell> getAdjList(int row, int column) {
+		return adjMatrix.get(board[row][column]);
 	}
 
 }
