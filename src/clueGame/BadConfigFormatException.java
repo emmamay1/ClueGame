@@ -12,8 +12,8 @@ public class BadConfigFormatException extends Exception{
 		super("Improper format");
 	}
 	
-	public BadConfigFormatException(String s){
-		super(s);
+	public BadConfigFormatException(String errorMessage){
+		super(errorMessage);
 	}
 
 }
