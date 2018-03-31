@@ -161,19 +161,22 @@ public class Board {
 				BoardCell c = board[row][column];
 				Set<BoardCell> temp = new HashSet<BoardCell>();
 				if (c.isWalkway()) {
-					
+					//checks if cell above current exists, and if it does and isWalkway or door with direction DOWN, adds to temp
 					if ((row - 1) >= 0 && (board[row-1][column].isWalkway() || 
 							((board[row-1][column].isDoorway()) && (board[row-1][column].getDoorDirection() == DoorDirection.DOWN)))) {
 						temp.add(board[row-1][column]);
 					}
+					//checks if cell below current exists, and if it does and isWalkway or door with direction UP, adds to temp
 					if ((row + 1) < numRows && (board[row+1][column].isWalkway() || 
 							((board[row+1][column].isDoorway()) && (board[row+1][column].getDoorDirection() == DoorDirection.UP)))) {
 						temp.add(board[row+1][column]);
 					}
+					//checks if cell to the left of current exists, and if it does and isWalkway or door with direction RIGHT, adds to temp
 					if ((column - 1) >= 0 && (board[row][column-1].isWalkway() || 
 							((board[row][column-1].isDoorway()) && (board[row][column-1].getDoorDirection() == DoorDirection.RIGHT)))) {
 						temp.add(board[row][column - 1]);
 					}
+					//checks if cell to the right of current exists, and if it does and isWalkway or door with direction LEFT, adds to temp
 					if ((column + 1) < numColumns && (board[row][column+1].isWalkway() || 
 							((board[row][column+1].isDoorway()) && (board[row][column+1].getDoorDirection() == DoorDirection.LEFT)))) {
 						temp.add(board[row][column + 1]);
