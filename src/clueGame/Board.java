@@ -55,7 +55,6 @@ public class Board {
 		calcAdjacencies();
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
-
 	}
 
 	/**
@@ -89,18 +88,18 @@ public class Board {
 		FileReader reader = new FileReader(boardConfigFile);
 		Scanner in = new Scanner(reader);
 		int row = 0;
-		int previousColNum = 0;
+		int previousColumnNum = 0;
 		while (in.hasNext()) {
 			String tempLine = in.nextLine();
 			String[] tempLineArr = tempLine.split(","); //Creates array of strings, breaking each string at a ','
-			int col = 0;
+			int column = 0;
 			for (String s: tempLineArr) {
 				if (!legend.containsKey(s.charAt(0))) {
 					throw new BadConfigFormatException("Room intial not in legend.");
 				}
 				BoardCell tempBoardCell = new BoardCell();
 				tempBoardCell.setInitial(s.charAt(0));
-				tempBoardCell.setCol(col);
+				tempBoardCell.setColumn(column);
 				tempBoardCell.setRow(row);
 				
 				if(s.length() == 2){
@@ -135,15 +134,15 @@ public class Board {
 						tempBoardCell.setIsRoom(true);
 					}
 				}
-				board[row][col] = tempBoardCell;
-				col++;
-				numColumns = col;
+				board[row][column] = tempBoardCell;
+				column++;
+				numColumns = column;
 			}
 			if (row == 0) {
-				previousColNum = numColumns;
+				previousColumnNum = numColumns;
 			}
 			else {
-				if (previousColNum != numColumns) {
+				if (previousColumnNum != numColumns) {
 					throw new BadConfigFormatException("Bad number of columns.");
 				}
 			}
@@ -160,41 +159,41 @@ public class Board {
 	public void calcAdjacencies() {
 		adjMatrix = new HashMap<BoardCell, Set<BoardCell>>();
 		for (int row = 0; row <= numRows - 1; row++) {
-			for (int col = 0; col <= numColumns - 1; col++) {
-				BoardCell c = board[row][col];
+			for (int column = 0; column <= numColumns - 1; column++) {
+				BoardCell c = board[row][column];
 				Set<BoardCell> temp = new HashSet<BoardCell>();
 				if (c.isWalkway()) {
 					
-					if ((row - 1) >= 0 && (board[row-1][col].isWalkway() || 
-							((board[row-1][col].isDoorway()) && (board[row-1][col].getDoorDirection() == DoorDirection.DOWN)))) {
-						temp.add(board[row-1][col]);
+					if ((row - 1) >= 0 && (board[row-1][column].isWalkway() || 
+							((board[row-1][column].isDoorway()) && (board[row-1][column].getDoorDirection() == DoorDirection.DOWN)))) {
+						temp.add(board[row-1][column]);
 					}
-					if ((row + 1) < numRows && (board[row+1][col].isWalkway() || 
-							((board[row+1][col].isDoorway()) && (board[row+1][col].getDoorDirection() == DoorDirection.UP)))) {
-						temp.add(board[row+1][col]);
+					if ((row + 1) < numRows && (board[row+1][column].isWalkway() || 
+							((board[row+1][column].isDoorway()) && (board[row+1][column].getDoorDirection() == DoorDirection.UP)))) {
+						temp.add(board[row+1][column]);
 					}
-					if ((col - 1) >= 0 && (board[row][col-1].isWalkway() || 
-							((board[row][col-1].isDoorway()) && (board[row][col-1].getDoorDirection() == DoorDirection.RIGHT)))) {
-						temp.add(board[row][col - 1]);
+					if ((column - 1) >= 0 && (board[row][column-1].isWalkway() || 
+							((board[row][column-1].isDoorway()) && (board[row][column-1].getDoorDirection() == DoorDirection.RIGHT)))) {
+						temp.add(board[row][column - 1]);
 					}
-					if ((col + 1) < numColumns && (board[row][col+1].isWalkway() || 
-							((board[row][col+1].isDoorway()) && (board[row][col+1].getDoorDirection() == DoorDirection.LEFT)))) {
-						temp.add(board[row][col + 1]);
+					if ((column + 1) < numColumns && (board[row][column+1].isWalkway() || 
+							((board[row][column+1].isDoorway()) && (board[row][column+1].getDoorDirection() == DoorDirection.LEFT)))) {
+						temp.add(board[row][column + 1]);
 					}
 					adjMatrix.put(c, temp);
 				}
 				else if (c.isDoorway()) { //put into a switch statement
 					if (c.getDoorDirection() == DoorDirection.UP) {
-						temp.add(board[row-1][col]);
+						temp.add(board[row-1][column]);
 					}
 					if (c.getDoorDirection() == DoorDirection.DOWN) {
-						temp.add(board[row+1][col]);
+						temp.add(board[row+1][column]);
 					}
 					if (c.getDoorDirection() == DoorDirection.LEFT) {
-						temp.add(board[row][col - 1]);
+						temp.add(board[row][column - 1]);
 					}
 					if (c.getDoorDirection() == DoorDirection.RIGHT) {
-						temp.add(board[row][col + 1]);
+						temp.add(board[row][column + 1]);
 					}
 					adjMatrix.put(c, temp);
 				}

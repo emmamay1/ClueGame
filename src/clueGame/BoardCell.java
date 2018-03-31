@@ -8,7 +8,7 @@ package clueGame;
 
 public class BoardCell {
 	private int row;
-	private int col;
+	private int column;
 	private char initial;
 	private DoorDirection direction;
 	private Boolean isWalkway = false;
@@ -19,17 +19,15 @@ public class BoardCell {
 	public BoardCell() {
 		super();
 		row = 0;
-		col = 0;
+		column = 0;
 	}
 	
-	public BoardCell(int row, int col, char initial) {
+	public BoardCell(int row, int column, char initial) {
 		super();
 		this.row = row;
-		this.col = col;
+		this.column = column;
 		this.initial = initial;
 	}
-	
-	
 	
 	public void setIsWalkway(Boolean isWalkway) {
 		this.isWalkway = isWalkway;
@@ -42,6 +40,7 @@ public class BoardCell {
 	public void setIsDoorway(Boolean isDoorway) {
 		this.isDoorway = isDoorway;
 	}
+	
 
 	public char getInitial() {
 		return initial;
@@ -51,7 +50,7 @@ public class BoardCell {
 		this.initial = initial;
 	}
 	
-
+	
 	public int getRow() {
 		return row;
 	}
@@ -59,14 +58,16 @@ public class BoardCell {
 	public void setRow(int row) {
 		this.row = row;
 	}
+	
 
-	public int getCol() {
-		return col;
+	public int getColumn() {
+		return column;
 	}
 
-	public void setCol(int col) {
-		this.col = col;
+	public void setColumn(int column) {
+		this.column = column;
 	}
+	
 	
 	public DoorDirection getDoorDirection() {
 		return direction;
