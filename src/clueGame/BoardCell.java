@@ -29,6 +29,7 @@ public class BoardCell {
 		this.initial = initial;
 	}
 	
+	//The following set the boolean instance variables based
 	public void setIsWalkway(Boolean isWalkway) {
 		this.isWalkway = isWalkway;
 	}
@@ -41,7 +42,7 @@ public class BoardCell {
 		this.isDoorway = isDoorway;
 	}
 	
-
+	//The following are all getters and setters
 	public char getInitial() {
 		return initial;
 	}
