@@ -44,6 +44,11 @@ public class Board {
 	 * @throws BadConfigFormatException 
 	 */
 	public void initialize() {
+		visited = new HashSet<BoardCell>();
+		targets = new HashSet<BoardCell>();
+		adjMatrix = new HashMap<BoardCell, Set<BoardCell>>();
+		legend = new HashMap<Character, String>();
+		board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
 		try {
 			loadRoomConfig();
 			loadBoardConfig();
@@ -53,8 +58,7 @@ public class Board {
 			f.printStackTrace();
 		}
 		calcAdjacencies();
-		visited = new HashSet<BoardCell>();
-		targets = new HashSet<BoardCell>();
+		
 	}
 
 	/**
@@ -62,8 +66,15 @@ public class Board {
 	 * @throws FileNotFoundException 
 	 * @throws BadConfigFormatException 
 	 */
+	
+	
 	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
-		legend = new HashMap<Character, String>();		
+		try {
+			legend.clear();
+		}
+		catch (NullPointerException p) {
+			legend = new HashMap<Character, String>();
+		}
 		FileReader reader = new FileReader(roomConfigFile);
 		Scanner in = new Scanner(reader);
 		while (in.hasNext()) {
@@ -84,7 +95,12 @@ public class Board {
 	 * @throws FileNotFoundException 
 	 */
 	public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException {
-		board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
+		try {
+			board[0][0] = null;
+		}
+		catch (NullPointerException p) {
+			board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
+		}
 		FileReader reader = new FileReader(boardConfigFile);
 		Scanner in = new Scanner(reader);
 		int row = 0;
@@ -122,7 +138,7 @@ public class Board {
 						break;
 					case 'N':
 						tempBoardCell.setDirection(DoorDirection.NONE);
-						tempBoardCell.setCellType(CellType.DOORWAY);
+						tempBoardCell.setCellType(CellType.ROOM);
 						break;
 					}
 				}
@@ -155,7 +171,7 @@ public class Board {
 	 * calculates adjacencies of each walkway
 	 */
 	public void calcAdjacencies() {
-		adjMatrix = new HashMap<BoardCell, Set<BoardCell>>();
+		
 		for (int row = 0; row <= numRows - 1; row++) {
 			for (int column = 0; column <= numColumns - 1; column++) {
 				BoardCell c = board[row][column];
