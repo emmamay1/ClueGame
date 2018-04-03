@@ -1,0 +1,6 @@
+Mark Baldwin, B, C, 0, 21
+Cyndi Raider, R, C, 10, 29
+Jeffrey Paone, G, C, 19, 29
+Christopher Painter-Wakefield, Y, C, 29, 19
+Tracy Camp, O, C, 29, 7
+Poor Student, P, H, 9, 0

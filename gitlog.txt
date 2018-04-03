@@ -1,148 +1,76 @@
-Did all work pair programming!
-
-commit b0de2c6c405f8de4e9a4a25ff88a480870098dac
-Author: Emma May <emmamay@mines.edu>
-Date:   Thu Mar 1 12:21:21 2018 -0700
-
-    Working tests for targets and adjacencies. Added comments
-
-commit 7ae214a105626443f91787fd8fd5a7c24ac78817
-Author: Emma May <emmamay@mines.edu>
-Date:   Thu Mar 1 12:12:00 2018 -0700
-
-    Working tests pass all JUnit tess for test targets and and calc adjacencies
-
-commit c29a76ee9d4aa3ebdc1773ca2e5e4e9da99c29bf
-Author: Emma May <emmamay@mines.edu>
-Date:   Tue Feb 27 12:15:33 2018 -0700
-
-    Set up classes and began test design
-
-commit 82b2cf201173ee0fc0ad5a10fe68a8a8ec99e529
+commit ab75788ea14a9b4c48bcaf64d3763678b89eeded
 Author: Dakota Showman <dshowman@mines.edu>
-Date:   Tue Feb 27 11:46:53 2018 -0700
+Date:   Tue Apr 3 11:40:06 2018 -0600
 
-    added file structure for packages and classes
+    The big refactor, we moved all initializations to the initialize function.
 
-commit 43b0043b876d40189aa15e4dbde2f248ab58e668
-Author: Emma May <emmamay@mines.edu>
-Date:   Tue Feb 27 11:40:55 2018 -0700
-
-    Initial Commit
-
-commit 9ad37944aee4a48df99897341aca778cecfde042
-Author: Emma May <emmamay@mines.edu>
-Date:   Tue Feb 27 11:40:16 2018 -0700
-
-    Initial Commit
-
-commit 68d28154435c3cdbaf83f2f5aebaec61fadb0217
-Author: Emma <35788319+emmamay1@users.noreply.github.com>
-Date:   Tue Feb 27 11:33:19 2018 -0700
-
-    Initial commit
-commit 260bb5edeefdbe52eea5b1f99e505dac900a5e3a
-Author: Emma May <emmamay@mines.edu>
-Date:   Tue Mar 13 15:42:07 2018 -0600
-
-    Fixed all tests to pass
-
-commit aaaee08dc05337a6232538e36baf636ad7dbae5c
-Merge: 73ac2b6 419adf2
-Author: Emma May <emmamay@mines.edu>
-Date:   Tue Mar 13 15:35:23 2018 -0600
-
-    some of the working test changes
-
-commit 73ac2b6589371fc782ebc54d597c130aa8df3a59
-Author: Emma May <emmamay@mines.edu>
-Date:   Tue Mar 13 15:33:49 2018 -0600
-
-    Updating clueboard
-
-commit 419adf20609c779c1ecb00f9485ce340d1b54604
+commit 44e19eb5b763afcbe0b4709639a95c6ba86bcb5f
 Author: Dakota Showman <dshowman@mines.edu>
-Date:   Tue Mar 13 12:22:50 2018 -0600
+Date:   Tue Apr 3 11:24:03 2018 -0600
 
-    Made calc adjacency and calc target functions work. One small bug left to fix with doorways.
+    Changed the method of keeping track of cell types from a set of booleans to a single enumerated type, cleaning up our boardcell methods and making the code make more sense.
 
-commit dd00c1f11e34d59c6e2a7d3318c1ff930ddb9675
+commit 2d3edd080b205b3d34e2f385c346a9a2d76cc6eb
+Merge: a86b4c8 b313c08
+Author: Emma May <emmamay@mines.edu>
+Date:   Tue Apr 3 11:07:40 2018 -0600
+
+    Merge branch 'master' of https://github.com/emmamay1/ClueGame
+
+commit a86b4c8654f68deafb958c6f2ae0d52e31b06608
+Author: Emma May <emmamay@mines.edu>
+Date:   Sat Mar 31 17:25:40 2018 -0600
+
+    Added log file
+
+commit 16ac215ea0b77d73cfb2551c082811783c539fde
+Author: Emma May <emmamay@mines.edu>
+Date:   Sat Mar 31 17:23:55 2018 -0600
+
+    Added comments to the BoardCell class for clarity of method purpose
+
+commit eda8c2aea525b50de0becb378dc749ada8eea166
+Author: Emma May <emmamay@mines.edu>
+Date:   Sat Mar 31 17:22:15 2018 -0600
+
+    In BadConfigFormatException, refactored String s to String errorMessage
+
+commit fd6ed16101f1f58ffd333d1f2612813cda25216b
+Author: Emma May <emmamay@mines.edu>
+Date:   Sat Mar 31 17:21:12 2018 -0600
+
+    Added comments in calcAdjacencies() method in Board class to explain logic of adding cells into the adjacency matrix
+
+commit 44c009f4e4ba6f763f8730eeb2ee9e4b83279906
+Author: Emma May <emmamay@mines.edu>
+Date:   Sat Mar 31 17:14:34 2018 -0600
+
+    Added comments in loadRoomConfig() method in Board class to explain the parsing of the lines when reading the Rooms.txt file
+
+commit b39efb2f35f7d139772a37ea325042b81a2b3404
+Author: Emma May <emmamay@mines.edu>
+Date:   Sat Mar 31 17:08:13 2018 -0600
+
+    Renamed variables i and j throughout the Board Class to 'row' and 'column' for clarity
+
+commit 16a3d2105b8bc8818531519e3521cf5a795d1d3f
+Author: Emma May <emmamay@mines.edu>
+Date:   Sat Mar 31 17:05:11 2018 -0600
+
+    Refactored all instances of variable names 'col' to 'column' for consistency
+
+commit 6e844ffc6680371d21bf7569c692a301a953f7ad
+Author: Emma May <emmamay@mines.edu>
+Date:   Sat Mar 31 16:49:24 2018 -0600
+
+    initial commit to be able to merge
+
+commit b313c082769357b2edc91b91e505c66f7689d1e7
 Author: Dakota Showman <dshowman@mines.edu>
-Date:   Tue Mar 6 11:58:42 2018 -0700
+Date:   Sat Mar 31 16:41:03 2018 -0600
 
-    added our own failing tests
+    Preparing to refactor, added a list of refactor goals and changed a small comment error
 
-commit 512b5e7926a079477ce3e2c9261ad4e09595dd61
-Author: Dakota Showman <dshowman@mines.edu>
-Date:   Tue Mar 6 11:17:52 2018 -0700
-
-    added functionality for failing adjacency tests
-
-commit 588c758f7372c00237fb5dcfc379549abdff4188
-Author: Dakota Showman <dshowman@mines.edu>
-Date:   Tue Mar 6 11:09:19 2018 -0700
-
-    Added author comments to our classes
-
-commit f88eecc2d94c0f33a287a19ab94f6fd27d80045d
-Author: Emma May <emmamay@mines.edu>
-Date:   Sun Mar 4 20:58:02 2018 -0700
-
-    Fixed exception formatting with a try/catch in initialize
-
-commit 3923bd3e457ba0e4ec0bf06a06a01c6340aff443
-Author: Emma May <emmamay@mines.edu>
-Date:   Sun Mar 4 18:15:53 2018 -0700
-
-    Made failing tests for board config and set up pass. Added BadConfigFileException and made failing tests pass.
-
-commit dd258879a063f7242e2141f79b747659a3f9a480
-Author: Emma May <emmamay@mines.edu>
-Date:   Sun Mar 4 16:20:12 2018 -0700
-
-    Added files to repository
-
-commit b0de2c6c405f8de4e9a4a25ff88a480870098dac
-Author: Emma May <emmamay@mines.edu>
-Date:   Thu Mar 1 12:21:21 2018 -0700
-
-    Working tests for targets and adjacencies. Added comments
-
-commit 7ae214a105626443f91787fd8fd5a7c24ac78817
-Author: Emma May <emmamay@mines.edu>
-Date:   Thu Mar 1 12:12:00 2018 -0700
-
-    Working tests pass all JUnit tess for test targets and and calc adjacencies
-
-commit c29a76ee9d4aa3ebdc1773ca2e5e4e9da99c29bf
-Author: Emma May <emmamay@mines.edu>
-Date:   Tue Feb 27 12:15:33 2018 -0700
-
-    Set up classes and began test design
-
-commit 82b2cf201173ee0fc0ad5a10fe68a8a8ec99e529
-Author: Dakota Showman <dshowman@mines.edu>
-Date:   Tue Feb 27 11:46:53 2018 -0700
-
-    added file structure for packages and classes
-
-commit 43b0043b876d40189aa15e4dbde2f248ab58e668
-Author: Emma May <emmamay@mines.edu>
-Date:   Tue Feb 27 11:40:55 2018 -0700
-
-    Initial Commit
-
-commit 9ad37944aee4a48df99897341aca778cecfde042
-Author: Emma May <emmamay@mines.edu>
-Date:   Tue Feb 27 11:40:16 2018 -0700
-
-    Initial Commit
-
-commit 68d28154435c3cdbaf83f2f5aebaec61fadb0217
-Author: Emma <35788319+emmamay1@users.noreply.github.com>
-Date:   Tue Feb 27 11:33:19 2018 -0700
-
-    Initial commit
 commit 8f719251cc43036f921753751be1474e0820926e
 Author: Emma May <emmamay@mines.edu>
 Date:   Tue Mar 13 15:44:33 2018 -0600
