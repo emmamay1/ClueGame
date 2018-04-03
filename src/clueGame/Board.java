@@ -106,32 +106,32 @@ public class Board {
 					switch(s.charAt(1)){
 					case 'U': 
 						tempBoardCell.setDirection(DoorDirection.UP);
-						tempBoardCell.setIsDoorway(true);
+						tempBoardCell.setCellType(CellType.DOORWAY);
 						break;
 					case 'D': 
 						tempBoardCell.setDirection(DoorDirection.DOWN);
-						tempBoardCell.setIsDoorway(true);
+						tempBoardCell.setCellType(CellType.DOORWAY);
 						break;
 					case 'L': 
 						tempBoardCell.setDirection(DoorDirection.LEFT);
-						tempBoardCell.setIsDoorway(true);
+						tempBoardCell.setCellType(CellType.DOORWAY);
 						break;
 					case 'R': 
 						tempBoardCell.setDirection(DoorDirection.RIGHT);
-						tempBoardCell.setIsDoorway(true);
+						tempBoardCell.setCellType(CellType.DOORWAY);
 						break;
 					case 'N':
 						tempBoardCell.setDirection(DoorDirection.NONE);
-						tempBoardCell.setIsRoom(true);
+						tempBoardCell.setCellType(CellType.DOORWAY);
 						break;
 					}
 				}
 				else {
 					if (s.charAt(0) == 'W') {
-						tempBoardCell.setIsWalkway(true);
+						tempBoardCell.setCellType(CellType.WALKWAY);
 					}
 					else if(s.charAt(0) != 'X'){
-						tempBoardCell.setIsRoom(true);
+						tempBoardCell.setCellType(CellType.ROOM);
 					}
 				}
 				board[row][column] = tempBoardCell;
