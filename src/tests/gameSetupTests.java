@@ -9,6 +9,8 @@ import clueGame.ComputerPlayer;
 import static org.junit.Assert.*;
 import java.awt.Color;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.BeforeClass;
@@ -110,9 +112,35 @@ public class gameSetupTests {
 			else if((p.getMyCards().size() < (numCardsPerPlayer - 1)) || (p.getMyCards().size() > (numCardsPerPlayer + 1))) {
 				assertEquals(1, 0);
 			}
-			
-			//TODO: figure out how to make sure same card isn't given to >1 player
 		}
+		
+		Card tempWeaponCard = new Card("C++", CardType.WEAPON);
+		Card tempRoomCard = new Card("Solaris", CardType.ROOM);
+		Card tempPlayerCard = new Card("Tracy Camp", CardType.PLAYER);
+		
+		Set<ArrayList<Card>> allPlayerCards = new HashSet<ArrayList<Card>>();
+		int numInstancesOfWeapon = 0;
+		int numInstancesOfRoom = 0;
+		int numInstancesOfPlayer = 0;
+		for (Player p: playerList) {
+			allPlayerCards.add(p.getMyCards());
+		}
+		for (ArrayList<Card> playerCards: allPlayerCards) {
+			if (playerCards.contains(tempWeaponCard)) {
+				numInstancesOfWeapon++;
+			}
+			if (playerCards.contains(tempRoomCard)){
+				numInstancesOfRoom++;
+			}
+			if (playerCards.contains(tempPlayerCard)) {
+				numInstancesOfPlayer++;
+			}
+		}
+		
+		assertEquals(numInstancesOfPlayer, 1);
+		assertEquals(numInstancesOfRoom, 1);
+		assertEquals(numInstancesOfWeapon, 1);
+		
 	}
 
 }
