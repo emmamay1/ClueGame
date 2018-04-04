@@ -1,3 +1,9 @@
+/**
+ * The parent class for humanplayer and computerplayer, this contains most data for the players, along with basic player functionality that both humans and computers need
+ * 
+ * @author Dakota Showman
+ * @author Emma May
+ */
 package clueGame;
 
 import java.util.ArrayList;
@@ -93,7 +99,7 @@ public class Player {
 	}
 
 
-
+/*
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -144,6 +150,6 @@ public class Player {
 			return false;
 		return true;
 	}
-	
+	*/
 	
 }

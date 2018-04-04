@@ -26,6 +26,8 @@ public class Board {
 	private Set<BoardCell> targets;
 	private String boardConfigFile;
 	private String roomConfigFile;
+	private String playerConfigFile;
+	private String weaponConfigFile;
 	private Solution trueSolution;
 	private Set<Player> players;
 	private Set<Card> cards;
@@ -170,12 +172,18 @@ public class Board {
 		}	
 	}
 	
+	/**
+	 * loads configuration file for the players and stores them in the arrayList players
+	 */
 	public void loadPlayerConfig() {
-		
+		//TODO: make work
 	}
 	
+	/**
+	 * loads configuration file for the weapons and stores them in the arrayList weapons
+	 */
 	public void loadWeaponConfig() {
-		
+		//TODO: make work
 	}
 
 	/**
@@ -268,14 +276,26 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * selects an answer from the 21 cards to be the solution
+	 */
 	public void selectAnswer() {
 		
 	}
 	
+	/**
+	 * given a suggestion, returns a card that disproves the suggestion (I think?)
+	 * @return
+	 */
 	public Card handleSuggestion() {
 		return null;
 	}
 	
+	/**
+	 * checks if an accusation is correct
+	 * @param accusation
+	 * @return
+	 */
 	public boolean checkAccusation(Solution accusation) {
 		return trueSolution.equals(accusation);
 	}

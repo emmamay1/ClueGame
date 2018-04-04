@@ -1,3 +1,9 @@
+/**
+ * The solution class is representative of a bundle of 3 cards which makes up a solution. 
+ * 
+ * @author Dakota Showman
+ * @author Emma May
+ */
 package clueGame;
 
 public class Solution {

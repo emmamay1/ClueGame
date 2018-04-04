@@ -1,3 +1,9 @@
+/**
+ * contains data for a card for the deck
+ * 
+ * @author Dakota Showman
+ * @author Emma May
+ */
 package clueGame;
 
 public class Card {

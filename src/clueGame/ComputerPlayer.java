@@ -1,3 +1,9 @@
+/**
+ * a subclass of Player, the computer player will have logic to play the game like a very simple human
+ * 
+ * @author Dakota Showman
+ * @author Emma may
+ */
 package clueGame;
 
 import java.util.Set;
