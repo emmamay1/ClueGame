@@ -1,3 +1,8 @@
+/**
+ * @author Emma May
+ * @author Dakota Showman
+ */
+
 package tests;
 import clueGame.Board;
 import clueGame.Player;
@@ -36,8 +41,8 @@ public class gameSetupTests {
 	
 	@Test
 	/**
-	 * The following test creates a fake mark baldwin, poor student, and cpw player to test that they are loaded in correctly
-	 * if any aspect of the character is loaded wrong, it won't be equal to the ones fabricated here
+	 * The following tests Mark Baldwin, Poor Student, and CPW player to test that they are loaded in correctly
+	 * Checks the name, color and location are correct
 	 */
 	public void testLoadPeople() {
 		ArrayList<Player> players = board.getPlayers();
@@ -66,7 +71,7 @@ public class gameSetupTests {
 	
 	
 	/**
-	 * this test checks that the deck is 21 cards, that there are 6 players, 9 rooms, and 6 weapons, and that Python, SOLARIS, and  Tracy Camp loaded correctly
+	 * This test checks that the deck is 21 cards, that there are 6 players, 9 rooms, and 6 weapons, and that Python, SOLARIS, and  Tracy Camp loaded correctly
 	 */
 	@Test
 	public void testLoadDeckOfCards() {
@@ -104,8 +109,18 @@ public class gameSetupTests {
 	
 	
 	@Test
+	/**
+	 * Tests that all cards are dealt, that every player has about the same number of cards (within 1 of everyone) and that no cards are dealt more than once
+	 */
 	public void testDealCards() {
 		ArrayList<Player> playerList = board.getPlayers();
+		
+		int totalCards = 0;
+		for(Player p: playerList){
+			totalCards += p.getMyCards().size();
+		}
+		assertEquals(totalCards, 21);
+		
 		int numCardsLastPlayer = playerList.get(0).getMyCards().size();
 		for (int i = 1; i < playerList.size(); i++) {
 			int numCardsPlayer = playerList.get(i).getMyCards().size();

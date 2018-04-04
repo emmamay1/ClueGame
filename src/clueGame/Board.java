@@ -2,7 +2,7 @@
  * Board class stores every board cell in an array and allows for the functionality of the game board
  * 
  * @author Dakota Showman
- * @author Emma may
+ * @author Emma May
  */
 package clueGame;
 
@@ -68,13 +68,13 @@ public class Board {
 			loadPlayerConfig();
 			loadWeaponConfig();
 			makeDeck();
+			deal();
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException f){
 			f.printStackTrace();
 		}
 		calcAdjacencies();
-		
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class Board {
 
 
 	/**
-	 * reads the excel file with our board
+	 * Reads the excel file with our board
 	 * @throws FileNotFoundException 
 	 */
 	public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException {
@@ -193,7 +193,7 @@ public class Board {
 	}
 	
 	/**
-	 * loads configuration file for the players and stores them in the arrayList players
+	 * Loads configuration file for the players and stores them in the arrayList<Players>
 	 */
 	public void loadPlayerConfig() throws FileNotFoundException{
 		try {
@@ -208,6 +208,7 @@ public class Board {
 		
 		while (in.hasNext()) {
 			String temp = in.nextLine();
+			//Parses the string to get each field
 			int firstComma = temp.indexOf(',');
 			int secondComma = temp.indexOf(',', firstComma+1);
 			int thirdComma = temp.indexOf(',', secondComma+1);
@@ -240,7 +241,7 @@ public class Board {
 	}
 	
 	/**
-	 * loads configuration file for the weapons and stores them in the arrayList weapons
+	 * Loads configuration file for the weapons and stores them in the arrayList<String>
 	 */
 	public void loadWeaponConfig() throws FileNotFoundException{
 		try {
@@ -269,23 +270,19 @@ public class Board {
 			cards.add(temp);
 		}
 		
-		
 		for(int i = 0; i < weapons.size(); i++){
 			Card temp = new Card(weapons.get(i), CardType.WEAPON);
 			cards.add(temp);
 		}
 		
-		
 		for(int i = 0; i < rooms.size(); i++){
 			Card temp = new Card(rooms.get(i), CardType.ROOM);
 			cards.add(temp);
 		}
-	
-		
 	}
 	
 	/**
-	 * 
+	 * Generates a random solution with one player, one weapon and one room, then removes those cards from the deck
 	 */
 	public void makeSolution(int player, int weapon, int room){
 		//MUST STILL GENERATE THE SOLUTION
@@ -295,13 +292,13 @@ public class Board {
 	}
 	
 	/**
-	 * 
+	 * Shuffles the cards then deals the full deck to the players
 	 */
 	public void deal(){
 		int randPlayer = (int)Math.random()*players.size();
 		int randWeapon = (int)Math.random()*(cards.size()) + players.size();
 		int randRoom = (int)Math.random()*(cards.size()) + (weapons.size() + players.size());
-		makeSolution(randPlayer, randWeapon, randRoom);
+		//makeSolution(randPlayer, randWeapon, randRoom);
 		Collections.shuffle(cards);
 		
 		int i = 0;
@@ -314,7 +311,7 @@ public class Board {
 	}
 	
 	/**
-	 * calculates adjacencies of each walkway
+	 * Calculates adjacencies of each walkway
 	 */
 	public void calcAdjacencies() {
 		
@@ -407,7 +404,7 @@ public class Board {
 	 * selects an answer from the 21 cards to be the solution
 	 */
 	public void selectAnswer() {
-		
+		//TODO
 	}
 	
 	/**
