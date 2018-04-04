@@ -102,7 +102,7 @@ public class gameSetupTests {
 		
 	}
 	
-	/*
+	
 	@Test
 	public void testDealCards() {
 		ArrayList<Player> playerList = board.getPlayers();
@@ -142,8 +142,5 @@ public class gameSetupTests {
 		assertTrue(numInstancesOfPlayer < 2);
 		assertTrue(numInstancesOfRoom  < 2);
 		assertTrue(numInstancesOfWeapon  < 2);
-		*/
-		
-	//}
-
-}
+	}
+}	

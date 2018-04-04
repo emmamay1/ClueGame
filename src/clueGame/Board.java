@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -267,18 +268,48 @@ public class Board {
 			Card temp = new Card(players.get(i).getPlayerName(), CardType.PLAYER);
 			cards.add(temp);
 		}
+		int randPlayer = (int)Math.random()*players.size();
 		
 		for(int i = 0; i < weapons.size(); i++){
 			Card temp = new Card(weapons.get(i), CardType.WEAPON);
 			cards.add(temp);
 		}
+		int randWeapon = (int)Math.random()*(cards.size()) + players.size();
 		
 		for(int i = 0; i < rooms.size(); i++){
 			Card temp = new Card(rooms.get(i), CardType.ROOM);
 			cards.add(temp);
 		}
+		int randRoom = (int)Math.random()*(cards.size()) + (weapons.size() + players.size());
+		
+		makeSolution(randPlayer, randWeapon, randRoom);
+		Collections.shuffle(cards);
+		deal();
 	}
-
+	
+	/**
+	 * 
+	 */
+	public void makeSolution(int player, int weapon, int room){
+		//MUST STILL GENERATE THE SOLUTION
+		cards.remove(player);
+		cards.remove(weapon);
+		cards.remove(room);
+	}
+	
+	/**
+	 * 
+	 */
+	public void deal(){
+		int i = 0;
+		for(Card c : cards){
+			if (i == players.size()){
+				i = 0;
+			}
+			players.get(i).getMyCards().add(c);
+		}
+	}
+	
 	/**
 	 * calculates adjacencies of each walkway
 	 */
