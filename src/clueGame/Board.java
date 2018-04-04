@@ -27,6 +27,8 @@ public class Board {
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private Solution trueSolution;
+	private Set<Player> players;
+	private Set<Card> cards;
 
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
@@ -167,6 +169,14 @@ public class Board {
 			numRows = row;
 		}	
 	}
+	
+	public void loadPlayerConfig() {
+		
+	}
+	
+	public void loadWeaponConfig() {
+		
+	}
 
 	/**
 	 * calculates adjacencies of each walkway
@@ -300,5 +310,10 @@ public class Board {
 	public Set<BoardCell> getAdjList(int row, int column) {
 		return adjMatrix.get(board[row][column]);
 	}
-
+	public Set<Player> getPlayers() {
+		return players;
+	}
+	public Set<Card> getCards() {
+		return cards;
+	}
 }
