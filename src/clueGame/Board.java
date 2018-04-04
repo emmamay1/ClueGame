@@ -26,6 +26,7 @@ public class Board {
 	private Set<BoardCell> targets;
 	private String boardConfigFile;
 	private String roomConfigFile;
+	private Solution trueSolution;
 
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
@@ -256,6 +257,20 @@ public class Board {
 			}
 		}
 	}
+	
+	public void selectAnswer() {
+		
+	}
+	
+	public Card handleSuggestion() {
+		return null;
+	}
+	
+	public boolean checkAccusation(Solution accusation) {
+		return trueSolution.equals(accusation);
+	}
+	
+	
 	
 	/*
 	 * The following are all getters or setters
