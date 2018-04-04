@@ -34,7 +34,9 @@ public class Board {
 	private String weaponConfigFile;
 	private Solution trueSolution;
 	private ArrayList<Player> players;
-	private Set<Card> cards;
+	private ArrayList<Card> cards;
+	private ArrayList<String> weapons;
+	private ArrayList<String> rooms;
 
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
@@ -63,6 +65,8 @@ public class Board {
 			loadRoomConfig();
 			loadBoardConfig();
 			loadPlayerConfig();
+			loadWeaponConfig();
+			makeDeck();
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException f){
@@ -84,13 +88,18 @@ public class Board {
 		catch (NullPointerException p) {
 			legend = new HashMap<Character, String>();
 		}
+		rooms = new ArrayList<String>();
 		FileReader reader = new FileReader(roomConfigFile);
 		Scanner in = new Scanner(reader);
+		
 		while (in.hasNext()) {
 			String temp = in.nextLine();
 			Character tempchar = temp.charAt(0); //Gets char for room initial
 			String value = temp.substring(3, temp.indexOf(',', 3)); //Gets string for room name
 			String type = temp.substring(temp.indexOf(',', 3) + 2); //Gets room type (card or other)
+			if(type.equalsIgnoreCase("Card")){
+				rooms.add(value);
+			}
 			if (!((type.equalsIgnoreCase("Card")) || (type.equalsIgnoreCase("Other")))) {
 				throw new BadConfigFormatException("Bad legend typing");
 			}
@@ -195,6 +204,7 @@ public class Board {
 		
 		FileReader reader = new FileReader(playerConfigFile);
 		Scanner in = new Scanner(reader);
+		
 		while (in.hasNext()) {
 			String temp = in.nextLine();
 			int firstComma = temp.indexOf(',');
@@ -231,8 +241,42 @@ public class Board {
 	/**
 	 * loads configuration file for the weapons and stores them in the arrayList weapons
 	 */
-	public void loadWeaponConfig() {
-		//TODO: make work
+	public void loadWeaponConfig() throws FileNotFoundException{
+		try {
+			weapons.clear();
+		}
+		catch (NullPointerException p) {
+			weapons = new ArrayList<String>();
+		}
+		
+		FileReader reader = new FileReader(weaponConfigFile);
+		Scanner in = new Scanner(reader);
+		
+		while (in.hasNext()) {
+			String temp = in.nextLine();
+			weapons.add(temp);
+		}
+	}
+	
+	/**
+	 * Creates the deck of cards with 6 weapons, 6 people and 9 rooms
+	 */
+	public void makeDeck(){
+		cards = new ArrayList<Card>();
+		for(int i = 0; i < players.size(); i++){
+			Card temp = new Card(players.get(i).getPlayerName(), CardType.PLAYER);
+			cards.add(temp);
+		}
+		
+		for(int i = 0; i < weapons.size(); i++){
+			Card temp = new Card(weapons.get(i), CardType.WEAPON);
+			cards.add(temp);
+		}
+		
+		for(int i = 0; i < rooms.size(); i++){
+			Card temp = new Card(rooms.get(i), CardType.ROOM);
+			cards.add(temp);
+		}
 	}
 
 	/**
@@ -386,7 +430,10 @@ public class Board {
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
-	public Set<Card> getCards() {
+	public ArrayList<Card> getCards() {
 		return cards;
+	}
+	public ArrayList<String> getWeapons(){
+		return weapons;
 	}
 }
