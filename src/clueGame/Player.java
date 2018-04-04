@@ -28,6 +28,7 @@ public class Player {
 		this.row = row;
 		this.column = column;
 		this.color = color;
+		myCards = new ArrayList<Card>();
 	}
 
 	public Card disproveSuggestion(Solution suggestion) {
@@ -54,36 +55,25 @@ public class Player {
 		return column;
 	}
 
-
-
 	public void setColumn(int column) {
 		this.column = column;
 	}
-
-
 
 	public Color getColor() {
 		return color;
 	}
 
-
-
 	public void setColor(Color color) {
 		this.color = color;
 	}
-
-
 
 	public ArrayList<Card> getMyCards() {
 		return myCards;
 	}
 
-
-
 	public ArrayList<Card> getSeenCards() {
 		return seenCards;
 	}
-
 
 	@Override
 	public int hashCode() {

@@ -268,23 +268,20 @@ public class Board {
 			Card temp = new Card(players.get(i).getPlayerName(), CardType.PLAYER);
 			cards.add(temp);
 		}
-		int randPlayer = (int)Math.random()*players.size();
+		
 		
 		for(int i = 0; i < weapons.size(); i++){
 			Card temp = new Card(weapons.get(i), CardType.WEAPON);
 			cards.add(temp);
 		}
-		int randWeapon = (int)Math.random()*(cards.size()) + players.size();
+		
 		
 		for(int i = 0; i < rooms.size(); i++){
 			Card temp = new Card(rooms.get(i), CardType.ROOM);
 			cards.add(temp);
 		}
-		int randRoom = (int)Math.random()*(cards.size()) + (weapons.size() + players.size());
+	
 		
-		makeSolution(randPlayer, randWeapon, randRoom);
-		Collections.shuffle(cards);
-		deal();
 	}
 	
 	/**
@@ -301,6 +298,12 @@ public class Board {
 	 * 
 	 */
 	public void deal(){
+		int randPlayer = (int)Math.random()*players.size();
+		int randWeapon = (int)Math.random()*(cards.size()) + players.size();
+		int randRoom = (int)Math.random()*(cards.size()) + (weapons.size() + players.size());
+		makeSolution(randPlayer, randWeapon, randRoom);
+		Collections.shuffle(cards);
+		
 		int i = 0;
 		for(Card c : cards){
 			if (i == players.size()){

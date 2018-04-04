@@ -106,12 +106,13 @@ public class gameSetupTests {
 	@Test
 	public void testDealCards() {
 		ArrayList<Player> playerList = board.getPlayers();
-		int numCardsPerPlayer = -1;
-		for (Player p: playerList) {
-			if (numCardsPerPlayer == -1) {
-				numCardsPerPlayer = p.getMyCards().size();
+		int numCardsLastPlayer = playerList.get(0).getMyCards().size();
+		for (int i = 1; i < playerList.size(); i++) {
+			int numCardsPlayer = playerList.get(i).getMyCards().size();
+			if (!(numCardsPlayer < (numCardsLastPlayer - 1)) || !(numCardsPlayer > (numCardsLastPlayer + 1))) {
+				numCardsLastPlayer = playerList.get(i).getMyCards().size();
 			}
-			else if((p.getMyCards().size() < (numCardsPerPlayer - 1)) || (p.getMyCards().size() > (numCardsPerPlayer + 1))) {
+			else {
 				assertEquals(1, 0);
 			}
 		}
