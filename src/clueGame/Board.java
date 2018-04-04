@@ -8,11 +8,15 @@ package clueGame;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.awt.Color;
+import java.lang.reflect.Field;
 
 public class Board {
 
@@ -29,7 +33,7 @@ public class Board {
 	private String playerConfigFile;
 	private String weaponConfigFile;
 	private Solution trueSolution;
-	private Set<Player> players;
+	private ArrayList<Player> players;
 	private Set<Card> cards;
 
 	// variable used for singleton pattern
@@ -53,10 +57,12 @@ public class Board {
 		targets = new HashSet<BoardCell>();
 		adjMatrix = new HashMap<BoardCell, Set<BoardCell>>();
 		legend = new HashMap<Character, String>();
+		players = new ArrayList<Player>();
 		board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
 		try {
 			loadRoomConfig();
 			loadBoardConfig();
+			loadPlayerConfig();
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException f){
@@ -71,8 +77,6 @@ public class Board {
 	 * @throws FileNotFoundException 
 	 * @throws BadConfigFormatException 
 	 */
-	
-	
 	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
 		try {
 			legend.clear();
@@ -106,18 +110,22 @@ public class Board {
 		catch (NullPointerException p) {
 			board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
 		}
+		
 		FileReader reader = new FileReader(boardConfigFile);
 		Scanner in = new Scanner(reader);
 		int row = 0;
 		int previousColumnNum = 0;
+		
 		while (in.hasNext()) {
 			String tempLine = in.nextLine();
 			String[] tempLineArr = tempLine.split(","); //Creates array of strings, breaking each string at a ','
 			int column = 0;
+			
 			for (String s: tempLineArr) {
 				if (!legend.containsKey(s.charAt(0))) {
 					throw new BadConfigFormatException("Room intial not in legend.");
 				}
+				
 				BoardCell tempBoardCell = new BoardCell();
 				tempBoardCell.setInitial(s.charAt(0));
 				tempBoardCell.setColumn(column);
@@ -155,10 +163,12 @@ public class Board {
 						tempBoardCell.setCellType(CellType.ROOM);
 					}
 				}
+				
 				board[row][column] = tempBoardCell;
 				column++;
 				numColumns = column;
 			}
+			
 			if (row == 0) {
 				previousColumnNum = numColumns;
 			}
@@ -175,8 +185,47 @@ public class Board {
 	/**
 	 * loads configuration file for the players and stores them in the arrayList players
 	 */
-	public void loadPlayerConfig() {
-		//TODO: make work
+	public void loadPlayerConfig() throws FileNotFoundException{
+		try {
+			players.clear();
+		}
+		catch (NullPointerException p) {
+			players = new ArrayList<Player>();
+		}
+		
+		FileReader reader = new FileReader(playerConfigFile);
+		Scanner in = new Scanner(reader);
+		while (in.hasNext()) {
+			String temp = in.nextLine();
+			int firstComma = temp.indexOf(',');
+			int secondComma = temp.indexOf(',', firstComma+1);
+			int thirdComma = temp.indexOf(',', secondComma+1);
+			int fourthComma = temp.indexOf(',', thirdComma+1);
+			String name = temp.substring(0, firstComma);
+			String color = temp.substring((firstComma+2), secondComma);
+			Color playerColor = convertColor(color);
+			String type = temp.substring((secondComma+2), thirdComma);
+			String row = temp.substring((thirdComma+2), fourthComma);
+			String col = temp.substring(fourthComma+2);
+			Player nextPlayer = new Player(name, Integer.parseInt(row), Integer.parseInt(col), playerColor);
+			players.add(nextPlayer);
+		}
+	}
+	
+	/**
+	 * Converts string to color
+	 * @param strColor
+	 * @return Color
+	 */
+	public Color convertColor(String strColor){
+		Color color;
+		try{
+			Field field = Class.forName("java.awt.Color").getField(strColor);
+			color = (Color)field.get(null);
+		} catch (Exception e){
+			color = null;
+		}
+		return color;
 	}
 	
 	/**
@@ -300,8 +349,6 @@ public class Board {
 		return trueSolution.equals(accusation);
 	}
 	
-	
-	
 	/*
 	 * The following are all getters or setters
 	 */
@@ -327,10 +374,16 @@ public class Board {
 		boardConfigFile = boardLayout;
 		roomConfigFile = legend;
 	}
+	public void setConfigFiles(String boardLayout, String legend, String player, String weapons){
+		boardConfigFile = boardLayout;
+		roomConfigFile = legend;
+		playerConfigFile = player;
+		weaponConfigFile = weapons;
+	}
 	public Set<BoardCell> getAdjList(int row, int column) {
 		return adjMatrix.get(board[row][column]);
 	}
-	public Set<Player> getPlayers() {
+	public ArrayList<Player> getPlayers() {
 		return players;
 	}
 	public Set<Card> getCards() {

@@ -22,8 +22,6 @@ public class Player {
 		super();
 	}
 	
-	
-	
 	public Player(String playerName, int row, int column, Color color) {
 		super();
 		this.playerName = playerName;
@@ -32,37 +30,25 @@ public class Player {
 		this.color = color;
 	}
 
-
-
 	public Card disproveSuggestion(Solution suggestion) {
 		return null;
 	}
-
-
 
 	public String getPlayerName() {
 		return playerName;
 	}
 
-
-
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
-
-
 
 	public int getRow() {
 		return row;
 	}
 
-
-
 	public void setRow(int row) {
 		this.row = row;
 	}
-
-
 
 	public int getColumn() {
 		return column;
@@ -99,7 +85,6 @@ public class Player {
 	}
 
 
-/*
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -113,8 +98,6 @@ public class Player {
 		return result;
 	}
 
-
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -123,33 +106,39 @@ public class Player {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		
 		Player other = (Player) obj;
 		if (color == null) {
 			if (other.color != null)
 				return false;
 		} else if (!color.equals(other.color))
 			return false;
+		
 		if (column != other.column)
 			return false;
+		
 		if (myCards == null) {
 			if (other.myCards != null)
 				return false;
 		} else if (!myCards.equals(other.myCards))
 			return false;
+		
 		if (playerName == null) {
 			if (other.playerName != null)
 				return false;
 		} else if (!playerName.equals(other.playerName))
 			return false;
+		
 		if (row != other.row)
 			return false;
+		
 		if (seenCards == null) {
 			if (other.seenCards != null)
 				return false;
 		} else if (!seenCards.equals(other.seenCards))
 			return false;
+		
 		return true;
 	}
-	*/
 	
 }

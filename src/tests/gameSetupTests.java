@@ -18,6 +18,7 @@ import org.junit.Test;
 
 import clueGame.BadConfigFormatException;
 import clueGame.Board;
+import clueGame.Player;
 
 public class gameSetupTests {
 	private static Board board;
@@ -27,7 +28,8 @@ public class gameSetupTests {
 		// Board is singleton, get the only instance
 		board = board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("ClueBoardLayout.csv", "Rooms.txt");		
+		//board.setConfigFiles("ClueBoardLayout.csv", "Rooms.txt");	
+		board.setConfigFiles("ClueBoardLayout.csv", "Rooms.txt", "People.txt", "Weapons.txt");
 		// Initialize will load BOTH config files 
 		board.initialize();
 	}
@@ -38,29 +40,26 @@ public class gameSetupTests {
 	 * if any aspect of the character is loaded wrong, it won't be equal to the ones fabricated here
 	 */
 	public void testLoadPeople() {
-		Player baldwinTest = new Player();
-		baldwinTest.setColor(Color.blue);
-		baldwinTest.setColumn(21);
-		baldwinTest.setRow(0);
-		baldwinTest.setPlayerName("Mark Baldwin");
+		ArrayList<Player> players = board.getPlayers();
 		
-		Player studentTest = new Player();
-		studentTest.setColor(Color.pink);
-		studentTest.setRow(9);
-		studentTest.setColumn(0);
-		studentTest.setPlayerName("Poor Student");
+		Player baldwinTest = players.get(0);
+		assertEquals(baldwinTest.getPlayerName(), "Mark Baldwin");
+		assertTrue(baldwinTest.getColor() == Color.blue);
+		assertEquals(baldwinTest.getRow(), 0);
+		assertEquals(baldwinTest.getColumn(), 21);
 		
-		Player cpwTest = new Player();
-		cpwTest.setColor(Color.yellow);
-		cpwTest.setRow(29);
-		cpwTest.setColumn(19);
-		cpwTest.setPlayerName("Christopher Painter-Wakefield");
+		Player studentTest = players.get(5);
+		assertEquals(studentTest.getPlayerName(), "Poor Student");
+		assertTrue(studentTest.getColor() == Color.pink);
+		assertEquals(studentTest.getRow(), 9);
+		assertEquals(studentTest.getColumn(), 0);
 		
-		Set<Player> playerList = board.getPlayers();
 		
-		assertTrue(playerList.contains(baldwinTest));
-		assertTrue(playerList.contains(studentTest));
-		assertTrue(playerList.contains(cpwTest));
+		Player cpwTest = players.get(3);
+		assertEquals(cpwTest.getPlayerName(), "Christopher Painter-Wakefield");
+		assertTrue(cpwTest.getColor() == Color.yellow);
+		assertEquals(cpwTest.getRow(), 29);
+		assertEquals(cpwTest.getColumn(), 19);
 		
 	}
 	
@@ -103,7 +102,7 @@ public class gameSetupTests {
 	
 	@Test
 	public void testDealCards() {
-		Set<Player> playerList = board.getPlayers();
+		ArrayList<Player> playerList = board.getPlayers();
 		int numCardsPerPlayer = -1;
 		for (Player p: playerList) {
 			if (numCardsPerPlayer == -1) {
@@ -137,9 +136,9 @@ public class gameSetupTests {
 			}
 		}
 		
-		assertEquals(numInstancesOfPlayer, 1);
-		assertEquals(numInstancesOfRoom, 1);
-		assertEquals(numInstancesOfWeapon, 1);
+		assertTrue(numInstancesOfPlayer < 2);
+		assertTrue(numInstancesOfRoom  < 2);
+		assertTrue(numInstancesOfWeapon  < 2);
 		
 	}
 
