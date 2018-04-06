@@ -32,9 +32,9 @@ public class gameActionTests {
 	}
 	
 	@Test
+	//Tests when there are no rooms in the target list that a target is chosen randomly 
 	public void testTargetNoRooms() {
 		ComputerPlayer player = new ComputerPlayer();
-		//10,19
 		board.calcTargets(10, 19, 3);
 		boolean loc7_19 = false;
 		boolean loc8_18 = false;
@@ -98,15 +98,13 @@ public class gameActionTests {
 		assertTrue(loc10_20);
 		assertTrue(loc12_18);
 		assertTrue(loc10_16);
-		assertTrue(loc10_22);
-		
-		
-		
+		assertTrue(loc10_22);	
 	}
 	
 	@Test
+	//Tests if there is a room in targets that has not been recently visited, the computer player goes there.
+	//Also test if there is a room in targets that has been visited, it has an equally likely chance of being selected
 	public void testTargetWithRoom() {
-		//21,27
 		ComputerPlayer player = new ComputerPlayer();
 		board.calcTargets(21, 27, 2);
 		BoardCell selected = player.pickLocation(board.getTargets());

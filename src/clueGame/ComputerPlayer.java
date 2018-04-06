@@ -22,6 +22,12 @@ public class ComputerPlayer extends Player{
 		lastRoom = 'x';
 	}
 
+		/**
+		 * Picks location. If no room in targets, will select randomly. If there is a room in targets that the player has not just visited, will select that room
+		 * If there is a room that the player has just visited, will randomly select target
+		 * @param targets
+		 * @return
+		 */
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		int target;
 		boolean containsRoom = false;
