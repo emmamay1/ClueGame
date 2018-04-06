@@ -112,7 +112,6 @@ public class gameActionTests {
 		BoardCell selected = player.pickLocation(board.getTargets());
 		assertEquals(selected, board.getCellAt(22, 28));
 		
-		
 	}
 
 }
