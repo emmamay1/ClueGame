@@ -112,6 +112,41 @@ public class gameActionTests {
 		BoardCell selected = player.pickLocation(board.getTargets());
 		assertEquals(selected, board.getCellAt(22, 28));
 		
+		boolean loc19_27 = false;
+		boolean loc20_26 = false;
+		boolean loc20_28 = false;
+		boolean loc21_29 = false;
+		boolean loc22_26 = false;
+		boolean loc22_28 = false;
+		
+		for(int i = 0; i < 1000; i++){
+			BoardCell choice = player.pickLocation(board.getTargets());
+			if (choice == board.getCellAt(19,  27)) {
+				loc19_27 = true;
+			}
+			else if (choice == board.getCellAt(20, 26)) {
+				loc20_26 = true;
+			}
+			else if (choice == board.getCellAt(20, 28)) {
+				loc20_28 = true;
+			}
+			else if (choice == board.getCellAt(21, 29)) {
+				loc21_29 = true;
+			}
+			else if (choice == board.getCellAt(22, 26)) {
+				loc22_26 = true;
+			}
+			else if (choice == board.getCellAt(22, 28)) {
+				loc22_28 = true;
+			}
+		}
+		
+		assertTrue(loc19_27);
+		assertTrue(loc20_26);
+		assertTrue(loc20_28);
+		assertTrue(loc21_29);
+		assertTrue(loc22_26);
+		assertTrue(loc22_28);
 	}
 
 }

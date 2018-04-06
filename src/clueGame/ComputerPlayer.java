@@ -25,11 +25,12 @@ public class ComputerPlayer extends Player{
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		int target;
 		boolean containsRoom = false;
+		BoardCell temp = null;
 		for(BoardCell b : targets){
-			if(b.isRoom() && (b.getInitial() != lastRoom)){
+			if(b.isDoorway() && (b.getInitial() != lastRoom)){
 				containsRoom = true;
 				lastRoom = b.getInitial();
-				return b;
+				temp = b;
 			}
 		}
 		if(!containsRoom){
@@ -42,7 +43,7 @@ public class ComputerPlayer extends Player{
 				i++;
 			}
 		}
-		return null;
+		return temp;
 		
 	}
 	
