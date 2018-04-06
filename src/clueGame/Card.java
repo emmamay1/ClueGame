@@ -20,4 +20,8 @@ public class Card {
 		return type;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
 }

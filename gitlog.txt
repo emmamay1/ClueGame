@@ -1,3 +1,69 @@
+commit 0a09705dd2870b3d4fa04e2b91173778920a0809
+Author: Emma May <emmamay@mines.edu>
+Date:   Wed Apr 4 14:42:50 2018 -0600
+
+    Fixed comments, adding passing test condition within testDealCards() to ensure the whole deck is dealt
+
+commit 10eb20f4bb978af01132f35341f591119b23d332
+Author: Emma May <emmamay@mines.edu>
+Date:   Wed Apr 4 14:25:49 2018 -0600
+
+    Passing test for dealCards()
+
+commit 1ef3e5390ff96da2fafc9091c101c8617baadb51
+Author: Emma May <emmamay@mines.edu>
+Date:   Wed Apr 4 00:48:28 2018 -0600
+
+    Made deck, shuffled and dealt. No working test yet.
+
+commit d360f01a2fadb50e17b605c33a764f3fa6cc4382
+Author: Emma May <emmamay@mines.edu>
+Date:   Wed Apr 4 00:04:16 2018 -0600
+
+    Passing testLoadDeckOfCards test. Created makeDeck() method in board to establish deck of cards
+
+commit c659084d64290e0eada453710eb6f7624470a5b8
+Author: Emma May <emmamay@mines.edu>
+Date:   Tue Apr 3 23:21:39 2018 -0600
+
+    Passing testLoadPeople test after writing loadPlayerConfig
+
+commit 05666fa0251191bc95060829c25d74abe0449634
+Author: Dakota Showman <dshowman@mines.edu>
+Date:   Tue Apr 3 21:49:16 2018 -0600
+
+    Added test to make sure no more than 1 card is given to each player for 3 test cards
+
+commit 2666c7a46a6d20e1302ea758db2312d9166d076d
+Author: Dakota Showman <dshowman@mines.edu>
+Date:   Tue Apr 3 21:35:56 2018 -0600
+
+    changed format of people.txt so colors can be converted from strings
+
+commit 36ffc4bee8ec21d4044256a615996e9b8aa5b716
+Author: Dakota Showman <dshowman@mines.edu>
+Date:   Tue Apr 3 21:32:25 2018 -0600
+
+    Added author tags for new classes
+
+commit c1ddff6e528a4b1de90e6ea5bba57a703d6557df
+Author: Dakota Showman <dshowman@mines.edu>
+Date:   Tue Apr 3 20:49:34 2018 -0600
+
+    added majority of failing tests. TODO: figure out how to make sure same card isn't given to more than one player
+
+commit dca79f7c2822391277455eba768b283b829aec1d
+Author: Dakota Showman <dshowman@mines.edu>
+Date:   Tue Apr 3 20:05:46 2018 -0600
+
+    Initial setup for failing player tests
+
+commit e05c9a29023df8ec272270daa22cc2e0f7b72098
+Author: Dakota Showman <dshowman@mines.edu>
+Date:   Tue Apr 3 12:13:04 2018 -0600
+
+    Added tests for people and weapons
+
 commit ab75788ea14a9b4c48bcaf64d3763678b89eeded
 Author: Dakota Showman <dshowman@mines.edu>
 Date:   Tue Apr 3 11:40:06 2018 -0600

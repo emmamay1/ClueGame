@@ -40,40 +40,6 @@ public class gameSetupTests {
 	}
 	
 	@Test
-	/**
-	 * The following tests Mark Baldwin, Poor Student, and CPW player to test that they are loaded in correctly
-	 * Checks the name, color and location are correct
-	 */
-	public void testLoadPeople() {
-		ArrayList<Player> players = board.getPlayers();
-		
-		Player baldwinTest = players.get(0);
-		assertEquals(baldwinTest.getPlayerName(), "Mark Baldwin");
-		assertTrue(baldwinTest.getColor() == Color.blue);
-		assertEquals(baldwinTest.getRow(), 0);
-		assertEquals(baldwinTest.getColumn(), 21);
-		
-		Player studentTest = players.get(5);
-		assertEquals(studentTest.getPlayerName(), "Poor Student");
-		assertTrue(studentTest.getColor() == Color.pink);
-		assertEquals(studentTest.getRow(), 9);
-		assertEquals(studentTest.getColumn(), 0);
-		
-		
-		Player cpwTest = players.get(3);
-		assertEquals(cpwTest.getPlayerName(), "Christopher Painter-Wakefield");
-		assertTrue(cpwTest.getColor() == Color.yellow);
-		assertEquals(cpwTest.getRow(), 29);
-		assertEquals(cpwTest.getColumn(), 19);
-		
-	}
-	
-	
-	
-	/**
-	 * This test checks that the deck is 21 cards, that there are 6 players, 9 rooms, and 6 weapons, and that Python, SOLARIS, and  Tracy Camp loaded correctly
-	 */
-	@Test
 	public void testLoadDeckOfCards() {
 		ArrayList<Card> cardList = board.getCards();
 		
@@ -107,19 +73,51 @@ public class gameSetupTests {
 		
 	}
 	
+	@Test
+	/**
+	 * The following tests Mark Baldwin, Poor Student, and CPW player to test that they are loaded in correctly
+	 * Checks the name, color and location are correct
+	 */
+	public void testLoadPeople() {
+		ArrayList<Player> players = board.getPlayers();
+		
+		Player baldwinTest = players.get(0);
+		assertEquals(baldwinTest.getPlayerName(), "Mark Baldwin");
+		assertTrue(baldwinTest.getColor() == Color.blue);
+		assertEquals(baldwinTest.getRow(), 0);
+		assertEquals(baldwinTest.getColumn(), 21);
+		
+		Player studentTest = players.get(5);
+		assertEquals(studentTest.getPlayerName(), "Poor Student");
+		assertTrue(studentTest.getColor() == Color.pink);
+		assertEquals(studentTest.getRow(), 9);
+		assertEquals(studentTest.getColumn(), 0);
+		
+		
+		Player cpwTest = players.get(3);
+		assertEquals(cpwTest.getPlayerName(), "Christopher Painter-Wakefield");
+		assertTrue(cpwTest.getColor() == Color.yellow);
+		assertEquals(cpwTest.getRow(), 29);
+		assertEquals(cpwTest.getColumn(), 19);
+		
+	}
+	
+	
+	
+	/**
+	 * This test checks that the deck is 21 cards, that there are 6 players, 9 rooms, and 6 weapons, and that Python, SOLARIS, and  Tracy Camp loaded correctly
+	 */
+	
+	
 	
 	@Test
 	/**
 	 * Tests that all cards are dealt, that every player has about the same number of cards (within 1 of everyone) and that no cards are dealt more than once
 	 */
 	public void testDealCards() {
+		board.deal();
 		ArrayList<Player> playerList = board.getPlayers();
-		
-		int totalCards = 0;
-		for(Player p: playerList){
-			totalCards += p.getMyCards().size();
-		}
-		assertEquals(totalCards, 21);
+		assertEquals(board.getCards().size(), 21);
 		
 		int numCardsLastPlayer = playerList.get(0).getMyCards().size();
 		for (int i = 1; i < playerList.size(); i++) {

@@ -38,6 +38,7 @@ public class Board {
 	private ArrayList<Card> cards;
 	private ArrayList<String> weapons;
 	private ArrayList<String> rooms;
+	private ArrayList<Card> theEnvelope;
 
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
@@ -62,13 +63,13 @@ public class Board {
 		legend = new HashMap<Character, String>();
 		players = new ArrayList<Player>();
 		board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
+		theEnvelope = new ArrayList<Card>();
 		try {
 			loadRoomConfig();
 			loadBoardConfig();
 			loadPlayerConfig();
 			loadWeaponConfig();
 			makeDeck();
-			deal();
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException f){
@@ -285,28 +286,31 @@ public class Board {
 	 * Generates a random solution with one player, one weapon and one room, then removes those cards from the deck
 	 */
 	public void makeSolution(int player, int weapon, int room){
-		//MUST STILL GENERATE THE SOLUTION
-		cards.remove(player);
-		cards.remove(weapon);
-		cards.remove(room);
+		trueSolution = new Solution(cards.get(player).getName(), cards.get(weapon).getName(), cards.get(room).getName());
+		theEnvelope.add(cards.get(player));
+		theEnvelope.add(cards.get(weapon));
+		theEnvelope.add(cards.get(room));
 	}
 	
 	/**
 	 * Shuffles the cards then deals the full deck to the players
 	 */
 	public void deal(){
-		int randPlayer = (int)Math.random()*players.size();
-		int randWeapon = (int)Math.random()*(cards.size()) + players.size();
-		int randRoom = (int)Math.random()*(cards.size()) + (weapons.size() + players.size());
-		//makeSolution(randPlayer, randWeapon, randRoom);
+		int randRoom = (int)(Math.random()*(rooms.size())) + (weapons.size() + players.size());
+		int randWeapon = (int)(Math.random()*(weapons.size())) + players.size();
+		int randPlayer = (int)(Math.random()*players.size());
+		makeSolution(randPlayer, randWeapon, randRoom);
 		Collections.shuffle(cards);
 		
 		int i = 0;
 		for(Card c : cards){
-			if (i == players.size()){
-				i = 0;
+			if (!theEnvelope.contains(c)) {
+				if (i == players.size()){
+					i = 0;
+				}
+				players.get(i).getMyCards().add(c);
+				i++;
 			}
-			players.get(i).getMyCards().add(c);
 		}
 	}
 	
@@ -463,6 +467,7 @@ public class Board {
 	}
 	public ArrayList<Card> getCards() {
 		return cards;
+		
 	}
 	public ArrayList<String> getWeapons(){
 		return weapons;

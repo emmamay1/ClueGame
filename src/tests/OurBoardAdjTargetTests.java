@@ -25,7 +25,7 @@ public class OurBoardAdjTargetTests {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("ClueBoardLayout.csv", "Rooms.txt");		
+		board.setConfigFiles("ClueBoardLayout.csv", "Rooms.txt", "People.txt", "Weapons.txt");		
 		// Initialize will load BOTH config files 
 		board.initialize();
 	}
