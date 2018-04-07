@@ -472,4 +472,7 @@ public class Board {
 	public ArrayList<String> getWeapons(){
 		return weapons;
 	}
+	public Solution getTrueSolution(){
+		return trueSolution;
+	}
 }

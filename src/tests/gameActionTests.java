@@ -16,6 +16,7 @@ import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.ComputerPlayer;
+import clueGame.Solution;
 
 public class gameActionTests {
 	private static Board board;
@@ -146,5 +147,28 @@ public class gameActionTests {
 		assertTrue(loc22_26);
 		assertTrue(loc22_28);
 	}
+	
+	
+	@Test
+	public void testMakeAccusation(){
+		ComputerPlayer player = new ComputerPlayer();
+		Solution answer = board.getTrueSolution();
+		Solution guess = player.makeAccusation();
+		
+		assertEquals(answer.person, guess.person);
+		assertEquals(answer.weapon, guess.weapon);
+		assertEquals(answer.room, guess.room);
+	}
+	
+	
+	//@Test
+	/**
+	 * Tests if room matches current location. If 
+	 */
+	/*
+	public void testCreateSuggestion(){
+		Solution accusation = new Solution();
+		
+	}*/
 
 }
