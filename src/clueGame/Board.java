@@ -425,7 +425,7 @@ public class Board {
 	 * @return
 	 */
 	public boolean checkAccusation(Solution accusation) {
-		return trueSolution.equals(accusation);
+		return false;
 	}
 	
 	/*
@@ -474,5 +474,8 @@ public class Board {
 	}
 	public Solution getTrueSolution(){
 		return trueSolution;
+	}
+	public void setTrueSolution(Solution solution) {
+		trueSolution = solution;
 	}
 }

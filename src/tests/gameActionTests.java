@@ -148,7 +148,22 @@ public class gameActionTests {
 		assertTrue(loc22_28);
 	}
 	
-	
+	@Test
+	/**
+	 * tests that the board can correctly check if solutions work or not
+	 */
+	public void testCheckAccusation() {
+		Solution correctSolution = new Solution("Mark Baldwin", "C++", "Solaris");
+		board.setTrueSolution(correctSolution);
+		Solution incorrectPerson = new Solution("Cyndi Raider", "C++", "Solaris");
+		Solution incorrectWeapon = new Solution("Mark Baldwin", "Java", "Solaris");
+		Solution incorrectRoom = new Solution("Mark Baldwin", "C++", "Mac");
+		
+		assertTrue(board.checkAccusation(correctSolution));
+		assertTrue(!board.checkAccusation(incorrectPerson));
+		assertTrue(!board.checkAccusation(incorrectWeapon));
+		assertTrue(!board.checkAccusation(incorrectRoom));
+	}
 	@Test
 	public void testMakeAccusation(){
 		ComputerPlayer player = new ComputerPlayer();
