@@ -6,28 +6,35 @@
  */
 package clueGame;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.awt.Color;
 
 public class ComputerPlayer extends Player{
 	char lastRoom;
+	ArrayList<Card> notSeenWeapons;
+	ArrayList<Card> notSeenPeople;
 
 	public ComputerPlayer() {
 		super();
 		lastRoom = 'x';
+		notSeenWeapons = new ArrayList<Card>();
+		notSeenPeople = new ArrayList<Card>();
 	}
 
 	public ComputerPlayer(String playerName, int row, int column, Color color) {
 		super(playerName, row, column, color);
 		lastRoom = 'x';
+		notSeenWeapons = new ArrayList<Card>();
+		notSeenPeople = new ArrayList<Card>();
 	}
 
-		/**
-		 * Picks location. If no room in targets, will select randomly. If there is a room in targets that the player has not just visited, will select that room
-		 * If there is a room that the player has just visited, will randomly select target
-		 * @param targets
-		 * @return
-		 */
+	/**
+	 * Picks location. If no room in targets, will select randomly. If there is a room in targets that the player has not just visited, will select that room
+	 * If there is a room that the player has just visited, will randomly select target
+	 * @param targets
+	 * @return
+	 */
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		int target;
 		boolean containsRoom = false;
@@ -57,7 +64,19 @@ public class ComputerPlayer extends Player{
 		return null;
 	}
 	
-	public void createSuggestion(/*tbd*/){
+	public Solution createSuggestion(/*tbd*/){
 		
+		return null;
+	}
+
+	public ArrayList<Card> getNotSeenWeapons() {
+		return notSeenWeapons;
+	}
+
+	public ArrayList<Card> getNotSeenPeople() {
+		return notSeenPeople;
+	}
+	public String getRoom(){
+		return null;
 	}
 }

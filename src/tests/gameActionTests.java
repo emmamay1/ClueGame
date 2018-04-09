@@ -226,26 +226,46 @@ public class gameActionTests {
 		temp = player.disproveSuggestion(nothingMatch);
 		assertNull(temp);
 	}
+	
 	@Test
-	public void testMakeAccusation(){
-		ComputerPlayer player = new ComputerPlayer();
-		Solution answer = board.getTrueSolution();
-		Solution guess = player.makeAccusation();
-		
-		assertEquals(answer.person, guess.person);
-		assertEquals(answer.weapon, guess.weapon);
-		assertEquals(answer.room, guess.room);
-	}
-	
-	
-	//@Test
 	/**
 	 * Tests if room matches current location. If 
 	 */
-	/*
-	public void testCreateSuggestion(){
-		Solution accusation = new Solution();
+	
+	public void testCreateSuggestionOneRoomOnePerson(){
+		ComputerPlayer player = new ComputerPlayer();
+		Solution suggestion = player.createSuggestion();
 		
-	}*/
+		assertEquals(suggestion.getRoom(), player.getRoom());	
+		assertEquals(suggestion.getWeapon(), player.getNotSeenWeapons().get(0));
+		assertEquals(suggestion.getPerson(), player.getNotSeenPeople().get(0));
+		
+	}
+	
+	@Test
+	/**
+	 * 
+	 */
+	public void testCreateSuggestionMultRoomsMultPeople(){
+		ComputerPlayer player = new ComputerPlayer();
+		Solution suggestion = player.createSuggestion();
+		
+		assertEquals(suggestion.getRoom(), player.getRoom());
+		boolean unseenWeapon = false;
+		for(Card c : player.getNotSeenWeapons()){
+			if(c.getName().equals(unseenWeapon)){
+				unseenWeapon = true;
+			}
+		}
+		boolean unseenPerson = false;
+		for(Card c : player.getNotSeenPeople()){
+			if(c.getName().equals(unseenPerson)){
+				unseenPerson = true;
+			}
+		}
+		
+		assertTrue(unseenWeapon);
+		assertTrue(unseenPerson);
+	}
 
 }

@@ -25,4 +25,21 @@ public class Solution {
 	public boolean equals(Solution accusation) {
 		return ((this.person.equals(accusation.person)) && (this.weapon.equals(accusation.weapon)) && (this.room.equals(accusation.room)));
 	}
+
+	public void setRoom(Card roomCard) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String getWeapon() {
+		return weapon;
+	}
+
+	public String getRoom() {
+		return room;
+	}
+
+	public String getPerson() {
+		return person;
+	}
 }

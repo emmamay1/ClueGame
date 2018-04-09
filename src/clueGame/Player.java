@@ -59,7 +59,7 @@ public class Player {
 			return null;
 		}
 		else if (matchingCards.size() == 1){
-			int i = 0;;
+			int i = 0;
 			for (Integer correctIndex: matchingCards) {
 				i = correctIndex;
 			}
