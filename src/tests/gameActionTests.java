@@ -224,7 +224,7 @@ public class gameActionTests {
 		assertTrue(temp.getName().equals("Mark Baldwin"));
 		
 		temp = player.disproveSuggestion(nothingMatch);
-		assertTrue(temp.equals(null));
+		assertNull(temp);
 	}
 	@Test
 	public void testMakeAccusation(){

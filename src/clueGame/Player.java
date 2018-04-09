@@ -7,7 +7,8 @@
 package clueGame;
 
 import java.util.ArrayList;
-
+import java.util.HashSet;
+import java.util.Set;
 import java.awt.Color;
 
 public class Player {
@@ -17,11 +18,12 @@ public class Player {
 	private Color color;
 	private ArrayList<Card> myCards;
 	private ArrayList<Card> seenCards;
-	
+
 	public Player() {
 		super();
+		myCards = new ArrayList<Card>();
 	}
-	
+
 	public Player(String playerName, int row, int column, Color color) {
 		super();
 		this.playerName = playerName;
@@ -32,7 +34,48 @@ public class Player {
 	}
 
 	public Card disproveSuggestion(Solution suggestion) {
-		return null;
+		Set<Integer> matchingCards = new HashSet<Integer>();
+		Integer index = new Integer(0);
+		for (Card c: myCards) {
+			if (c.getType() == CardType.PLAYER) {
+				if (suggestion.person.equals(c.getName())) {
+					matchingCards.add(index);
+				}
+			}
+			if (c.getType() == CardType.WEAPON) {
+				if (suggestion.weapon.equals(c.getName())) {
+					matchingCards.add(index);
+				}
+			}
+			if (c.getType() == CardType.ROOM) {
+				if (suggestion.room.equals(c.getName())) {
+					matchingCards.add(index);
+				}
+			}
+			index++;
+		}
+		
+		if (matchingCards.size() == 0) {
+			return null;
+		}
+		else if (matchingCards.size() == 1){
+			int i = 0;;
+			for (Integer correctIndex: matchingCards) {
+				i = correctIndex;
+			}
+			return myCards.get(i);
+		}
+		else {
+			int randValue = (int)(Math.random() * matchingCards.size());
+			int i = 0;
+			for (Integer randomIndex: matchingCards) {
+				if (i == randValue) {
+					return myCards.get(randomIndex);
+				}
+				i++;
+			}
+			return null;
+		}
 	}
 
 	public String getPlayerName() {
@@ -96,39 +139,39 @@ public class Player {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		
+
 		Player other = (Player) obj;
 		if (color == null) {
 			if (other.color != null)
 				return false;
 		} else if (!color.equals(other.color))
 			return false;
-		
+
 		if (column != other.column)
 			return false;
-		
+
 		if (myCards == null) {
 			if (other.myCards != null)
 				return false;
 		} else if (!myCards.equals(other.myCards))
 			return false;
-		
+
 		if (playerName == null) {
 			if (other.playerName != null)
 				return false;
 		} else if (!playerName.equals(other.playerName))
 			return false;
-		
+
 		if (row != other.row)
 			return false;
-		
+
 		if (seenCards == null) {
 			if (other.seenCards != null)
 				return false;
 		} else if (!seenCards.equals(other.seenCards))
 			return false;
-		
+
 		return true;
 	}
-	
+
 }
