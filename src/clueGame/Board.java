@@ -415,7 +415,8 @@ public class Board {
 	 * given a suggestion, returns a card that disproves the suggestion (I think?)
 	 * @return
 	 */
-	public Card handleSuggestion() {
+	public Card handleSuggestion(Solution s) {
+		
 		return null;
 	}
 	

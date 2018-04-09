@@ -8,6 +8,7 @@ package tests;
 import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -18,6 +19,8 @@ import clueGame.BoardCell;
 import clueGame.Card;
 import clueGame.CardType;
 import clueGame.ComputerPlayer;
+import clueGame.HumanPlayer;
+import clueGame.Player;
 import clueGame.Solution;
 
 public class gameActionTests {
@@ -229,7 +232,8 @@ public class gameActionTests {
 	
 	@Test
 	/**
-	 * Tests if room matches current location. If 
+	 * Tests creating a suggestion. ensures room matches current location. 
+	 * This test specifically tests when there is only one option for unseen weapons or people
 	 */
 	
 	public void testCreateSuggestionOneRoomOnePerson(){
@@ -246,7 +250,8 @@ public class gameActionTests {
 	
 	@Test
 	/**
-	 * 
+	 * Tests creating a suggestion. ensures room matches current location. 
+	 * This test specifically tests when there are multiple unseen people or weapons 
 	 */
 	public void testCreateSuggestionMultRoomsMultPeople(){
 		ComputerPlayer player = new ComputerPlayer();
@@ -276,6 +281,52 @@ public class gameActionTests {
 		
 		assertTrue(unseenWeapon);
 		assertTrue(unseenPerson);
+	}
+	
+	@Test
+	/**
+	 * 
+	 */
+	public void testHandleSuggestion(){
+		ArrayList<Player> players = new ArrayList<Player>();
+		ComputerPlayer one = new ComputerPlayer();
+		one.getMyCards().add(new Card("Mark Baldwin", CardType.PLAYER));
+		one.getMyCards().add(new Card("Java", CardType.WEAPON));
+		one.getMyCards().add(new Card("Linux", CardType.ROOM));
+		ComputerPlayer two = new ComputerPlayer();
+		two.getMyCards().add(new Card("Tracy Camp", CardType.PLAYER));
+		two.getMyCards().add(new Card("C++", CardType.WEAPON));
+		two.getMyCards().add(new Card("Mac", CardType.ROOM));
+		ComputerPlayer three = new ComputerPlayer();
+		three.getMyCards().add(new Card("Cyndi Raeder", CardType.PLAYER));
+		three.getMyCards().add(new Card("HTML", CardType.WEAPON));
+		three.getMyCards().add(new Card("Windows", CardType.ROOM));
+		HumanPlayer human = new HumanPlayer();
+		human.getMyCards().add(new Card("Poor Student", CardType.PLAYER));
+		human.getMyCards().add(new Card("PHP", CardType.WEAPON));
+		human.getMyCards().add(new Card("Solaris", CardType.ROOM));
+		players.add(one);
+		players.add(two);
+		players.add(three);
+		players.add(human);
+		
+		Solution noDisprove = new Solution("Jeffery Paone", "MIPS", "Darwin");
+		assertNull(board.handleSuggestion(noDisprove));
+		
+		Solution accuserDisproves = new Solution("Mark Baldwin", "MIPS", "Darwin");
+		assertNull(board.handleSuggestion(accuserDisproves));
+		
+		Solution humanDisproves = new Solution("Jeffergy Paone", "PHP", "Darwin");
+		assertNotNull(board.handleSuggestion(humanDisproves));
+		
+		Solution humanAccusesDisproves = new Solution("Jeffery Paone", "MIPS", "Solaris");
+		assertNull(board.handleSuggestion(humanAccusesDisproves));
+		
+		Solution multPlayersDisprove = new Solution("Tracy Camp", "HTML", "Darwin");
+		Solution multPlayersDisprove2 = new Solution("Poor Student", "HTML", "Windows");
+		//what to test to ensure proper card returned??
+		
+		
 	}
 
 }
