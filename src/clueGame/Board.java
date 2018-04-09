@@ -425,7 +425,7 @@ public class Board {
 	 * @return
 	 */
 	public boolean checkAccusation(Solution accusation) {
-		return false;
+		return trueSolution.equals(accusation);
 	}
 	
 	/*
