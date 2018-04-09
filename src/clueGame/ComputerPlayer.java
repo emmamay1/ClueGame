@@ -65,8 +65,25 @@ public class ComputerPlayer extends Player{
 	}
 	
 	public Solution createSuggestion(/*tbd*/){
+		Solution suggestion = new Solution();
+		//suggestion.setRoom(this.getRoom());
 		
-		return null;
+		if(notSeenWeapons.size() == 1){
+			suggestion.setWeapon(notSeenWeapons.get(0).getName());
+		}
+		else{
+			int rand = (int)(Math.random()*(notSeenWeapons.size()-1));
+			suggestion.setWeapon(notSeenWeapons.get(rand).getName());
+		}
+		
+		if(notSeenPeople.size() == 1){
+			suggestion.setPerson(notSeenPeople.get(0).getName());
+		}
+		else{
+			int rand = (int)(Math.random()*notSeenPeople.size());
+			suggestion.setPerson(notSeenPeople.get(rand).getName());
+		}
+		return suggestion;
 	}
 
 	public ArrayList<Card> getNotSeenWeapons() {
@@ -76,7 +93,9 @@ public class ComputerPlayer extends Player{
 	public ArrayList<Card> getNotSeenPeople() {
 		return notSeenPeople;
 	}
+	/*
 	public String getRoom(){
+		BoardCell current = Board.board[this.getRow()][this.getColumn()];
 		return null;
-	}
+	}*/
 }
