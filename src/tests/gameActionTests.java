@@ -15,6 +15,8 @@ import org.junit.Test;
 import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.BoardCell;
+import clueGame.Card;
+import clueGame.CardType;
 import clueGame.ComputerPlayer;
 import clueGame.Solution;
 
@@ -163,6 +165,66 @@ public class gameActionTests {
 		assertTrue(!board.checkAccusation(incorrectPerson));
 		assertTrue(!board.checkAccusation(incorrectWeapon));
 		assertTrue(!board.checkAccusation(incorrectRoom));
+	}
+	
+	@Test
+	/**
+	 * tests that a computer player can disprove a suggestion
+	 */
+	public void testDisproveSuggestion() {
+		ComputerPlayer player = new ComputerPlayer();
+		Card weaponCard = new Card("C++", CardType.WEAPON);
+		Card playerCard = new Card("Mark Baldwin", CardType.PLAYER);
+		Card roomCard = new Card("Solaris", CardType.ROOM);
+		player.getMyCards().add(weaponCard);
+		player.getMyCards().add(playerCard);
+		player.getMyCards().add(roomCard);
+		
+		Solution allCardsMatch = new Solution("Mark Baldwin", "C++", "Solaris");
+		Solution twoCardsMatch = new Solution("Mark Baldwin", "C++", "Mac");
+		Solution personOnlyMatch = new Solution("Mark Baldwin", "Java", "Mac");
+		Solution nothingMatch = new Solution("Cyndi Raider", "Java", "Mac");
+		
+		boolean mBald = false;
+		boolean cPlus = false;
+		boolean Solaris = false;
+		
+		
+		for (int i = 0; i < 1000; i++) {
+			Card temp = player.disproveSuggestion(allCardsMatch);
+			if (temp.getName().equals("C++")) {
+				cPlus = true;
+			}
+			if (temp.getName().equals("Mark Baldwin")) {
+				mBald = true;
+			}
+			if (temp.getName().equals("Solaris")) {
+				Solaris = true;
+			}
+		}
+		assertTrue(cPlus);
+		assertTrue(mBald);
+		assertTrue(Solaris);
+		
+		mBald = false;
+		cPlus = false;
+		for (int i = 0; i < 1000; i++) {
+			Card temp = player.disproveSuggestion(allCardsMatch);
+			if (temp.getName().equals("C++")) {
+				cPlus = true;
+			}
+			if (temp.getName().equals("Mark Baldwin")) {
+				mBald = true;
+			}
+		}
+		assertTrue(cPlus);
+		assertTrue(mBald);
+		
+		Card temp = player.disproveSuggestion(personOnlyMatch);
+		assertTrue(temp.getName().equals("Mark Baldwin"));
+		
+		temp = player.disproveSuggestion(nothingMatch);
+		assertTrue(temp.equals(null));
 	}
 	@Test
 	public void testMakeAccusation(){
