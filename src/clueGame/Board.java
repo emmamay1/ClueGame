@@ -423,29 +423,13 @@ public class Board {
 		}
 		int count = 0;
 		while(!disproved && count < people.size() - 1){
-			ArrayList<Card> temp = people.get(loc).getMyCards();
-			int j = 0;
-			while(!disproved && j < temp.size()){
-				Card c = temp.get(j);
-				if(c.getType().equals(CardType.WEAPON) && c.getName().equals(s.weapon)){
-					disproved = true;
-					return c;
-				}
-				if(c.getType().equals(CardType.ROOM) && c.getName().equals(s.room)){
-					disproved = true;
-					return c;
-				}
-				if(c.getType().equals(CardType.PLAYER) && c.getName().equals(s.person)){
-					disproved = true;
-					return c;
-				}
-				j++;
-			}
-			loc++;
-			if(loc >= people.size()){
-				loc = 0;
+			Card c = people.get(loc).disproveSuggestion(s);
+			if(c != null){
+				disproved = true;
+				return c;
 			}
 			count++;
+			loc++;
 		}
 		
 		return null;

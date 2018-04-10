@@ -7,6 +7,8 @@
 package clueGame;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.awt.Color;
 
@@ -14,12 +16,14 @@ public class ComputerPlayer extends Player{
 	char lastRoom;
 	ArrayList<Card> notSeenWeapons;
 	ArrayList<Card> notSeenPeople;
+	Map<Character, String> legend;
 
 	public ComputerPlayer() {
 		super();
 		lastRoom = 'x';
 		notSeenWeapons = new ArrayList<Card>();
 		notSeenPeople = new ArrayList<Card>();
+		legend = new HashMap<Character, String>();
 	}
 
 	public ComputerPlayer(String playerName, int row, int column, Color color) {
@@ -27,6 +31,7 @@ public class ComputerPlayer extends Player{
 		lastRoom = 'x';
 		notSeenWeapons = new ArrayList<Card>();
 		notSeenPeople = new ArrayList<Card>();
+		legend = new HashMap<Character, String>();
 	}
 
 	/**
@@ -51,6 +56,9 @@ public class ComputerPlayer extends Player{
 			int i = 0;
 			for (BoardCell b: targets) {
 				if (i == target) {
+					if (b.isDoorway()) {
+						lastRoom = b.getInitial();
+					}
 					return b;
 				}
 				i++;
@@ -66,7 +74,8 @@ public class ComputerPlayer extends Player{
 	
 	public Solution createSuggestion(/*tbd*/){
 		Solution suggestion = new Solution();
-		//suggestion.setRoom(this.getRoom());
+		String room = legend.get(lastRoom);
+		suggestion.setRoom(room);
 		
 		if(notSeenWeapons.size() == 1){
 			suggestion.setWeapon(notSeenWeapons.get(0).getName());
@@ -93,9 +102,11 @@ public class ComputerPlayer extends Player{
 	public ArrayList<Card> getNotSeenPeople() {
 		return notSeenPeople;
 	}
-	/*
+	public void setLegend(Map<Character, String> legend) {
+		this.legend = legend;
+	}
+	
 	public String getRoom(){
-		BoardCell current = Board.board[this.getRow()][this.getColumn()];
-		return null;
-	}*/
+		return legend.get(lastRoom);
+	}
 }

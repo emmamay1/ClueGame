@@ -242,7 +242,7 @@ public class gameActionTests {
 		player.getNotSeenWeapons().add(new Card("C++", CardType.WEAPON));
 		Solution suggestion = player.createSuggestion();
 		
-		//assertEquals(suggestion.getRoom(), player.getRoom());	
+		assertEquals(suggestion.getRoom(), player.getRoom());	
 		assertEquals(suggestion.getWeapon(), player.getNotSeenWeapons().get(0).getName());
 		assertEquals(suggestion.getPerson(), player.getNotSeenPeople().get(0).getName());
 		
@@ -255,6 +255,7 @@ public class gameActionTests {
 	 */
 	public void testCreateSuggestionMultRoomsMultPeople(){
 		ComputerPlayer player = new ComputerPlayer();
+		player.setLegend(board.getLegend());
 		player.getNotSeenPeople().add(new Card("Mark Baldwin", CardType.PLAYER));
 		player.getNotSeenPeople().add(new Card("Tracy Camp", CardType.PLAYER));
 		player.getNotSeenPeople().add(new Card("Cyndi Raeder", CardType.PLAYER));
@@ -265,7 +266,7 @@ public class gameActionTests {
 		player.getNotSeenWeapons().add(new Card("HTML", CardType.WEAPON));
 		Solution suggestion = player.createSuggestion();
 		
-		//assertEquals(suggestion.getRoom(), player.getRoom());
+		assertEquals(suggestion.getRoom(), player.getRoom());
 		boolean unseenWeapon = false;
 		for(Card c : player.getNotSeenWeapons()){
 			if(c.getName().equals(suggestion.weapon)){
@@ -317,16 +318,13 @@ public class gameActionTests {
 		assertNull(board.handleSuggestion(accuserDisproves, one, players));
 		
 		Solution humanDisproves = new Solution("Jeffergy Paone", "PHP", "Darwin");
-		assertNotNull(board.handleSuggestion(humanDisproves, two, players));
+		assertTrue(board.handleSuggestion(humanDisproves, three, players).getName().equals("PHP"));
 		
 		Solution humanAccusesDisproves = new Solution("Jeffery Paone", "MIPS", "Solaris");
 		assertNull(board.handleSuggestion(humanAccusesDisproves, human, players));
 		
 		Solution multPlayersDisprove = new Solution("Tracy Camp", "HTML", "Darwin");
-		Solution multPlayersDisprove2 = new Solution("Poor Student", "HTML", "Windows");
-		//what to test to ensure proper card returned??
-		
-		
+		assertTrue(board.handleSuggestion(multPlayersDisprove, one, players).getName().equals("Tracy Camp"));		
 	}
 
 }
