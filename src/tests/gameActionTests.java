@@ -311,16 +311,16 @@ public class gameActionTests {
 		players.add(human);
 		
 		Solution noDisprove = new Solution("Jeffery Paone", "MIPS", "Darwin");
-		assertNull(board.handleSuggestion(noDisprove));
+		assertNull(board.handleSuggestion(noDisprove, one, players));
 		
 		Solution accuserDisproves = new Solution("Mark Baldwin", "MIPS", "Darwin");
-		assertNull(board.handleSuggestion(accuserDisproves));
+		assertNull(board.handleSuggestion(accuserDisproves, one, players));
 		
 		Solution humanDisproves = new Solution("Jeffergy Paone", "PHP", "Darwin");
-		assertNotNull(board.handleSuggestion(humanDisproves));
+		assertNotNull(board.handleSuggestion(humanDisproves, two, players));
 		
 		Solution humanAccusesDisproves = new Solution("Jeffery Paone", "MIPS", "Solaris");
-		assertNull(board.handleSuggestion(humanAccusesDisproves));
+		assertNull(board.handleSuggestion(humanAccusesDisproves, human, players));
 		
 		Solution multPlayersDisprove = new Solution("Tracy Camp", "HTML", "Darwin");
 		Solution multPlayersDisprove2 = new Solution("Poor Student", "HTML", "Windows");

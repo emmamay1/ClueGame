@@ -415,7 +415,38 @@ public class Board {
 	 * given a suggestion, returns a card that disproves the suggestion (I think?)
 	 * @return
 	 */
-	public Card handleSuggestion(Solution s) {
+	public Card handleSuggestion(Solution s, Player accuser, ArrayList<Player> people) {
+		boolean disproved = false;
+		int loc = 1+people.indexOf(accuser);
+		if(loc >= people.size()){
+			loc = 0;
+		}
+		int count = 0;
+		while(!disproved && count < people.size() - 1){
+			ArrayList<Card> temp = people.get(loc).getMyCards();
+			int j = 0;
+			while(!disproved && j < temp.size()){
+				Card c = temp.get(j);
+				if(c.getType().equals(CardType.WEAPON) && c.getName().equals(s.weapon)){
+					disproved = true;
+					return c;
+				}
+				if(c.getType().equals(CardType.ROOM) && c.getName().equals(s.room)){
+					disproved = true;
+					return c;
+				}
+				if(c.getType().equals(CardType.PLAYER) && c.getName().equals(s.person)){
+					disproved = true;
+					return c;
+				}
+				j++;
+			}
+			loc++;
+			if(loc >= people.size()){
+				loc = 0;
+			}
+			count++;
+		}
 		
 		return null;
 	}
