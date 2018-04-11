@@ -1,3 +1,93 @@
+commit 4b36f10b8a67ab62f7bbb526441b10f34a584814
+Author: Emma May <emmamay@mines.edu>
+Date:   Tue Apr 10 11:46:53 2018 -0600
+
+    Added functionality for ensuring the suggestion created contains the room the player is in, and tests that the proper player disproves the suggestion
+
+commit 13283507338cfacad59104141916e27fbac3acb4
+Author: Emma May <emmamay@mines.edu>
+Date:   Mon Apr 9 22:24:52 2018 -0600
+
+    Passing tests for handleSuggestion(). must add functionality to ensure the proper player is disproving
+
+commit 332dffa160ba1b5cf9722f6d9d70f0ac4626cf90
+Author: Emma May <emmamay@mines.edu>
+Date:   Mon Apr 9 15:48:03 2018 -0600
+
+    Failing test for handleSuggestion(). still must add test for knowing which player returns the card to test order (I believe)
+
+commit db9c401184b3e932e7c6a33698fe3d35ab80e627
+Author: Emma May <emmamay@mines.edu>
+Date:   Mon Apr 9 14:49:05 2018 -0600
+
+    Passing tests for createSuggestion with one room, one person or multiple rooms, multiple people. still must add functionality to check room
+
+commit fd4aa4f4301712ec84c7873e415a91e34f540748
+Author: Emma May <emmamay@mines.edu>
+Date:   Mon Apr 9 14:14:46 2018 -0600
+
+    Failing tests for creating suggestions for either if there is only one weapon/person left to guess, or multiple people/weapons
+
+commit a35ba9e75e0bcade032913559487ddd6c4b1dcb9
+Author: dshowman3413 <dshowman@mymail.mines.edu>
+Date:   Sun Apr 8 18:41:21 2018 -0600
+
+    Made failing disprove suggestion tests pass for Computer Player
+
+commit 1b83ffc0d30d31badff5a71f5b552c0b40cf82e9
+Author: dshowman3413 <dshowman@mymail.mines.edu>
+Date:   Sun Apr 8 18:19:36 2018 -0600
+
+    Made failing test for disprove suggestion for computer player
+
+commit 5d86fd23f63e3ef9e60865da2775cea5431d780b
+Author: dshowman3413 <dshowman@mymail.mines.edu>
+Date:   Sun Apr 8 18:01:31 2018 -0600
+
+    made failing check accusation tests pass by comparing the accusation to the true solution
+
+commit aefb1a561fde471d7a2807509d1ed5b74f3020d2
+Author: dshowman3413 <dshowman@mymail.mines.edu>
+Date:   Sun Apr 8 17:59:45 2018 -0600
+
+    failing test for 'check accusation' test
+
+commit 3948c5ea522e72e37f07f31a0925031862b984bf
+Author: Emma May <emmamay@mines.edu>
+Date:   Fri Apr 6 19:17:29 2018 -0600
+
+    Failing testMakeAccusation()
+
+commit b6105712b919c2e3822c348949007e69021f3a22
+Author: Emma May <emmamay@mines.edu>
+Date:   Fri Apr 6 16:51:14 2018 -0600
+
+    Added comments
+
+commit 9da0492de3d6594b3af51a98554ef9eb6c5e011a
+Author: Emma May <emmamay@mines.edu>
+Date:   Fri Apr 6 16:36:47 2018 -0600
+
+    Passed testTargetWithoutRoom(), the second part to checking locations
+
+commit aaa6b081dffc5475fa645ed4ffc539d03f7c8f5e
+Author: Emma May <emmamay@mines.edu>
+Date:   Fri Apr 6 16:26:21 2018 -0600
+
+    Passing testTargetNoRoom() test
+
+commit ecd4f2d06255454bae1955ad40ab67c9fbcd7c08
+Author: Emma May <emmamay@mines.edu>
+Date:   Fri Apr 6 16:12:48 2018 -0600
+
+    Failing test for testTargetNoRooms()
+
+commit 1affd38d01e57d7b536b254c25398f394949c214
+Author: Emma May <emmamay@mines.edu>
+Date:   Fri Apr 6 15:42:06 2018 -0600
+
+    Refactored code from Players Part 1
+
 commit 0a09705dd2870b3d4fa04e2b91173778920a0809
 Author: Emma May <emmamay@mines.edu>
 Date:   Wed Apr 4 14:42:50 2018 -0600
