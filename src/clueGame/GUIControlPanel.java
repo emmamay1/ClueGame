@@ -1,6 +1,23 @@
+/**
+ * 
+ * video refs:
+ * 1: intro to GUI
+ * 2: adding actionlistener, joptionpane
+ * 3: JPanel, flow layout
+ * 4: grid layout, different display options, drop downs, fonts
+ * 5: menus
+ * 6: communication between objects, focus listener
+ * 7: drawing
+ * 8: custom dialogs
+ * 9: mouse listeners
+ * 10: determining location of mouse click (which rectangle you clicked in)
+ * 
+ * 
+ * @author Dakota Showman
+ * @author Emma may
+ */
 package clueGame;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -20,13 +37,8 @@ public class GUIControlPanel extends JPanel{
 		whoseTurnPanel.add(createTextField(false, 20));
 		whoseTurnPanel.setSize(300, 125);
 		add(whoseTurnPanel);
-		JPanel nextPlayerButton = new JPanel();
-		nextPlayerButton.add(createButton("Next Player"));
-		nextPlayerButton.setSize(300, 125);
-		add(nextPlayerButton);
-		JPanel makeAccusationButton = new JPanel();
-		makeAccusationButton.add(createButton("Make an accusation"));
-		add(makeAccusationButton);
+		add(createButton("Next Player"));
+		add(createButton("Make an accusation"));
 		JPanel dieRollPanel = createLabeledBorderedTextField("Roll", "Die", 200, 125);
 		add(dieRollPanel);
 		JPanel guessPanel = createLabeledBorderedTextField("Guess", "Guess", 400, 125);
@@ -70,28 +82,6 @@ public class GUIControlPanel extends JPanel{
 		JTextField textField = new JTextField(size);
 		textField.setEditable(canEdit);
 		return textField;
-	}
-	
-	private JPanel createThreePartTextPanel(String textOne, String textTwo, String textThree) {
-		JPanel panel = new JPanel();
-		JLabel label1 = new JLabel(textOne);
-		JLabel label2 = new JLabel(textTwo);
-		JLabel label3 = new JLabel(textThree);
-		label1.setSize(300, 125);
-		label2.setSize(300, 125);
-		label3.setSize(300, 125);
-		label1.setBorder(new TitledBorder (new EtchedBorder(), textOne));
-		label2.setBorder(new TitledBorder (new EtchedBorder(), textTwo));
-		label3.setBorder(new TitledBorder (new EtchedBorder(), textThree));
-		panel.add(label1);
-		panel.add(label2);
-		panel.add(label3);
-		panel.setSize(900, 125);
-		
-		
-		
-		return panel;
-		
 	}
 
 	public static void main(String[] args) {
