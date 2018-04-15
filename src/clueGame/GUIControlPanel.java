@@ -47,7 +47,7 @@ public class GUIControlPanel extends JPanel{
 	
 	private JButton createButton(String title){
 		JButton nextButton = new JButton(title);
-		nextButton.setSize(300, 125);
+		nextButton.setSize(500, 125);
 		return nextButton;
 	}
 	
