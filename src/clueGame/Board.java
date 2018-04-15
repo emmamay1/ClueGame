@@ -162,7 +162,8 @@ public class Board {
 						break;
 					case 'N':
 						tempBoardCell.setDirection(DoorDirection.NONE);
-						tempBoardCell.setCellType(CellType.ROOM);
+						tempBoardCell.setCellType(CellType.DOORWAY);
+						tempBoardCell.setRoomName(legend.get(s.charAt(0)));
 						break;
 					}
 				}
