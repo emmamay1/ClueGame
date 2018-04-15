@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.awt.Color;
+import java.awt.Graphics;
 
 public class Player {
 	private String playerName;
@@ -18,6 +19,8 @@ public class Player {
 	private Color color;
 	private ArrayList<Card> myCards;
 	private ArrayList<Card> seenCards;
+	private static final int CELL_HEIGHT = 25;
+	private static final int CELL_WIDTH = 25;
 
 	public Player() {
 		super();
@@ -116,6 +119,13 @@ public class Player {
 
 	public ArrayList<Card> getSeenCards() {
 		return seenCards;
+	}
+	
+	public void draw(Graphics g) {
+		g.setColor(color);
+		g.fillOval(column * CELL_WIDTH, row * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
+		g.setColor(Color.BLACK);
+		g.drawOval(column * CELL_WIDTH, row * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
 	}
 
 	@Override

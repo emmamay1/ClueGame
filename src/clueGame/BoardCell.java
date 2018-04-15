@@ -6,12 +6,20 @@
  */
 package clueGame;
 
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Font;
+
 public class BoardCell {
 	private int row;
 	private int column;
 	private char initial;
 	private DoorDirection direction;
 	private CellType cellType;
+	private static final int CELL_HEIGHT = 25;
+	private static final int CELL_WIDTH = 25;
+	private static final int SMALL_RECT = 5;
+	private String roomName;
 	
 	
 	public BoardCell() {
@@ -84,6 +92,10 @@ public class BoardCell {
 		return (cellType == CellType.ROOM);
 	}
 	
+	public void setRoomName(String name) {
+		roomName = name;
+	}
+	
 	/**
 	 * checks if current cell is a doorway
 	 * @return true if it is a doorway, false otherwise
@@ -92,5 +104,40 @@ public class BoardCell {
 		return (cellType == CellType.DOORWAY);
 	}
 	
+	public void draw(Graphics g) {
+		if (isRoom()) {
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillRect(column * CELL_WIDTH, row * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
+		}
+		else if (isDoorway()) {
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillRect(column * CELL_WIDTH, row * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
+			if (direction == DoorDirection.UP) {
+				g.setColor(Color.BLUE);
+				g.fillRect(column * CELL_WIDTH, row * CELL_HEIGHT, CELL_WIDTH, SMALL_RECT);
+			}
+			else if (direction == DoorDirection.RIGHT) {
+				g.setColor(Color.BLUE);
+				g.fillRect(column * CELL_WIDTH + CELL_WIDTH - SMALL_RECT, row * CELL_HEIGHT, SMALL_RECT, CELL_HEIGHT);
+			}
+			else if (direction == DoorDirection.DOWN) {
+				g.setColor(Color.BLUE);
+				g.fillRect(column * CELL_WIDTH, row * CELL_HEIGHT + CELL_HEIGHT - SMALL_RECT, CELL_WIDTH, 5);
+			}
+			else if (direction == DoorDirection.LEFT) {
+				g.setColor(Color.BLUE);
+				g.fillRect(column * CELL_WIDTH, row * CELL_HEIGHT, SMALL_RECT, CELL_HEIGHT);
+			}
+			else {
+				g.setFont(new Font("SansSerif", Font.BOLD, 12));
+				g.setColor(Color.BLUE);
+				g.drawString(roomName, column * CELL_WIDTH, row * CELL_HEIGHT);
+			}
+		}
+		else {
+			g.setColor(Color.BLACK);
+			g.drawRect(column * CELL_WIDTH, row * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
+		}
+	}
 
 }
