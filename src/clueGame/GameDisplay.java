@@ -10,6 +10,7 @@ public class GameDisplay extends JFrame{
 		board = board.getInstance();
 		board.setConfigFiles("ClueBoardLayout.csv", "Rooms.txt", "People.txt", "Weapons.txt");
 		board.initialize();
+		board.deal();
 		setLayout(new BorderLayout());
 		GUIControlPanel controlPanel = new GUIControlPanel();
 		GameBoardPanel boardPanel = new GameBoardPanel(board);

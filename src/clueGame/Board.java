@@ -489,6 +489,14 @@ public class Board {
 	public ArrayList<String> getWeapons(){
 		return weapons;
 	}
+	public Player getHumanPlayer() {
+		for (Player p: players) {
+			if (p.getPlayerName().equals("Poor Student")) {
+				return p;
+			}
+		}
+		return null;
+	}
 	public Solution getTrueSolution(){
 		return trueSolution;
 	}
