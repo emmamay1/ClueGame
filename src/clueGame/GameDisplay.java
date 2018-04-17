@@ -3,6 +3,7 @@ package clueGame;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class GameDisplay extends JFrame{
 	private static Board board;
@@ -17,6 +18,7 @@ public class GameDisplay extends JFrame{
 		add(controlPanel, BorderLayout.SOUTH);
 		add(boardPanel, BorderLayout.CENTER);
 		add(cardPanel, BorderLayout.EAST);	
+		
 	}
 	
 	public static void main(String[] arg0) {
@@ -24,6 +26,6 @@ public class GameDisplay extends JFrame{
 		frame.setSize(1000, 1000);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
+		JOptionPane.showMessageDialog(frame, "You are Poor Student, press Next Player to begin", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
