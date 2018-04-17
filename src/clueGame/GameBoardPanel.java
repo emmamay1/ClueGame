@@ -16,6 +16,14 @@ public class GameBoardPanel extends JPanel{
 		super.paintComponent(g);;
 		for (int row = 0; row < board.getNumRows(); row++) {
 			for (int column = 0; column < board.getNumColumns(); column++) {
+				if (!board.getCellAt(row, column).isWalkway())
+				board.getCellAt(row, column).draw(g);
+			}
+		}
+		
+		for (int row = 0; row < board.getNumRows(); row++) {
+			for (int column = 0; column < board.getNumColumns(); column++) {
+				if (board.getCellAt(row, column).isWalkway())
 				board.getCellAt(row, column).draw(g);
 			}
 		}

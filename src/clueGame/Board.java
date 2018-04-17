@@ -171,7 +171,7 @@ public class Board {
 					if (s.charAt(0) == 'W') {
 						tempBoardCell.setCellType(CellType.WALKWAY);
 					}
-					else if(s.charAt(0) != 'X'){
+					else{
 						tempBoardCell.setCellType(CellType.ROOM);
 					}
 				}
