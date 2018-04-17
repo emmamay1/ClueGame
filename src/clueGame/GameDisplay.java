@@ -27,6 +27,6 @@ public class GameDisplay extends JFrame{
 		frame.setSize(1000, 1000);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		JOptionPane.showMessageDialog(frame, "You are Poor Student, press Next Player to begin", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(frame, "You are Poor Student (red), press Next Player to begin", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
