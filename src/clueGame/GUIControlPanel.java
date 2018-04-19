@@ -19,6 +19,8 @@
 package clueGame;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,15 +31,18 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 public class GUIControlPanel extends JPanel{
-
+	Board board;
 	public GUIControlPanel() {
+		board = board.getInstance();
 		setLayout(new GridLayout(2, 3));
 		JPanel whoseTurnPanel = new JPanel();
 		whoseTurnPanel.add(createTextLabel("Whose turn?"));
 		whoseTurnPanel.add(createTextField(false, 20));
 		whoseTurnPanel.setSize(300, 125);
 		add(whoseTurnPanel);
-		add(createButton("Next Player"));
+		JButton nextPlayerButton = createButton("Next Player");
+		nextPlayerButton.addActionListener(new ButtonListener());
+		add(nextPlayerButton);
 		add(createButton("Make an accusation"));
 		JPanel dieRollPanel = createLabeledBorderedTextField("Roll", "Die", 200, 125);
 		add(dieRollPanel);
@@ -93,7 +98,13 @@ public class GUIControlPanel extends JPanel{
 		GUIControlPanel guiControlPanel = new GUIControlPanel();
 		frame.add(guiControlPanel);
 		frame.setVisible(true);
-
 	}
+	
+	private class ButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			board.makeNextMove();
+		}
+	}
+	
 
 }

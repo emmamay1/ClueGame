@@ -436,6 +436,10 @@ public class Board {
 		return null;
 	}
 	
+	public void makeNextMove() {
+		System.out.println("hey nice work!");
+	}
+	
 	/**
 	 * checks if an accusation is correct
 	 * @param accusation

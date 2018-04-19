@@ -1,3 +1,99 @@
+commit 5c0a83f4627d2e25a630cf6a3334c0ffb92563ae
+Author: Dakota Showman <dshowman@mines.edu>
+Date:   Tue Apr 17 11:45:29 2018 -0600
+
+    Added '(red)' to the display message for the player
+
+commit 826bc116d756de4879333354d81fe30a999517ba
+Merge: b7e3aee f208184
+Author: Dakota Showman <dshowman@mines.edu>
+Date:   Tue Apr 17 11:43:47 2018 -0600
+
+    Merge branch 'master' of https://github.com/emmamay1/ClueGame
+
+commit b7e3aee357af02fd9afe6f9d1d948ccb3dc213d3
+Author: Dakota Showman <dshowman@mines.edu>
+Date:   Tue Apr 17 11:43:27 2018 -0600
+
+    Added cards to the yourCardsPanel so it displays the cards you are currently holding
+
+commit f208184d862f178898fc2203669682c5b2a1e81d
+Merge: 977d656 65937c1
+Author: Emma May <emmamay@mines.edu>
+Date:   Tue Apr 17 11:34:17 2018 -0600
+
+    Merge branch 'master' of https://github.com/emmamay1/ClueGame
+
+commit 977d65624a1eb197ba8838897c617748cb7c579f
+Author: Emma May <emmamay@mines.edu>
+Date:   Tue Apr 17 11:31:46 2018 -0600
+
+    Added Splash Screen to display at start of game
+
+commit 65937c123c4b168b2d984485a32f932de6a862b8
+Author: Dakota Showman <dshowman@mines.edu>
+Date:   Tue Apr 17 11:18:04 2018 -0600
+
+    Improved drawing of walkways so all cells are completely outlined
+
+commit 0a081fd53fef40ab1300c6329bd226e8825f5f9e
+Author: dshowman3413 <dshowman@mymail.mines.edu>
+Date:   Sun Apr 15 16:08:56 2018 -0600
+
+    Fixed merge issue in GameDisplay
+
+commit 18364a4a75ad8133d75b8c608a8aa6411c43bb50
+Merge: baef1e5 08edca6
+Author: Emma May <emmamay@mines.edu>
+Date:   Sun Apr 15 14:41:50 2018 -0600
+
+    Merge conflicts
+
+commit baef1e589025f32283a1822127149a6b256fa163
+Author: Emma May <emmamay@mines.edu>
+Date:   Sun Apr 15 14:38:32 2018 -0600
+
+    Cards Panel and Detective Notes
+
+commit 08edca6a50dde1528b6945db1ba9612f353f9ffe
+Author: Dakota Showman <dshowman@mines.edu>
+Date:   Sun Apr 15 13:59:23 2018 -0600
+
+    Created board panel so the game board shows up on the GUI
+
+commit ea38f404ed4c9f31cdd2ac6140ca79462cab1e0d
+Merge: 93fae30 07faa4f
+Author: Emma May <emmamay@mines.edu>
+Date:   Sun Apr 15 12:36:06 2018 -0600
+
+    Merge branch 'master' of https://github.com/emmamay1/ClueGame
+    
+    "merging for GUI"
+
+commit 93fae3021070e3cc4a5298deafde683deb384690
+Author: Emma May <emmamay@mines.edu>
+Date:   Sun Apr 15 12:35:58 2018 -0600
+
+    edited spacing
+
+commit 07faa4f940258f7222292437ce6641c36f05561e
+Author: Dakota Showman <dshowman@mines.edu>
+Date:   Thu Apr 12 12:10:26 2018 -0600
+
+    started on JFrame to display everything
+
+commit fc70f5ad1e6dc0a1a0696ad33d01bdbe9d86b2b6
+Author: dshowman3413 <dshowman@mymail.mines.edu>
+Date:   Wed Apr 11 15:43:31 2018 -0600
+
+    worked towards GUI control panel completion. Need to size buttons correctly and figure out how to change the size of the labeled panels in the bottom row
+
+commit ea30ddb549332e43cae94d59624fc804f63f8bdd
+Author: Emma May <emmamay@mines.edu>
+Date:   Tue Apr 10 22:51:39 2018 -0600
+
+    Beginning of GUI for Control Panel
+
 commit 4b36f10b8a67ab62f7bbb526441b10f34a584814
 Author: Emma May <emmamay@mines.edu>
 Date:   Tue Apr 10 11:46:53 2018 -0600
