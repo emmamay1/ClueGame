@@ -33,6 +33,7 @@ public class YourCardsPanel extends JPanel{
 		addDisplay("Weapons");
 		JButton detectiveNotes = new JButton("Detective Notes");
 		add(detectiveNotes);
+		dialog = new DetectiveDialog();
 		detectiveNotes.addActionListener(new ButtonListener());
 		
 	}
@@ -95,7 +96,6 @@ public class YourCardsPanel extends JPanel{
 	//Calls Detective Note dialog
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			dialog = new DetectiveDialog();
 			dialog.setVisible(true);
 		}
 	}
