@@ -19,11 +19,12 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 public class YourCardsPanel extends JPanel{
-	private DetectiveDialog dialog;
+	private DetectiveDialog dialog = new DetectiveDialog();
 	Player humanPlayer;
 	Board board;
 
 	public YourCardsPanel(){
+		dialog.setVisible(false);
 		board = board.getInstance();
 		humanPlayer = board.getHumanPlayer();
 		setLayout(new GridLayout(0, 1));
@@ -33,9 +34,7 @@ public class YourCardsPanel extends JPanel{
 		addDisplay("Weapons");
 		JButton detectiveNotes = new JButton("Detective Notes");
 		add(detectiveNotes);
-		dialog = new DetectiveDialog();
-		detectiveNotes.addActionListener(new ButtonListener());
-		
+		detectiveNotes.addActionListener(new ButtonListener());	
 	}
 	
 	public void addDisplay(String title){
@@ -93,7 +92,8 @@ public class YourCardsPanel extends JPanel{
 		add(panel);
 		
 	}
-	//Calls Detective Note dialog
+	
+	//When the Detective Notes button is pressed, the dialog will appear
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			dialog.setVisible(true);
