@@ -460,13 +460,18 @@ public class Board {
 			players.get(currentPlayersTurn).makeMove(targets);
 		}
 		else {
-			
+			int dieRoll = (int)((Math.random() * 6) + 1);
+			calcTargets(players.get(currentPlayersTurn).getRow(), players.get(currentPlayersTurn).getColumn(), dieRoll);
 		}
 		currentPlayersTurn++;
 		if (currentPlayersTurn == players.size()) {
 			currentPlayersTurn = 0;
 		}
 		frame.repaint();
+	}
+	
+	public boolean isHumanPlayersTurn() {
+		return currentPlayersTurn == 1;
 	}
 	
 	/**

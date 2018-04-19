@@ -7,6 +7,7 @@
 package clueGame;
 
 import java.awt.Graphics;
+import java.util.Set;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -102,6 +103,13 @@ public class BoardCell {
 	 */
 	public boolean isDoorway(){
 		return (cellType == CellType.DOORWAY);
+	}
+	
+	public void highlight(Graphics g) {
+		g.setColor(Color.CYAN);
+		g.fillRect(column * CELL_WIDTH, row * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
+		g.setColor(Color.BLACK);
+		g.drawRect(column * CELL_WIDTH, row * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
 	}
 	
 	public void draw(Graphics g) {
