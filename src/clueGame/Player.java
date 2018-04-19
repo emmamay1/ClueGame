@@ -12,15 +12,15 @@ import java.util.Set;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Player {
+public abstract class Player {
 	private String playerName;
 	private int row;
 	private int column;
 	private Color color;
 	private ArrayList<Card> myCards;
 	private ArrayList<Card> seenCards;
-	private static final int CELL_HEIGHT = 25;
-	private static final int CELL_WIDTH = 25;
+	private static final int CELL_HEIGHT = 24;
+	private static final int CELL_WIDTH = 24;
 
 	public Player() {
 		super();
@@ -81,6 +81,10 @@ public class Player {
 		}
 	}
 
+	public abstract boolean isHuman();
+	
+	public abstract void makeMove(Set<BoardCell> targets);
+	
 	public String getPlayerName() {
 		return playerName;
 	}

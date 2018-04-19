@@ -68,6 +68,12 @@ public class ComputerPlayer extends Player{
 		
 	}
 	
+	public void makeMove(Set<BoardCell> targets) {
+		BoardCell newLocation = pickLocation(targets);
+		this.setRow(newLocation.getRow());
+		this.setColumn(newLocation.getColumn());
+	}
+	
 	public Solution makeAccusation(){
 		return null;
 	}
@@ -93,6 +99,10 @@ public class ComputerPlayer extends Player{
 			suggestion.setPerson(notSeenPeople.get(rand).getName());
 		}
 		return suggestion;
+	}
+	
+	public boolean isHuman() {
+		return false;
 	}
 
 	public ArrayList<Card> getNotSeenWeapons() {

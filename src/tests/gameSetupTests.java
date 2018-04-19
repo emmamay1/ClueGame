@@ -81,20 +81,20 @@ public class gameSetupTests {
 	public void testLoadPeople() {
 		ArrayList<Player> players = board.getPlayers();
 		
-		Player baldwinTest = players.get(0);
+		Player baldwinTest = players.get(1);
 		assertEquals(baldwinTest.getPlayerName(), "Mark Baldwin");
 		assertTrue(baldwinTest.getColor() == Color.blue);
 		assertEquals(baldwinTest.getRow(), 0);
 		assertEquals(baldwinTest.getColumn(), 21);
 		
-		Player studentTest = players.get(5);
+		Player studentTest = players.get(0);
 		assertEquals(studentTest.getPlayerName(), "Poor Student");
 		assertTrue(studentTest.getColor() == Color.pink);
 		assertEquals(studentTest.getRow(), 9);
 		assertEquals(studentTest.getColumn(), 0);
 		
 		
-		Player cpwTest = players.get(3);
+		Player cpwTest = players.get(4);
 		assertEquals(cpwTest.getPlayerName(), "Christopher Painter-Wakefield");
 		assertTrue(cpwTest.getColor() == Color.yellow);
 		assertEquals(cpwTest.getRow(), 29);

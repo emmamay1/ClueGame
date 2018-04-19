@@ -16,6 +16,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.lang.reflect.Field;
 
@@ -23,6 +27,7 @@ public class Board {
 
 	private int numRows;
 	private int numColumns;
+	private int currentPlayersTurn;
 	private static final int MAX_BOARD_SIZE = 50;
 	private BoardCell[][] board;
 	private Map<Character, String> legend;
@@ -39,6 +44,7 @@ public class Board {
 	private ArrayList<String> weapons;
 	private ArrayList<String> rooms;
 	private ArrayList<Card> theEnvelope;
+	static GameDisplay frame;
 
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
@@ -64,6 +70,7 @@ public class Board {
 		players = new ArrayList<Player>();
 		board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
 		theEnvelope = new ArrayList<Card>();
+		currentPlayersTurn = 0;
 		try {
 			loadRoomConfig();
 			loadBoardConfig();
@@ -221,8 +228,15 @@ public class Board {
 			String type = temp.substring((secondComma+2), thirdComma);
 			String row = temp.substring((thirdComma+2), fourthComma);
 			String col = temp.substring(fourthComma+2);
-			Player nextPlayer = new Player(name, Integer.parseInt(row), Integer.parseInt(col), playerColor);
-			players.add(nextPlayer);
+			if (type.equals("H")) {
+				HumanPlayer nextHumanPlayer = new HumanPlayer(name, Integer.parseInt(row), Integer.parseInt(col), playerColor);
+				players.add(0, nextHumanPlayer);
+			}
+			else {
+				ComputerPlayer nextComputerPlayer = new ComputerPlayer(name, Integer.parseInt(row), Integer.parseInt(col), playerColor);
+				players.add(nextComputerPlayer);
+			}
+			
 		}
 	}
 	
@@ -437,7 +451,22 @@ public class Board {
 	}
 	
 	public void makeNextMove() {
-		System.out.println("hey nice work!");
+		//TODO: make work properly! That is, computer should move to a correct calculated position, and needs to display the options for the player and wait
+		//for them to make a correct choice
+		
+		if (!players.get(currentPlayersTurn).isHuman()) {
+			int dieRoll = (int)((Math.random() * 6) + 1);
+			calcTargets(players.get(currentPlayersTurn).getRow(), players.get(currentPlayersTurn).getColumn(), dieRoll);
+			players.get(currentPlayersTurn).makeMove(targets);
+		}
+		else {
+			
+		}
+		currentPlayersTurn++;
+		if (currentPlayersTurn == players.size()) {
+			currentPlayersTurn = 0;
+		}
+		frame.repaint();
 	}
 	
 	/**
@@ -447,6 +476,14 @@ public class Board {
 	 */
 	public boolean checkAccusation(Solution accusation) {
 		return trueSolution.equals(accusation);
+	}
+	
+	public static void main(String[] arg0) {
+		frame = new GameDisplay();
+		frame.setSize(1000, 1000);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		JOptionPane.showMessageDialog(frame, "You are Poor Student (red), press Next Player to begin", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	/*

@@ -1,6 +1,6 @@
 Mark Baldwin, blue, C, 0, 21
-Cyndi Raider, red, C, 10, 29
+Cyndi Raider, pink, C, 10, 29
 Jeffrey Paone, green, C, 19, 29
 Christopher Painter-Wakefield, yellow, C, 29, 19
 Tracy Camp, orange, C, 29, 7
-Poor Student, pink, H, 9, 0
+Poor Student, red, H, 9, 0

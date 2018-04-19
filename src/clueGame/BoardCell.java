@@ -16,8 +16,8 @@ public class BoardCell {
 	private char initial;
 	private DoorDirection direction;
 	private CellType cellType;
-	private static final int CELL_HEIGHT = 25;
-	private static final int CELL_WIDTH = 25;
+	private static final int CELL_HEIGHT = 24;
+	private static final int CELL_WIDTH = 24;
 	private static final int SMALL_RECT = 5;
 	private String roomName;
 	

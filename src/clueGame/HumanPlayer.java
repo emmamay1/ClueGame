@@ -7,6 +7,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.util.Set;
 
 public class HumanPlayer extends Player{
 
@@ -16,6 +17,16 @@ public class HumanPlayer extends Player{
 
 	public HumanPlayer(String playerName, int row, int column, Color color) {
 		super(playerName, row, column, color);
+	}
+	
+	public boolean isHuman() {
+		return true;
+	}
+
+	@Override
+	public void makeMove(Set<BoardCell> targets) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
