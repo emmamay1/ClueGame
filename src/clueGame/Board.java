@@ -47,6 +47,7 @@ public class Board{
 	private ArrayList<String> rooms;
 	private ArrayList<Card> theEnvelope;
 	static GameDisplay frame;
+	private boolean playerHasMoved = false;
 
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
@@ -102,7 +103,7 @@ public class Board{
 		rooms = new ArrayList<String>();
 		FileReader reader = new FileReader(roomConfigFile);
 		Scanner in = new Scanner(reader);
-		
+
 		while (in.hasNext()) {
 			String temp = in.nextLine();
 			Character tempchar = temp.charAt(0); //Gets char for room initial
@@ -130,27 +131,27 @@ public class Board{
 		catch (NullPointerException p) {
 			board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
 		}
-		
+
 		FileReader reader = new FileReader(boardConfigFile);
 		Scanner in = new Scanner(reader);
 		int row = 0;
 		int previousColumnNum = 0;
-		
+
 		while (in.hasNext()) {
 			String tempLine = in.nextLine();
 			String[] tempLineArr = tempLine.split(","); //Creates array of strings, breaking each string at a ','
 			int column = 0;
-			
+
 			for (String s: tempLineArr) {
 				if (!legend.containsKey(s.charAt(0))) {
 					throw new BadConfigFormatException("Room intial not in legend.");
 				}
-				
+
 				BoardCell tempBoardCell = new BoardCell();
 				tempBoardCell.setInitial(s.charAt(0));
 				tempBoardCell.setColumn(column);
 				tempBoardCell.setRow(row);
-				
+
 				if(s.length() == 2){
 					switch(s.charAt(1)){
 					case 'U': 
@@ -184,12 +185,12 @@ public class Board{
 						tempBoardCell.setCellType(CellType.ROOM);
 					}
 				}
-				
+
 				board[row][column] = tempBoardCell;
 				column++;
 				numColumns = column;
 			}
-			
+
 			if (row == 0) {
 				previousColumnNum = numColumns;
 			}
@@ -202,7 +203,7 @@ public class Board{
 			numRows = row;
 		}	
 	}
-	
+
 	/**
 	 * Loads configuration file for the players and stores them in the arrayList<Players>
 	 */
@@ -213,10 +214,10 @@ public class Board{
 		catch (NullPointerException p) {
 			players = new ArrayList<Player>();
 		}
-		
+
 		FileReader reader = new FileReader(playerConfigFile);
 		Scanner in = new Scanner(reader);
-		
+
 		while (in.hasNext()) {
 			String temp = in.nextLine();
 			//Parses the string to get each field
@@ -238,10 +239,10 @@ public class Board{
 				ComputerPlayer nextComputerPlayer = new ComputerPlayer(name, Integer.parseInt(row), Integer.parseInt(col), playerColor);
 				players.add(nextComputerPlayer);
 			}
-			
+
 		}
 	}
-	
+
 	/**
 	 * Converts string to color
 	 * @param strColor
@@ -257,7 +258,7 @@ public class Board{
 		}
 		return color;
 	}
-	
+
 	/**
 	 * Loads configuration file for the weapons and stores them in the arrayList<String>
 	 */
@@ -268,16 +269,16 @@ public class Board{
 		catch (NullPointerException p) {
 			weapons = new ArrayList<String>();
 		}
-		
+
 		FileReader reader = new FileReader(weaponConfigFile);
 		Scanner in = new Scanner(reader);
-		
+
 		while (in.hasNext()) {
 			String temp = in.nextLine();
 			weapons.add(temp);
 		}
 	}
-	
+
 	/**
 	 * Creates the deck of cards with 6 weapons, 6 people and 9 rooms
 	 */
@@ -287,18 +288,18 @@ public class Board{
 			Card temp = new Card(players.get(i).getPlayerName(), CardType.PLAYER);
 			cards.add(temp);
 		}
-		
+
 		for(int i = 0; i < weapons.size(); i++){
 			Card temp = new Card(weapons.get(i), CardType.WEAPON);
 			cards.add(temp);
 		}
-		
+
 		for(int i = 0; i < rooms.size(); i++){
 			Card temp = new Card(rooms.get(i), CardType.ROOM);
 			cards.add(temp);
 		}
 	}
-	
+
 	/**
 	 * Generates a random solution with one player, one weapon and one room, then removes those cards from the deck
 	 */
@@ -308,7 +309,7 @@ public class Board{
 		theEnvelope.add(cards.get(weapon));
 		theEnvelope.add(cards.get(room));
 	}
-	
+
 	/**
 	 * Shuffles the cards then deals the full deck to the players
 	 */
@@ -318,7 +319,7 @@ public class Board{
 		int randPlayer = (int)(Math.random()*players.size());
 		makeSolution(randPlayer, randWeapon, randRoom);
 		Collections.shuffle(cards);
-		
+
 		int i = 0;
 		for(Card c : cards){
 			if (!theEnvelope.contains(c)) {
@@ -330,12 +331,12 @@ public class Board{
 			}
 		}
 	}
-	
+
 	/**
 	 * Calculates adjacencies of each walkway
 	 */
 	public void calcAdjacencies() {
-		
+
 		for (int row = 0; row <= numRows - 1; row++) {
 			for (int column = 0; column <= numColumns - 1; column++) {
 				BoardCell c = board[row][column];
@@ -396,7 +397,7 @@ public class Board{
 		visited.add(cell);
 		findAllTargets(cell, pathLength);
 	}
-	
+
 	public void calcTargets(int row, int column, int pathLength) {
 		calcTargets(board[row][column], pathLength);
 	}
@@ -420,14 +421,14 @@ public class Board{
 			}
 		}
 	}
-	
+
 	/**
 	 * selects an answer from the 21 cards to be the solution
 	 */
 	public void selectAnswer() {
 		//TODO
 	}
-	
+
 	/**
 	 * given a suggestion, returns a card that disproves the suggestion (I think?)
 	 * @return
@@ -448,45 +449,38 @@ public class Board{
 			count++;
 			loc++;
 		}
-		
+
 		return null;
 	}
-	
+
 	public void makeNextMove() {
 		//TODO: make work properly! That is, computer should move to a correct calculated position, and needs to display the options for the player and wait
 		//for them to make a correct choice
+		
 		int dieRoll = (int)((Math.random() * 6) + 1);
 		frame.getControlPanel().updateDisplay(dieRoll, players.get(currentPlayersTurn).getPlayerName());
-		if (!players.get(currentPlayersTurn).isHuman()) {
-			calcTargets(players.get(currentPlayersTurn).getRow(), players.get(currentPlayersTurn).getColumn(), dieRoll);
-			players.get(currentPlayersTurn).makeMove(targets);
+		calcTargets(players.get(currentPlayersTurn).getRow(), players.get(currentPlayersTurn).getColumn(), dieRoll);
+		if (currentPlayersTurn == 0 && playerHasMoved) {
+			playerHasMoved = false;
 		}
-		else {
-			calcTargets(players.get(currentPlayersTurn).getRow(), players.get(currentPlayersTurn).getColumn(), dieRoll);
-			players.get(currentPlayersTurn).makeMove(targets);
+		players.get(currentPlayersTurn).makeMove(targets);
+		if (playerHasMoved) {
+			currentPlayersTurn++;
 		}
-		currentPlayersTurn++;
 		if (currentPlayersTurn == players.size()) {
 			currentPlayersTurn = 0;
 		}
 		frame.repaint();
 	}
-	
-	/**
-	 * 
-	 */
-	public void doHumanTurn(int row, int column){
-		//todo
-	}
-	
+
 	/**
 	 * 
 	 * @return
 	 */
 	public boolean isHumanPlayersTurn() {
-		return currentPlayersTurn == 1;
+		return currentPlayersTurn == 0;
 	}
-	
+
 	/**
 	 * checks if an accusation is correct
 	 * @param accusation
@@ -495,7 +489,7 @@ public class Board{
 	public boolean checkAccusation(Solution accusation) {
 		return trueSolution.equals(accusation);
 	}
-	
+
 	public static void main(String[] arg0) {
 		frame = new GameDisplay();
 		frame.setSize(1000, 1000);
@@ -503,7 +497,7 @@ public class Board{
 		frame.setVisible(true);
 		JOptionPane.showMessageDialog(frame, "You are Poor Student (red), press Next Player to begin", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
-	
+
 	/*
 	 * The following are all getters or setters
 	 */
@@ -543,7 +537,7 @@ public class Board{
 	}
 	public ArrayList<Card> getCards() {
 		return cards;
-		
+
 	}
 	public ArrayList<String> getWeapons(){
 		return weapons;
@@ -561,5 +555,17 @@ public class Board{
 	}
 	public void setTrueSolution(Solution solution) {
 		trueSolution = solution;
+	}
+	public boolean getPlayerMoveStatus() {
+		return playerHasMoved;
+	}
+	public void setPlayerHasMoved(boolean b) {
+		playerHasMoved = b;
+	}
+	public void repaint() {
+		frame.repaint();
+	}
+	public void incrementPlayerTurn() {
+		currentPlayersTurn++;
 	}
 }

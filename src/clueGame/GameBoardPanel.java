@@ -50,11 +50,23 @@ public class GameBoardPanel extends JPanel implements MouseListener{
 	public void mouseExited(MouseEvent e){}
 	public void mouseReleased(MouseEvent e){}
 	public void mousePressed(MouseEvent e){
-		BoardCell[][] pressed = new BoardCell[e.getX()][e.getY()];
-		if(board.getTargets().contains(pressed)){
-			board.doHumanTurn(e.getX(), e.getY());
+		BoardCell newHumanLocation = null;
+		boolean clickInTarget = false;
+		for (BoardCell b: board.getTargets()) {
+			if (b.containsClick(e.getX(), e.getY())) {
+				newHumanLocation = b;
+				clickInTarget = true;
+				break;
+			}
 		}
-		else{
+		if (clickInTarget) {
+			board.getHumanPlayer().setRow(newHumanLocation.getRow());
+			board.getHumanPlayer().setColumn(newHumanLocation.getColumn());
+			board.repaint();
+			board.incrementPlayerTurn();
+			board.setPlayerHasMoved(true);
+		}
+		else {
 			JOptionPane.showMessageDialog(this, "Not a valid target.");
 		}
 	}

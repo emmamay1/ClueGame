@@ -7,6 +7,7 @@
 package clueGame;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Set;
 import java.awt.Color;
 import java.awt.Font;
@@ -146,6 +147,11 @@ public class BoardCell {
 			g.setColor(Color.BLACK);
 			g.drawRect(column * CELL_WIDTH, row * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
 		}
+	}
+	
+	public boolean containsClick(int x, int y) {
+		Rectangle checkBox = new Rectangle(column * CELL_WIDTH, row * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
+		return (checkBox.contains(x, y));
 	}
 
 }
