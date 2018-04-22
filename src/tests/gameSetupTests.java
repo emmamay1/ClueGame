@@ -89,7 +89,7 @@ public class gameSetupTests {
 		
 		Player studentTest = players.get(0);
 		assertEquals(studentTest.getPlayerName(), "Poor Student");
-		assertTrue(studentTest.getColor() == Color.pink);
+		assertTrue(studentTest.getColor() == Color.red);
 		assertEquals(studentTest.getRow(), 9);
 		assertEquals(studentTest.getColumn(), 0);
 		

@@ -7,19 +7,27 @@ import javax.swing.JOptionPane;
 
 public class GameDisplay extends JFrame{
 	private static Board board;
+	private GUIControlPanel controlPanel;
+	private GameBoardPanel boardPanel;
+	private YourCardsPanel cardPanel;
+	
 	public GameDisplay() {
 		board = board.getInstance();
 		board.setConfigFiles("ClueBoardLayout.csv", "Rooms.txt", "People.txt", "Weapons.txt");
 		board.initialize();
 		board.deal();
 		setLayout(new BorderLayout());
-		GUIControlPanel controlPanel = new GUIControlPanel();
-		GameBoardPanel boardPanel = new GameBoardPanel(board);
-		YourCardsPanel cardPanel = new YourCardsPanel();
+		controlPanel = new GUIControlPanel();
+		boardPanel = new GameBoardPanel(board);
+		cardPanel = new YourCardsPanel();
 		add(controlPanel, BorderLayout.SOUTH);
 		add(boardPanel, BorderLayout.CENTER);
 		add(cardPanel, BorderLayout.EAST);	
 		
+	}
+	
+	public GUIControlPanel getControlPanel(){
+		return controlPanel;
 	}
 	
 	/*public static void main(String[] arg0) {

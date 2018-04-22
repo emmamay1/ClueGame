@@ -21,6 +21,7 @@ package clueGame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,34 +33,40 @@ import javax.swing.border.TitledBorder;
 
 public class GUIControlPanel extends JPanel{
 	Board board;
+	private JPanel whoseTurnPanel;
+	private JPanel dieRollPanel;
+	private JPanel guessPanel;
+	private JPanel guessResultPanel;
+	private JTextField whoseTurnField;
+	private JTextField rollField;
+	private JTextField guessField;
+	private JTextField responseField;
+	
 	public GUIControlPanel() {
 		board = board.getInstance();
 		setLayout(new GridLayout(2, 3));
-		JPanel whoseTurnPanel = new JPanel();
+		
+		whoseTurnPanel = new JPanel();
 		whoseTurnPanel.add(createTextLabel("Whose turn?"));
-		whoseTurnPanel.add(createTextField(false, 20));
+		whoseTurnField = createTextField(false, 20);
+		whoseTurnPanel.add(whoseTurnField);
 		whoseTurnPanel.setSize(300, 125);
 		add(whoseTurnPanel);
+		
 		JButton nextPlayerButton = createButton("Next Player");
 		nextPlayerButton.addActionListener(new ButtonListener());
 		add(nextPlayerButton);
 		add(createButton("Make an accusation"));
-		JPanel dieRollPanel = createLabeledBorderedTextField("Roll", "Die", 200, 125);
-		add(dieRollPanel);
-		JPanel guessPanel = createLabeledBorderedTextField("Guess", "Guess", 400, 125);
-		add(guessPanel);
-		JPanel guessResultPanel = createLabeledBorderedTextField("Response", "Guess Result", 300, 125);
-		add(guessResultPanel);
-		/*JPanel textPanel = new JPanel();
-		textPanel.add(createTextLabel("Whose turn?"));
-		add(textPanel);
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.add(createButton("Next player"));
-		buttonPanel.add(createButton("Make an accusation"));
-		add(buttonPanel);
-		JPanel panelOfThree = createThreePartTextPanel("Die", "Guess", "Guess Result");
-		add(panelOfThree, BorderLayout.SOUTH);*/
 		
+		rollField = createTextField(false, 10);
+		dieRollPanel = createLabeledBorderedTextField("Roll", "Die", 200, 125, rollField);
+		add(dieRollPanel);
+		guessField = createTextField(false, 10);
+		guessPanel = createLabeledBorderedTextField("Guess", "Guess", 400, 125, guessField);
+		add(guessPanel);
+		responseField = createTextField(false, 10);
+		guessResultPanel = createLabeledBorderedTextField("Response", "Guess Result", 300, 125, responseField);
+		add(guessResultPanel);
 	}
 	
 	private JButton createButton(String title){
@@ -73,13 +80,13 @@ public class GUIControlPanel extends JPanel{
 		return label;
 	}
 	
-	private JPanel createLabeledBorderedTextField(String text, String borderText, int width, int height) {
+	private JPanel createLabeledBorderedTextField(String text, String borderText, int width, int height, JTextField textField) {
 		JPanel panel = new JPanel();
 		JLabel label = new JLabel(text);
 		label.setSize(width, height);
 		panel.setBorder(new TitledBorder (new EtchedBorder(), borderText));
 		panel.add(label);
-		panel.add(createTextField(false, width/50));
+		panel.add(textField);
 		return panel;
 	}
 	
@@ -104,6 +111,11 @@ public class GUIControlPanel extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			board.makeNextMove();
 		}
+	}
+	
+	public void updateDisplay(int dieRoll, String whoseTurn){
+		whoseTurnField.setText(whoseTurn);
+		rollField.setText(Integer.toString(dieRoll));
 	}
 	
 

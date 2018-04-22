@@ -453,14 +453,13 @@ public class Board {
 	public void makeNextMove() {
 		//TODO: make work properly! That is, computer should move to a correct calculated position, and needs to display the options for the player and wait
 		//for them to make a correct choice
-		
+		int dieRoll = (int)((Math.random() * 6) + 1);
+		frame.getControlPanel().updateDisplay(dieRoll, players.get(currentPlayersTurn).getPlayerName());
 		if (!players.get(currentPlayersTurn).isHuman()) {
-			int dieRoll = (int)((Math.random() * 6) + 1);
 			calcTargets(players.get(currentPlayersTurn).getRow(), players.get(currentPlayersTurn).getColumn(), dieRoll);
 			players.get(currentPlayersTurn).makeMove(targets);
 		}
 		else {
-			int dieRoll = (int)((Math.random() * 6) + 1);
 			calcTargets(players.get(currentPlayersTurn).getRow(), players.get(currentPlayersTurn).getColumn(), dieRoll);
 		}
 		currentPlayersTurn++;
