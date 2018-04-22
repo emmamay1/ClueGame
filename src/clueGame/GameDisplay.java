@@ -2,8 +2,9 @@ package clueGame;
 
 import java.awt.BorderLayout;
 
+
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+
 
 public class GameDisplay extends JFrame{
 	private static Board board;
@@ -22,7 +23,8 @@ public class GameDisplay extends JFrame{
 		cardPanel = new YourCardsPanel();
 		add(controlPanel, BorderLayout.SOUTH);
 		add(boardPanel, BorderLayout.CENTER);
-		add(cardPanel, BorderLayout.EAST);	
+		add(cardPanel, BorderLayout.EAST);
+		boardPanel.addMouseListener(null);
 		
 	}
 	
@@ -30,11 +32,5 @@ public class GameDisplay extends JFrame{
 		return controlPanel;
 	}
 	
-	/*public static void main(String[] arg0) {
-		GameDisplay frame = new GameDisplay();
-		frame.setSize(1000, 1000);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-		JOptionPane.showMessageDialog(frame, "You are Poor Student (red), press Next Player to begin", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
-	}*/
+	
 }

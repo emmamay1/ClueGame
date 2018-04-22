@@ -21,9 +21,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.lang.reflect.Field;
 
-public class Board {
+public class Board{
 
 	private int numRows;
 	private int numColumns;
@@ -461,6 +463,7 @@ public class Board {
 		}
 		else {
 			calcTargets(players.get(currentPlayersTurn).getRow(), players.get(currentPlayersTurn).getColumn(), dieRoll);
+			players.get(currentPlayersTurn).makeMove(targets);
 		}
 		currentPlayersTurn++;
 		if (currentPlayersTurn == players.size()) {
@@ -469,6 +472,17 @@ public class Board {
 		frame.repaint();
 	}
 	
+	/**
+	 * 
+	 */
+	public void doHumanTurn(int row, int column){
+		//todo
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isHumanPlayersTurn() {
 		return currentPlayersTurn == 1;
 	}

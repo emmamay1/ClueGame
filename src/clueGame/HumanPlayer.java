@@ -25,7 +25,7 @@ public class HumanPlayer extends Player{
 
 	@Override
 	public void makeMove(Set<BoardCell> targets) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
