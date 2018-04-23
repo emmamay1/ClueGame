@@ -27,8 +27,8 @@ public class GameBoardPanel extends JPanel implements MouseListener{
 		
 		for (int row = 0; row < board.getNumRows(); row++) {
 			for (int column = 0; column < board.getNumColumns(); column++) {
-				if (board.getCellAt(row, column).isWalkway()) {
-					if (board.getTargets().contains(board.getCellAt(row, column)) && board.isHumanPlayersTurn()) {
+				if (board.getCellAt(row, column).isWalkway() || board.getCellAt(row, column).isDoorway()) {
+					if (board.getTargets().contains(board.getCellAt(row, column)) && !board.getPlayerMoveStatus()) {
 						board.getCellAt(row, column).highlight(g);
 					}
 					else {

@@ -47,7 +47,8 @@ public class Board{
 	private ArrayList<String> rooms;
 	private ArrayList<Card> theEnvelope;
 	static GameDisplay frame;
-	private boolean playerHasMoved = false;
+	private boolean playerHasMoved = true;
+	private static int dieRoll = 0;
 
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
@@ -457,7 +458,9 @@ public class Board{
 		//TODO: make work properly! That is, computer should move to a correct calculated position, and needs to display the options for the player and wait
 		//for them to make a correct choice
 		
-		int dieRoll = (int)((Math.random() * 6) + 1);
+		if (playerHasMoved) {
+			dieRoll = (int)((Math.random() * 6) + 1);
+		}
 		frame.getControlPanel().updateDisplay(dieRoll, players.get(currentPlayersTurn).getPlayerName());
 		calcTargets(players.get(currentPlayersTurn).getRow(), players.get(currentPlayersTurn).getColumn(), dieRoll);
 		if (currentPlayersTurn == 0 && playerHasMoved) {
@@ -466,6 +469,7 @@ public class Board{
 		players.get(currentPlayersTurn).makeMove(targets);
 		if (playerHasMoved) {
 			currentPlayersTurn++;
+			targets.clear();
 		}
 		if (currentPlayersTurn == players.size()) {
 			currentPlayersTurn = 0;
