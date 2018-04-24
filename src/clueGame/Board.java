@@ -42,6 +42,7 @@ public class Board{
 	private String weaponConfigFile;
 	private Solution trueSolution;
 	private ArrayList<Player> players;
+	private ArrayList<ComputerPlayer> computerPlayers;
 	private ArrayList<Card> cards;
 	private ArrayList<String> weapons;
 	private ArrayList<String> rooms;
@@ -72,6 +73,7 @@ public class Board{
 		adjMatrix = new HashMap<BoardCell, Set<BoardCell>>();
 		legend = new HashMap<Character, String>();
 		players = new ArrayList<Player>();
+		computerPlayers = new ArrayList<ComputerPlayer>();
 		board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
 		theEnvelope = new ArrayList<Card>();
 		currentPlayersTurn = 0;
@@ -239,6 +241,7 @@ public class Board{
 			else {
 				ComputerPlayer nextComputerPlayer = new ComputerPlayer(name, Integer.parseInt(row), Integer.parseInt(col), playerColor);
 				players.add(nextComputerPlayer);
+				computerPlayers.add(nextComputerPlayer);
 			}
 
 		}
@@ -309,6 +312,12 @@ public class Board{
 		theEnvelope.add(cards.get(player));
 		theEnvelope.add(cards.get(weapon));
 		theEnvelope.add(cards.get(room));
+		for (Player p: players) {
+			if (!p.isHuman()) {
+				((ComputerPlayer) p).getNotSeenWeapons().add(cards.get(weapon));
+				((ComputerPlayer) p).getNotSeenPeople().add(cards.get(player));
+			}
+		}
 	}
 
 	/**
@@ -320,7 +329,18 @@ public class Board{
 		int randPlayer = (int)(Math.random()*players.size());
 		makeSolution(randPlayer, randWeapon, randRoom);
 		Collections.shuffle(cards);
-
+		
+		for (Card c: cards) {
+			for (ComputerPlayer p: computerPlayers) {
+				if (c.getType() == CardType.WEAPON) {
+					p.getNotSeenWeapons().add(c);
+				}
+				if (c.getType() == CardType.PLAYER) {
+					p.getNotSeenPeople().add(c);
+				}
+			}
+		}
+		
 		int i = 0;
 		for(Card c : cards){
 			if (!theEnvelope.contains(c)) {
@@ -328,6 +348,9 @@ public class Board{
 					i = 0;
 				}
 				players.get(i).getMyCards().add(c);
+				if (!players.get(i).isHuman()) {
+					removeNotSeenCard(c, (ComputerPlayer) players.get(i));
+				}
 				i++;
 			}
 		}
@@ -467,6 +490,26 @@ public class Board{
 			playerHasMoved = false;
 		}
 		players.get(currentPlayersTurn).makeMove(targets);
+		if (!players.get(currentPlayersTurn).isHuman()) {
+			if (board[players.get(currentPlayersTurn).getRow()][players.get(currentPlayersTurn).getColumn()].isDoorway()) {
+				//TODO: update control panel
+				Solution computerGuess = ((ComputerPlayer) players.get(currentPlayersTurn)).createSuggestion();
+				String playerToMove = computerGuess.getPerson();
+				Card solutionDisproval = handleSuggestion(computerGuess, players.get(currentPlayersTurn), players);
+				if (solutionDisproval != null) {
+					removeNotSeenCard(solutionDisproval);
+				}
+				else {
+					((ComputerPlayer) players.get(currentPlayersTurn)).setGuessIsCorrect(true);
+				}
+				for (Player p: players) {
+					if (p.getPlayerName().equals(playerToMove)) {
+						p.setRow(players.get(currentPlayersTurn).getRow());
+						p.setColumn(players.get(currentPlayersTurn).getColumn());
+					}
+				}
+			}
+		}
 		if (playerHasMoved) {
 			currentPlayersTurn++;
 			targets.clear();
@@ -494,6 +537,35 @@ public class Board{
 		return trueSolution.equals(accusation);
 	}
 
+	/**
+	 * removes the card from the computers not seen list
+	 * @param card
+	 */
+	public void removeNotSeenCard(Card card) {
+		for (Player p: players) {
+			if (card.getType() == CardType.WEAPON) {
+				if (!p.isHuman()) {
+					((ComputerPlayer) p).getNotSeenWeapons().remove(card);
+				}
+			}
+			else if (card.getType() == CardType.PLAYER) {
+				if (!p.isHuman()) {
+					((ComputerPlayer) p).getNotSeenPeople().remove(card);
+				}
+			}
+			
+		}
+	}
+	
+	public void removeNotSeenCard(Card card, ComputerPlayer player) {
+		if (card.getType() == CardType.WEAPON) {
+			player.getNotSeenWeapons().remove(card);
+		}
+		if (card.getType() == CardType.PLAYER) {
+			player.getNotSeenPeople().remove(card);
+		}
+	}
+	
 	public static void main(String[] arg0) {
 		frame = new GameDisplay();
 		frame.setSize(1000, 1000);
@@ -501,6 +573,8 @@ public class Board{
 		frame.setVisible(true);
 		JOptionPane.showMessageDialog(frame, "You are Poor Student (red), press Next Player to begin", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
+	
+	
 
 	/*
 	 * The following are all getters or setters

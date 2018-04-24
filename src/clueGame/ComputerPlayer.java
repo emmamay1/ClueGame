@@ -13,10 +13,11 @@ import java.util.Set;
 import java.awt.Color;
 
 public class ComputerPlayer extends Player{
-	char lastRoom;
-	ArrayList<Card> notSeenWeapons;
-	ArrayList<Card> notSeenPeople;
-	Map<Character, String> legend;
+	private char lastRoom;
+	private ArrayList<Card> notSeenWeapons;
+	private ArrayList<Card> notSeenPeople;
+	private Map<Character, String> legend;
+	private boolean guessIsCorrect = false;
 
 	public ComputerPlayer() {
 		super();
@@ -74,7 +75,7 @@ public class ComputerPlayer extends Player{
 		this.setColumn(newLocation.getColumn());
 	}
 	
-	public Solution makeAccusation(){
+	public Solution makeAccusation(Solution solution){
 		return null;
 	}
 	
@@ -118,5 +119,9 @@ public class ComputerPlayer extends Player{
 	
 	public String getRoom(){
 		return legend.get(lastRoom);
+	}
+	
+	public void setGuessIsCorrect(boolean guess) {
+		guessIsCorrect = guess;
 	}
 }
