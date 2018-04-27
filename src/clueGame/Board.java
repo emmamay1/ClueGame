@@ -486,11 +486,26 @@ public class Board{
 		if (currentPlayersTurn == 0 && playerHasMoved) {
 			playerHasMoved = false;
 		}
+		if (!players.get(currentPlayersTurn).isHuman() && ((ComputerPlayer) players.get(currentPlayersTurn)).getGuessIsCorrect()) {
+			Solution computerSolution = ((ComputerPlayer) players.get(currentPlayersTurn)).makeAccusation();
+			if (handleSuggestion(computerSolution, players.get(currentPlayersTurn), players) == null) {
+				setWinner(players.get(currentPlayersTurn));
+			}
+		}
 		players.get(currentPlayersTurn).makeMove(targets);
 		if (!players.get(currentPlayersTurn).isHuman()) {
 			if (board[players.get(currentPlayersTurn).getRow()][players.get(currentPlayersTurn).getColumn()].isDoorway()) {
 				//TODO: update control panel, make proper suggestion
 				Solution computerGuess = ((ComputerPlayer) players.get(currentPlayersTurn)).createSuggestion(true);
+				frame.getControlPanel().setGuess(computerGuess);
+				computerGuess.print();
+				for (Player p: players) {
+					if (p.getPlayerName().equals(computerGuess.person)) {
+						p.setRow(players.get(currentPlayersTurn).getRow());
+						p.setColumn(players.get(currentPlayersTurn).getColumn());
+					}
+				}
+				
 				Card guessDisproval = handleSuggestion(computerGuess, players.get(currentPlayersTurn), players);
 				if (guessDisproval == null) {
 					((ComputerPlayer) players.get(currentPlayersTurn)).setGuessIsCorrect(true);
@@ -501,6 +516,7 @@ public class Board{
 							p.getSeenCards().add(guessDisproval);
 						}
 					}
+					frame.getControlPanel().setResponse(guessDisproval.getName());
 				}
 				
 				
@@ -514,6 +530,10 @@ public class Board{
 			currentPlayersTurn = 0;
 		}
 		frame.repaint();
+	}
+	
+	public void setWinner(Player p) {
+		
 	}
 	
 	/**

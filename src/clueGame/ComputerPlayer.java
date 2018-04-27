@@ -19,6 +19,7 @@ public class ComputerPlayer extends Player{
 	private ArrayList<Card> allCards;
 	private Map<Character, String> legend;
 	private boolean guessIsCorrect = false;
+	private Solution lastSolution;
 
 	public ComputerPlayer() {
 		super();
@@ -76,8 +77,8 @@ public class ComputerPlayer extends Player{
 		this.setColumn(newLocation.getColumn());
 	}
 	
-	public Solution makeAccusation(Solution solution){
-		return null;
+	public Solution makeAccusation(){
+		return lastSolution;
 	}
 	
 	public Solution createSuggestion(boolean setNewNotSeenCards){
@@ -104,6 +105,7 @@ public class ComputerPlayer extends Player{
 			int rand = (int)(Math.random()*notSeenPeople.size());
 			suggestion.setPerson(notSeenPeople.get(rand).getName());
 		}
+		lastSolution = suggestion;
 		return suggestion;
 	}
 	
@@ -146,5 +148,9 @@ public class ComputerPlayer extends Player{
 	
 	public void setGuessIsCorrect(boolean guess) {
 		guessIsCorrect = guess;
+	}
+	
+	public boolean getGuessIsCorrect() {
+		return guessIsCorrect;
 	}
 }
