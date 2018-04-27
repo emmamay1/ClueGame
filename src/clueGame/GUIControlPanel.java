@@ -56,7 +56,10 @@ public class GUIControlPanel extends JPanel{
 		JButton nextPlayerButton = createButton("Next Player");
 		nextPlayerButton.addActionListener(new ButtonListener());
 		add(nextPlayerButton);
-		add(createButton("Make an accusation"));
+		JButton accusationButton = createButton("Make an accusation");
+		add(accusationButton);
+		accusationButton.addActionListener(new AccusationListener());
+		
 		
 		rollField = createTextField(false, 10);
 		dieRollPanel = createLabeledBorderedTextField("Roll", "Die", 200, 125, rollField);
@@ -67,6 +70,14 @@ public class GUIControlPanel extends JPanel{
 		responseField = createTextField(false, 10);
 		guessResultPanel = createLabeledBorderedTextField("Response", "Guess Result", 300, 125, responseField);
 		add(guessResultPanel);
+	}
+	
+	private class AccusationListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			board.handleAccusation();
+			
+		}
+		
 	}
 	
 	private JButton createButton(String title){

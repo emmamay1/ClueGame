@@ -533,7 +533,7 @@ public class Board{
 	}
 	
 	public void setWinner(Player p) {
-		
+		JOptionPane.showMessageDialog(frame, "Congrats! You won! The solution is " + trueSolution.person + " in " + trueSolution.room + " with " + trueSolution.weapon);
 	}
 	
 	/**
@@ -543,7 +543,6 @@ public class Board{
 		BoardCell current = getPlayersCell(players.get(currentPlayersTurn));
 		String roomName = legend.get(current.getInitial());
 		if(current.isDoorway() || current.isRoom()){
-			//JPanel guess = makeGuessPane(roomName);
 			JPanel guessPanel = new JPanel();
 			guessPanel.setLayout(new GridLayout(4, 2));
 			JTextField room = new JTextField("Your Room");
@@ -573,12 +572,67 @@ public class Board{
 			playerGuess.setRoom(roomName);
 			playerGuess.setPerson(personGuess);
 			playerGuess.setWeapon(weaponsGuess);
-			this.handleSuggestion(playerGuess, getHumanPlayer(), players);
+			Card disprove = this.handleSuggestion(playerGuess, getHumanPlayer(), players);
+			if(disprove == null){
+				frame.getControlPanel().setResponse("No new disprove");
+			}
+			else{
+				frame.getControlPanel().setResponse(disprove.getName());
+			}
+			frame.getControlPanel().setGuess(playerGuess);
 		}
 	}
 	
 	public BoardCell getPlayersCell(Player player){
 		return board[player.getRow()][player.getColumn()];
+	}
+	
+	public void handleAccusation(){
+		if(currentPlayersTurn == 0 && !playerHasMoved){
+			JPanel guessPanel = new JPanel();
+			guessPanel.setLayout(new GridLayout(4, 2));
+			JTextField room = new JTextField("Room");
+			room.setEditable(false);
+			guessPanel.add(room);
+			String[] rooms = {"Darwin", "Mac", "FreeBSD", "Linux", "Windows", "NetBSD", "OpenBSD", "QNX", "Solaris"};
+			JComboBox<String> roomCombo = new JComboBox<String>(rooms);
+			guessPanel.add(roomCombo);
+			JTextField person = new JTextField("Person");
+			person.setEditable(false);
+			guessPanel.add(person);
+			String[] people = {"Mark Baldwin", "Cyndi Raider", "Jeffrey Paone", "Christoper Painter-Wakefield", "Tracy Camp", "Poor Student"};
+			JComboBox<String> peopleCombo = new JComboBox<String>(people);
+			guessPanel.add(peopleCombo);
+			JTextField weapon = new JTextField("Weapon");
+			weapon.setEditable(false);
+			guessPanel.add(weapon);
+			String[] weapons = {"C++", "Java", "Python", "MIPS", "HTML", "PHP"};
+			JComboBox<String> weaponsCombo = new JComboBox<String>(weapons);
+			guessPanel.add(weaponsCombo);
+			guessPanel.setVisible(true);
+			String[] buttons = {"Submit", "Cancel"};
+			int result = JOptionPane.showOptionDialog(frame, guessPanel, "Make an Accusation", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, buttons, buttons[0]);
+			if(result == JOptionPane.DEFAULT_OPTION){
+				String personGuess = (String) peopleCombo.getSelectedItem();
+				String weaponsGuess = (String) weaponsCombo.getSelectedItem();
+				String roomGuess = (String) roomCombo.getSelectedItem();
+				Solution playerGuess = new Solution();
+				playerGuess.setRoom(roomGuess);
+				playerGuess.setPerson(personGuess);
+				playerGuess.setWeapon(weaponsGuess);
+				Card disprove = this.handleSuggestion(playerGuess, getHumanPlayer(), players);
+				if(disprove == null){
+					setWinner(getHumanPlayer());
+				}
+				else{
+					JOptionPane.showMessageDialog(frame, "Your accusation is not correct.");
+				}
+			}
+
+		}
+		else{
+			JOptionPane.showMessageDialog(frame, "You cannot make an accusation at this time.");
+		}
 	}
 
 	/**
