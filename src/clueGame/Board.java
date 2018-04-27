@@ -442,14 +442,7 @@ public class Board{
 	}
 
 	/**
-	 * selects an answer from the 21 cards to be the solution
-	 */
-	public void selectAnswer() {
-		//TODO
-	}
-
-	/**
-	 * given a suggestion, returns a card that disproves the suggestion (I think?)
+	 * given a suggestion, returns a card that disproves the suggestion
 	 * @return
 	 */
 	public Card handleSuggestion(Solution s, Player accuser, ArrayList<Player> people) {
@@ -475,9 +468,11 @@ public class Board{
 		return null;
 	}
 
+	/**
+	 * Updates control panel with die roll and player suggestion (if applicable)
+	 * Checks for a winner, moves computer players, calls methods to check accusations or suggestions made
+	 */
 	public void makeNextMove() {
-		//TODO: make work properly! That is, computer should move to a correct calculated position, and needs to display the options for the player and wait
-		//for them to make a correct choice
 		if (playerHasMoved) {
 			dieRoll = (int)((Math.random() * 6) + 1);
 		}
@@ -499,7 +494,6 @@ public class Board{
 		players.get(currentPlayersTurn).makeMove(targets);
 		if (!players.get(currentPlayersTurn).isHuman()) {
 			if (board[players.get(currentPlayersTurn).getRow()][players.get(currentPlayersTurn).getColumn()].isDoorway()) {
-				//TODO: update control panel, make proper suggestion
 				Solution computerGuess = ((ComputerPlayer) players.get(currentPlayersTurn)).createSuggestion(true);
 				frame.getControlPanel().setGuess(computerGuess);
 				computerGuess.print();
@@ -523,8 +517,6 @@ public class Board{
 					}
 					frame.getControlPanel().setResponse(guessDisproval.getName());
 				}
-				
-				
 			}
 		}
 		if (playerHasMoved) {
@@ -537,18 +529,25 @@ public class Board{
 		frame.repaint();
 	}
 	
+	/**
+	 * Displays message with the game winner
+	 * @param p the winning player
+	 */
 	public void setWinner(Player p) {
 		JOptionPane.showMessageDialog(frame, "Congrats! You won! The solution is " + trueSolution.person + " in " + trueSolution.room + " with " + trueSolution.weapon);
 	}
 	
+	/**
+	 * Displays message when a computer players makes an incorrect accusation
+	 * @param solution
+	 * @param accuser
+	 */
 	public void displayWrongAccusation(Solution solution, Player accuser) {
 		JOptionPane.showMessageDialog(frame, accuser.getPlayerName() + " accused incorrectly. They guessed it was " + solution.person + " in " + solution.room + " with " + solution.weapon);
 	}
 	
-	
-	
 	/**
-	 * 
+	 * If the human player moves into a room, will display an option for the player to make a suggestion and receive the card feedback
 	 */
 	public void doHumanTurn(){
 		targets.clear();
@@ -595,10 +594,19 @@ public class Board{
 		}
 	}
 	
+	/**
+	 * returns the players current board cell
+	 * @param player
+	 * @return
+	 */
 	public BoardCell getPlayersCell(Player player){
 		return board[player.getRow()][player.getColumn()];
 	}
 	
+	/**
+	 * Displays a box for the human player to create an accusation.
+	 * Recieves the data from the player's accusation and handles it and displays appropriate response whether they are right or wrong
+	 */
 	public void handleAccusation(){
 		if(currentPlayersTurn == 0 && !playerHasMoved){
 			JPanel guessPanel = new JPanel();
@@ -624,7 +632,7 @@ public class Board{
 			guessPanel.setVisible(true);
 			String[] buttons = {"Submit", "Cancel"};
 			int result = JOptionPane.showOptionDialog(frame, guessPanel, "Make an Accusation", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, buttons, buttons[0]);
-			if(result == JOptionPane.DEFAULT_OPTION){
+			if(result == 0){
 				String personGuess = (String) peopleCombo.getSelectedItem();
 				String weaponsGuess = (String) weaponsCombo.getSelectedItem();
 				String roomGuess = (String) roomCombo.getSelectedItem();
@@ -648,7 +656,7 @@ public class Board{
 	}
 
 	/**
-	 * 
+	 * returns true if it is the humans players turn
 	 * @return
 	 */
 	public boolean isHumanPlayersTurn() {

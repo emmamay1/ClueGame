@@ -61,13 +61,13 @@ public class GUIControlPanel extends JPanel{
 		accusationButton.addActionListener(new AccusationListener());
 		
 		
-		rollField = createTextField(false, 10);
+		rollField = createTextField(false, 20);
 		dieRollPanel = createLabeledBorderedTextField("Roll", "Die", 200, 125, rollField);
 		add(dieRollPanel);
-		guessField = createTextField(false, 10);
-		guessPanel = createLabeledBorderedTextField("Guess", "Guess", 400, 125, guessField);
+		guessField = createTextField(false, 20);
+		guessPanel = createLabeledBorderedTextField("Guess", "Guess", 800, 125, guessField);
 		add(guessPanel);
-		responseField = createTextField(false, 10);
+		responseField = createTextField(false, 20);
 		guessResultPanel = createLabeledBorderedTextField("Response", "Guess Result", 300, 125, responseField);
 		add(guessResultPanel);
 	}
