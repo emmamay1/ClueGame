@@ -521,64 +521,44 @@ public class Board{
 	 */
 	public void doHumanTurn(){
 		BoardCell current = getPlayersCell(players.get(currentPlayersTurn));
+		String roomName = legend.get(current.getInitial());
 		if(current.isDoorway() || current.isRoom()){
-			JPanel guess = makeGuessPane(current.getRoomName());
-			JOptionPane.showMessageDialog(frame, guess);
+			//JPanel guess = makeGuessPane(roomName);
+			JPanel guessPanel = new JPanel();
+			guessPanel.setLayout(new GridLayout(4, 2));
+			JTextField room = new JTextField("Your Room");
+			room.setEditable(false);
+			guessPanel.add(room);
+			JTextField currentRoom = new JTextField(roomName);
+			currentRoom.setEditable(false);
+			guessPanel.add(currentRoom);
+			JTextField person = new JTextField("Person");
+			person.setEditable(false);
+			guessPanel.add(person);
+			String[] people = {"Mark Baldwin", "Cyndi Raider", "Jeffrey Paone", "Christoper Painter-Wakefield", "Tracy Camp", "Poor Student"};
+			JComboBox<String> peopleCombo = new JComboBox<String>(people);
+			guessPanel.add(peopleCombo);
+			JTextField weapon = new JTextField("Weapon");
+			weapon.setEditable(false);
+			guessPanel.add(weapon);
+			String[] weapons = {"C++", "Java", "Python", "MIPS", "HTML", "PHP"};
+			JComboBox<String> weaponsCombo = new JComboBox<String>(weapons);
+			guessPanel.add(weaponsCombo);
+			guessPanel.setVisible(true);
+			String[] buttons = {"Submit", "Cancel"};
+			JOptionPane.showOptionDialog(frame, guessPanel, "Make a Guess", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, buttons, buttons[0]);
+			String personGuess = (String) peopleCombo.getSelectedItem();
+			String weaponsGuess = (String) weaponsCombo.getSelectedItem();
+			Solution playerGuess = new Solution();
+			playerGuess.setRoom(roomName);
+			playerGuess.setPerson(personGuess);
+			playerGuess.setWeapon(weaponsGuess);
+			this.handleSuggestion(playerGuess, getHumanPlayer(), players);
 		}
 	}
 	
 	public BoardCell getPlayersCell(Player player){
 		return board[player.getRow()][player.getColumn()];
-	}
-	
-	/**
-	 * 
-	 */
-	public JPanel makeGuessPane(String roomName){
-		JPanel guessPanel = new JPanel();
-		guessPanel.setLayout(new GridLayout(4, 2));
-		JTextField room = new JTextField("Your Room");
-		room.setEditable(false);
-		guessPanel.add(room);
-		JTextField currentRoom = new JTextField(roomName);
-		currentRoom.setEditable(false);
-		guessPanel.add(currentRoom);
-		JTextField person = new JTextField("Person");
-		person.setEditable(false);
-		guessPanel.add(person);
-		String[] people = {"Mark Baldwin", "Cyndi Raider", "Jeffrey Paone", "Christoper Painter-Wakefield", "Tracy Camp", "Poor Student"};
-		JComboBox peopleCombo = new JComboBox(people);
-		guessPanel.add(peopleCombo);
-		JTextField weapon = new JTextField("Weapon");
-		weapon.setEditable(false);
-		guessPanel.add(weapon);
-		String[] weapons = {"C++", "Java", "Python", "MIPS", "HTML", "PHP"};
-		JComboBox weaponsCombo = new JComboBox(weapons);
-		guessPanel.add(weaponsCombo);
-		JButton submit = createButton("Submit");
-		submit.addActionListener(new ButtonListener());
-		guessPanel.add(submit);
-		guessPanel.add(createButton("Cancel"));
-		guessPanel.setVisible(true);
-		return guessPanel;
-	}
-	
-	private class ButtonListener implements ActionListener{
-		public void actionPerformed(ActionEvent e) {
-			//String person = weaponsCombo.getSelectedItem();
-			
-		}
-	}
-	
-	/**
-	 * 
-	 * @param title
-	 * @return
-	 */
-	private JButton createButton(String title){
-		JButton nextButton = new JButton(title);
-		nextButton.setSize(500, 125);
-		return nextButton;
 	}
 
 	/**
