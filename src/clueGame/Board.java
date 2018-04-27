@@ -488,9 +488,13 @@ public class Board{
 		}
 		if (!players.get(currentPlayersTurn).isHuman() && ((ComputerPlayer) players.get(currentPlayersTurn)).getGuessIsCorrect()) {
 			Solution computerSolution = ((ComputerPlayer) players.get(currentPlayersTurn)).makeAccusation();
-			if (handleSuggestion(computerSolution, players.get(currentPlayersTurn), players) == null) {
+			if (checkAccusation(computerSolution)) {
 				setWinner(players.get(currentPlayersTurn));
 			}
+		}
+		else {
+			Solution computerSolution = ((ComputerPlayer) players.get(currentPlayersTurn)).makeAccusation();
+			displayWrongAccusation(computerSolution, players.get(currentPlayersTurn));
 		}
 		players.get(currentPlayersTurn).makeMove(targets);
 		if (!players.get(currentPlayersTurn).isHuman()) {
@@ -509,6 +513,7 @@ public class Board{
 				Card guessDisproval = handleSuggestion(computerGuess, players.get(currentPlayersTurn), players);
 				if (guessDisproval == null) {
 					((ComputerPlayer) players.get(currentPlayersTurn)).setGuessIsCorrect(true);
+					frame.getControlPanel().setResponse("No new clue.");
 				}
 				else {
 					for (Player p: players) {
@@ -535,6 +540,12 @@ public class Board{
 	public void setWinner(Player p) {
 		
 	}
+	
+	public void displayWrongAccusation(Solution solution, Player accuser) {
+		//TODO: make a pane that shows up with the wrong dude, doesn't end the game
+	}
+	
+	
 	
 	/**
 	 * 
