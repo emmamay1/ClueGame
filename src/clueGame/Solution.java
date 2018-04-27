@@ -54,4 +54,7 @@ public class Solution {
 	public void setRoom(String room) {
 		this.room = room;
 	}
+	public void print() {
+		System.out.println("room = " + room + "\nweapon = " + weapon + "\nperson = " + person);
+	}
 }

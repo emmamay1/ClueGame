@@ -118,5 +118,13 @@ public class GUIControlPanel extends JPanel{
 		rollField.setText(Integer.toString(dieRoll));
 	}
 	
+	public void setGuess(Solution solution) {
+		guessField.setText(solution.room + ", " + solution.weapon + ", " + solution.person);
+	}
+	
+	public void setResponse(String response) {
+		responseField.setText(response);
+	}
+	
 
 }
