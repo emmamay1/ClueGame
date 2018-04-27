@@ -9,6 +9,11 @@ package clueGame;
 import java.awt.Color;
 import java.util.Set;
 
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class HumanPlayer extends Player{
 
 	public HumanPlayer() {
@@ -25,7 +30,6 @@ public class HumanPlayer extends Player{
 
 	@Override
 	public void makeMove(Set<BoardCell> targets) {
-		
 		
 	}
 

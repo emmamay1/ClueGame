@@ -17,10 +17,17 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.lang.reflect.Field;
@@ -480,7 +487,6 @@ public class Board{
 	public void makeNextMove() {
 		//TODO: make work properly! That is, computer should move to a correct calculated position, and needs to display the options for the player and wait
 		//for them to make a correct choice
-		
 		if (playerHasMoved) {
 			dieRoll = (int)((Math.random() * 6) + 1);
 		}
@@ -518,6 +524,71 @@ public class Board{
 			currentPlayersTurn = 0;
 		}
 		frame.repaint();
+	}
+	
+	/**
+	 * 
+	 */
+	public void doHumanTurn(){
+		BoardCell current = getPlayersCell(players.get(currentPlayersTurn));
+		if(current.isDoorway() || current.isRoom()){
+			JPanel guess = makeGuessPane(current.getRoomName());
+			JOptionPane.showMessageDialog(frame, guess);
+		}
+	}
+	
+	public BoardCell getPlayersCell(Player player){
+		return board[player.getRow()][player.getColumn()];
+	}
+	
+	/**
+	 * 
+	 */
+	public JPanel makeGuessPane(String roomName){
+		JPanel guessPanel = new JPanel();
+		guessPanel.setLayout(new GridLayout(4, 2));
+		JTextField room = new JTextField("Your Room");
+		room.setEditable(false);
+		guessPanel.add(room);
+		JTextField currentRoom = new JTextField(roomName);
+		currentRoom.setEditable(false);
+		guessPanel.add(currentRoom);
+		JTextField person = new JTextField("Person");
+		person.setEditable(false);
+		guessPanel.add(person);
+		String[] people = {"Mark Baldwin", "Cyndi Raider", "Jeffrey Paone", "Christoper Painter-Wakefield", "Tracy Camp", "Poor Student"};
+		JComboBox peopleCombo = new JComboBox(people);
+		guessPanel.add(peopleCombo);
+		JTextField weapon = new JTextField("Weapon");
+		weapon.setEditable(false);
+		guessPanel.add(weapon);
+		String[] weapons = {"C++", "Java", "Python", "MIPS", "HTML", "PHP"};
+		JComboBox weaponsCombo = new JComboBox(weapons);
+		guessPanel.add(weaponsCombo);
+		JButton submit = createButton("Submit");
+		submit.addActionListener(new ButtonListener());
+		guessPanel.add(submit);
+		guessPanel.add(createButton("Cancel"));
+		guessPanel.setVisible(true);
+		return guessPanel;
+	}
+	
+	private class ButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			String person = weaponsCombo.getSelectedItem();
+			
+		}
+	}
+	
+	/**
+	 * 
+	 * @param title
+	 * @return
+	 */
+	private JButton createButton(String title){
+		JButton nextButton = new JButton(title);
+		nextButton.setSize(500, 125);
+		return nextButton;
 	}
 
 	/**

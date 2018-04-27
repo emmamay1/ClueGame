@@ -25,7 +25,6 @@ public class GameDisplay extends JFrame{
 		add(boardPanel, BorderLayout.CENTER);
 		add(cardPanel, BorderLayout.EAST);
 		boardPanel.addMouseListener(null);
-		
 	}
 	
 	public GUIControlPanel getControlPanel(){

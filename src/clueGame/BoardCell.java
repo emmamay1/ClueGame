@@ -98,6 +98,10 @@ public class BoardCell {
 		roomName = name;
 	}
 	
+	public String getRoomName(){
+		return roomName;
+	}
+	
 	/**
 	 * checks if current cell is a doorway
 	 * @return true if it is a doorway, false otherwise

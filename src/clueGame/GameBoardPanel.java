@@ -63,6 +63,7 @@ public class GameBoardPanel extends JPanel implements MouseListener{
 			board.getHumanPlayer().setRow(newHumanLocation.getRow());
 			board.getHumanPlayer().setColumn(newHumanLocation.getColumn());
 			board.repaint();
+			board.doHumanTurn();
 			board.incrementPlayerTurn();
 			board.setPlayerHasMoved(true);
 		}
@@ -71,3 +72,4 @@ public class GameBoardPanel extends JPanel implements MouseListener{
 		}
 	}
 }
+
