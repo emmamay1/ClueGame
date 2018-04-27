@@ -489,7 +489,7 @@ public class Board{
 		if (!players.get(currentPlayersTurn).isHuman() && ((ComputerPlayer) players.get(currentPlayersTurn)).getGuessIsCorrect()) {
 			Solution computerSolution = ((ComputerPlayer) players.get(currentPlayersTurn)).makeAccusation();
 			if (handleSuggestion(computerSolution, players.get(currentPlayersTurn), players) == null) {
-				board.setWinner(players.get(currentPlayersTurn));
+				setWinner(players.get(currentPlayersTurn));
 			}
 		}
 		players.get(currentPlayersTurn).makeMove(targets);
