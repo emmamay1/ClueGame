@@ -240,7 +240,7 @@ public class gameActionTests {
 		ComputerPlayer player = new ComputerPlayer();
 		player.getNotSeenPeople().add(new Card("Mark Baldwin", CardType.PLAYER));
 		player.getNotSeenWeapons().add(new Card("C++", CardType.WEAPON));
-		Solution suggestion = player.createSuggestion();
+		Solution suggestion = player.createSuggestion(false);
 		
 		assertEquals(suggestion.getRoom(), player.getRoom());	
 		assertEquals(suggestion.getWeapon(), player.getNotSeenWeapons().get(0).getName());
@@ -264,7 +264,7 @@ public class gameActionTests {
 		player.getNotSeenWeapons().add(new Card("Java", CardType.WEAPON));
 		player.getNotSeenWeapons().add(new Card("Python", CardType.WEAPON));
 		player.getNotSeenWeapons().add(new Card("HTML", CardType.WEAPON));
-		Solution suggestion = player.createSuggestion();
+		Solution suggestion = player.createSuggestion(false);
 		
 		assertEquals(suggestion.getRoom(), player.getRoom());
 		boolean unseenWeapon = false;

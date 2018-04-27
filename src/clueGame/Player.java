@@ -17,14 +17,15 @@ public abstract class Player {
 	private int row;
 	private int column;
 	private Color color;
-	private ArrayList<Card> myCards;
-	private ArrayList<Card> seenCards;
+	protected ArrayList<Card> myCards;
+	protected ArrayList<Card> seenCards;
 	private static final int CELL_HEIGHT = 24;
 	private static final int CELL_WIDTH = 24;
 
 	public Player() {
 		super();
 		myCards = new ArrayList<Card>();
+		seenCards = new ArrayList<Card>();
 	}
 
 	public Player(String playerName, int row, int column, Color color) {
@@ -34,6 +35,7 @@ public abstract class Player {
 		this.column = column;
 		this.color = color;
 		myCards = new ArrayList<Card>();
+		seenCards = new ArrayList<Card>();
 	}
 
 	public Card disproveSuggestion(Solution suggestion) {

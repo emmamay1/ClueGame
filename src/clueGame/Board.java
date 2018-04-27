@@ -252,6 +252,9 @@ public class Board{
 			}
 
 		}
+		for (ComputerPlayer cpu: computerPlayers) {
+			cpu.setLegend(legend);
+		}
 	}
 
 	/**
@@ -309,6 +312,10 @@ public class Board{
 			Card temp = new Card(rooms.get(i), CardType.ROOM);
 			cards.add(temp);
 		}
+		
+		for (ComputerPlayer cpu: computerPlayers) {
+			cpu.setAllCards(cards);
+		}
 	}
 
 	/**
@@ -319,12 +326,6 @@ public class Board{
 		theEnvelope.add(cards.get(player));
 		theEnvelope.add(cards.get(weapon));
 		theEnvelope.add(cards.get(room));
-		for (Player p: players) {
-			if (!p.isHuman()) {
-				((ComputerPlayer) p).getNotSeenWeapons().add(cards.get(weapon));
-				((ComputerPlayer) p).getNotSeenPeople().add(cards.get(player));
-			}
-		}
 	}
 
 	/**
@@ -337,17 +338,6 @@ public class Board{
 		makeSolution(randPlayer, randWeapon, randRoom);
 		Collections.shuffle(cards);
 		
-		for (Card c: cards) {
-			for (ComputerPlayer p: computerPlayers) {
-				if (c.getType() == CardType.WEAPON) {
-					p.getNotSeenWeapons().add(c);
-				}
-				if (c.getType() == CardType.PLAYER) {
-					p.getNotSeenPeople().add(c);
-				}
-			}
-		}
-		
 		int i = 0;
 		for(Card c : cards){
 			if (!theEnvelope.contains(c)) {
@@ -355,9 +345,7 @@ public class Board{
 					i = 0;
 				}
 				players.get(i).getMyCards().add(c);
-				if (!players.get(i).isHuman()) {
-					removeNotSeenCard(c, (ComputerPlayer) players.get(i));
-				}
+				players.get(i).getSeenCards().add(c);
 				i++;
 			}
 		}
@@ -467,7 +455,7 @@ public class Board{
 	public Card handleSuggestion(Solution s, Player accuser, ArrayList<Player> people) {
 		boolean disproved = false;
 		int loc = 1+people.indexOf(accuser);
-		if(loc >= people.size()){
+		if(loc == people.size()){
 			loc = 0;
 		}
 		int count = 0;
@@ -479,6 +467,9 @@ public class Board{
 			}
 			count++;
 			loc++;
+			if(loc == people.size()){
+				loc = 0;
+			}
 		}
 
 		return null;
@@ -498,22 +489,21 @@ public class Board{
 		players.get(currentPlayersTurn).makeMove(targets);
 		if (!players.get(currentPlayersTurn).isHuman()) {
 			if (board[players.get(currentPlayersTurn).getRow()][players.get(currentPlayersTurn).getColumn()].isDoorway()) {
-				//TODO: update control panel
-				Solution computerGuess = ((ComputerPlayer) players.get(currentPlayersTurn)).createSuggestion();
-				String playerToMove = computerGuess.getPerson();
-				Card solutionDisproval = handleSuggestion(computerGuess, players.get(currentPlayersTurn), players);
-				if (solutionDisproval != null) {
-					removeNotSeenCard(solutionDisproval);
-				}
-				else {
+				//TODO: update control panel, make proper suggestion
+				Solution computerGuess = ((ComputerPlayer) players.get(currentPlayersTurn)).createSuggestion(true);
+				Card guessDisproval = handleSuggestion(computerGuess, players.get(currentPlayersTurn), players);
+				if (guessDisproval == null) {
 					((ComputerPlayer) players.get(currentPlayersTurn)).setGuessIsCorrect(true);
 				}
-				for (Player p: players) {
-					if (p.getPlayerName().equals(playerToMove)) {
-						p.setRow(players.get(currentPlayersTurn).getRow());
-						p.setColumn(players.get(currentPlayersTurn).getColumn());
+				else {
+					for (Player p: players) {
+						if (!p.getSeenCards().contains(guessDisproval)) {
+							p.getSeenCards().add(guessDisproval);
+						}
 					}
 				}
+				
+				
 			}
 		}
 		if (playerHasMoved) {
@@ -575,7 +565,7 @@ public class Board{
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			String person = weaponsCombo.getSelectedItem();
+			//String person = weaponsCombo.getSelectedItem();
 			
 		}
 	}
@@ -596,7 +586,7 @@ public class Board{
 	 * @return
 	 */
 	public boolean isHumanPlayersTurn() {
-		return currentPlayersTurn == 0;
+		return players.get(currentPlayersTurn).isHuman();
 	}
 
 	/**
@@ -606,35 +596,6 @@ public class Board{
 	 */
 	public boolean checkAccusation(Solution accusation) {
 		return trueSolution.equals(accusation);
-	}
-
-	/**
-	 * removes the card from the computers not seen list
-	 * @param card
-	 */
-	public void removeNotSeenCard(Card card) {
-		for (Player p: players) {
-			if (card.getType() == CardType.WEAPON) {
-				if (!p.isHuman()) {
-					((ComputerPlayer) p).getNotSeenWeapons().remove(card);
-				}
-			}
-			else if (card.getType() == CardType.PLAYER) {
-				if (!p.isHuman()) {
-					((ComputerPlayer) p).getNotSeenPeople().remove(card);
-				}
-			}
-			
-		}
-	}
-	
-	public void removeNotSeenCard(Card card, ComputerPlayer player) {
-		if (card.getType() == CardType.WEAPON) {
-			player.getNotSeenWeapons().remove(card);
-		}
-		if (card.getType() == CardType.PLAYER) {
-			player.getNotSeenPeople().remove(card);
-		}
 	}
 	
 	public static void main(String[] arg0) {

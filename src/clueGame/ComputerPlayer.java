@@ -16,6 +16,7 @@ public class ComputerPlayer extends Player{
 	private char lastRoom;
 	private ArrayList<Card> notSeenWeapons;
 	private ArrayList<Card> notSeenPeople;
+	private ArrayList<Card> allCards;
 	private Map<Character, String> legend;
 	private boolean guessIsCorrect = false;
 
@@ -79,7 +80,11 @@ public class ComputerPlayer extends Player{
 		return null;
 	}
 	
-	public Solution createSuggestion(/*tbd*/){
+	public Solution createSuggestion(boolean setNewNotSeenCards){
+		if (setNewNotSeenCards) {
+			setNotSeenCards();
+		}
+		
 		Solution suggestion = new Solution();
 		String room = legend.get(lastRoom);
 		suggestion.setRoom(room);
@@ -100,6 +105,24 @@ public class ComputerPlayer extends Player{
 			suggestion.setPerson(notSeenPeople.get(rand).getName());
 		}
 		return suggestion;
+	}
+	
+	private void setNotSeenCards() {
+		notSeenWeapons.clear();
+		notSeenPeople.clear();
+		for (Card c: allCards) {
+			if (c.getType() == CardType.WEAPON && !(seenCards.contains(c) || myCards.contains(c))) {
+				notSeenWeapons.add(c);
+			}
+			if (c.getType() == CardType.PLAYER && !(seenCards.contains(c) || myCards.contains(c))) {
+				notSeenPeople.add(c);
+			}
+		}
+		
+	}
+	
+	public void setAllCards(ArrayList<Card> cards) {
+		allCards = cards;
 	}
 	
 	public boolean isHuman() {
