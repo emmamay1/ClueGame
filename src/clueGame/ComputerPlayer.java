@@ -71,16 +71,28 @@ public class ComputerPlayer extends Player{
 		
 	}
 	
+	/**
+	 * the computer picks a location and sets its location to the newly chosen location
+	 */
 	public void makeMove(Set<BoardCell> targets) {
 		BoardCell newLocation = pickLocation(targets);
 		this.setRow(newLocation.getRow());
 		this.setColumn(newLocation.getColumn());
 	}
 	
+	/**
+	 * the last solution that set the flag that it is correct becomes the accusation
+	 * @return
+	 */
 	public Solution makeAccusation(){
 		return lastSolution;
 	}
 	
+	/**
+	 * creates a suggestion based on the computer players knowledge
+	 * @param setNewNotSeenCards
+	 * @return
+	 */
 	public Solution createSuggestion(boolean setNewNotSeenCards){
 		if (setNewNotSeenCards) {
 			setNotSeenCards();
@@ -109,6 +121,9 @@ public class ComputerPlayer extends Player{
 		return suggestion;
 	}
 	
+	/**
+	 * sets the cards the computer player hasn't seen so that it can compute a suggestion
+	 */
 	private void setNotSeenCards() {
 		notSeenWeapons.clear();
 		notSeenPeople.clear();

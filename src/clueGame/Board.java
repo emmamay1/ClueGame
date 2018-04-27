@@ -488,6 +488,7 @@ public class Board{
 			}
 			else {
 				displayWrongAccusation(computerSolution, players.get(currentPlayersTurn));
+				((ComputerPlayer) players.get(currentPlayersTurn)).setGuessIsCorrect(false);
 			}
 		}
 		

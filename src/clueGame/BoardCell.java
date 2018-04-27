@@ -110,6 +110,10 @@ public class BoardCell {
 		return (cellType == CellType.DOORWAY);
 	}
 	
+	/**
+	 * highlights the board cell if it's a target that can be moved to by the human player
+	 * @param g
+	 */
 	public void highlight(Graphics g) {
 		g.setColor(Color.CYAN);
 		g.fillRect(column * CELL_WIDTH, row * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
@@ -117,6 +121,10 @@ public class BoardCell {
 		g.drawRect(column * CELL_WIDTH, row * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
 	}
 	
+	/**
+	 * draws the board cell
+	 * @param g
+	 */
 	public void draw(Graphics g) {
 		if (isRoom()) {
 			g.setColor(Color.LIGHT_GRAY);
@@ -153,6 +161,12 @@ public class BoardCell {
 		}
 	}
 	
+	/**
+	 * checks if the board cell contains a click made by the player
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public boolean containsClick(int x, int y) {
 		Rectangle checkBox = new Rectangle(column * CELL_WIDTH, row * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
 		return (checkBox.contains(x, y));

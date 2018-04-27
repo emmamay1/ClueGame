@@ -49,6 +49,9 @@ public class GameBoardPanel extends JPanel implements MouseListener{
 	public void mouseEntered(MouseEvent e){}
 	public void mouseExited(MouseEvent e){}
 	public void mouseReleased(MouseEvent e){}
+	/**
+	 * if the mouse is pressed in a target, it moves the human player, repaints, does a human turn, increments the player turn count, and sets the players move status to true
+	 */
 	public void mousePressed(MouseEvent e){
 		BoardCell newHumanLocation = null;
 		boolean clickInTarget = false;

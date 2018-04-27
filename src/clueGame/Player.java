@@ -38,6 +38,13 @@ public abstract class Player {
 		seenCards = new ArrayList<Card>();
 	}
 
+	/**
+	 * if the player is holding a card that disproves a suggestion, this function returns that card
+	 * if the player is holding multiple, it chooses a random card
+	 * if the player is holding no matching cards, it returns null
+	 * @param suggestion
+	 * @return
+	 */
 	public Card disproveSuggestion(Solution suggestion) {
 		Set<Integer> matchingCards = new HashSet<Integer>();
 		Integer index = new Integer(0);
@@ -127,6 +134,10 @@ public abstract class Player {
 		return seenCards;
 	}
 	
+	/**
+	 * draws the player
+	 * @param g
+	 */
 	public void draw(Graphics g) {
 		g.setColor(color);
 		g.fillOval(column * CELL_WIDTH, row * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
