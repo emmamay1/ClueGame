@@ -491,11 +491,11 @@ public class Board{
 			if (checkAccusation(computerSolution)) {
 				setWinner(players.get(currentPlayersTurn));
 			}
+			else {
+				displayWrongAccusation(computerSolution, players.get(currentPlayersTurn));
+			}
 		}
-		else {
-			Solution computerSolution = ((ComputerPlayer) players.get(currentPlayersTurn)).makeAccusation();
-			displayWrongAccusation(computerSolution, players.get(currentPlayersTurn));
-		}
+		
 		players.get(currentPlayersTurn).makeMove(targets);
 		if (!players.get(currentPlayersTurn).isHuman()) {
 			if (board[players.get(currentPlayersTurn).getRow()][players.get(currentPlayersTurn).getColumn()].isDoorway()) {
@@ -542,7 +542,7 @@ public class Board{
 	}
 	
 	public void displayWrongAccusation(Solution solution, Player accuser) {
-		//TODO: make a pane that shows up with the wrong dude, doesn't end the game
+		JOptionPane.showMessageDialog(frame, accuser.getPlayerName() + " accused incorrectly. They guessed it was " + solution.person + " in " + solution.room + " with " + solution.weapon);
 	}
 	
 	
@@ -551,6 +551,7 @@ public class Board{
 	 * 
 	 */
 	public void doHumanTurn(){
+		targets.clear();
 		BoardCell current = getPlayersCell(players.get(currentPlayersTurn));
 		String roomName = legend.get(current.getInitial());
 		if(current.isDoorway() || current.isRoom()){
